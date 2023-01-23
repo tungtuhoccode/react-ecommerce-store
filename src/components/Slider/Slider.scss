@@ -1,0 +1,106 @@
+.swiper-container{
+    margin: 25px 0px;
+    position: relative;
+    max-width: 1200px;
+
+    margin: auto;
+        .swiper-item-container{
+            position: relative;
+            img{
+                display: block;
+                margin: 0;
+                width: 100%;
+                height: 80%;
+                max-height: 700px;
+                object-fit: cover;
+            }
+            .text-container{
+                width: 100%;
+                position: absolute;
+                transform: translateX(-50%);
+                top: 70%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                left: 50%;
+                width: max-content;
+                gap: min(calc(10vw - 100px),15px);
+            }
+            h2{
+
+                font-size: min(calc(2vw + 12px), 50px);
+                color: rgb(216, 186, 186);
+            }
+            h5{
+                font-size: min(calc(1vw + 12px), 18px);
+                color: rgb(216, 186, 186);
+            }
+            button{
+                width: 80px;
+                height: 35px;
+                margin-top: 15px;
+                border: none;
+                background-color: white;
+                opacity: 1;
+                color: black;
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+        }   
+    .button-container{
+        left: 1%;
+        position: absolute;
+        bottom: 3vw;
+        display: flex;
+        z-index: 1;
+        width: 98%;
+        justify-content: space-between;
+        top: 50%;
+        height: fit-content;
+        .arrow-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: black;
+        }
+        .prev, .next{
+            cursor: pointer;
+            color: rgb(219, 211, 211);
+            opacity: 0.3;
+            font-size: calc(min(5vw + 10px, 50px));
+        }
+      
+    }
+    .button-container:hover{
+        .prev:hover, .next:hover{
+            color: rgb(154, 134, 134);
+            opacity: 1;
+        }
+    }
+}
+@media screen and (max-width: 750px) {
+    .text-container{
+        bottom: 5% !important;
+        top: auto !important;
+        gap:6px !important;
+        button{
+            display: none;
+        }    
+
+    }
+    h2{
+        font-size: 16px !important;
+        color: rgb(216, 186, 186);
+    }
+    h5{
+        width: 90vw !important;
+        font-weight: 500;
+        font-size: 12px !important;
+        overflow-wrap: break-word !important;
+        text-align: center;
+    }
+
+    
+}
