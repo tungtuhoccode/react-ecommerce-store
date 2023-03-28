@@ -1,0 +1,34 @@
+.item-wrapper{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    gap: 20px;
+    .img-wrapper{
+        img{
+            width: 100px;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+    h3{
+        font-size: 18px;
+    }
+    h4{
+        font-size: 16px;
+    }
+
+    .item-info{
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        width: 100%;
+    }
+    p{
+        font-size: 13px;
+    }
+
+}
+.w30{
+    display: inline-block;
+    width: 35%;
+}
