@@ -3,6 +3,7 @@ import "./Product.scss"
 import {useState} from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, setIsCartOnHover } from "../../app/cartSlice";
+import { useParams } from "react-router-dom";
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -14,6 +15,8 @@ import { stepIconClasses } from "@mui/material";
 
 
 function Product() {
+    const productID = useParams().id
+    console.log("productID: "+productID)
     const dispatch = useDispatch();
     const images = [
       "/img/productPageImg/productImage2.jpeg",
@@ -22,6 +25,7 @@ function Product() {
     ]
     const cartTestData = [
       {
+        id: 12,
         itemName:"Brown coat",
         price: 109.99,
         quantity:1,
@@ -30,18 +34,20 @@ function Product() {
         imageSource: "/img/cartImg/hmgoepprod.jpeg"
     },
     {
-        itemName:"Brown coat",
+        id: 13,
+        itemName:"Purple Sock",
         price: 39.99,
-        quantity:2,
+        quantity:1,
         color: "Brown",
-        size:"M",
+        size:"S",
         imageSource: "/img/cartImg/hmgoepprod2.jpeg"
     },
     {
-        itemName:"Brown coat",
-        price: 109.99,
-        quantity:2,
-        color: "Brown",
+        id: 15,
+        itemName:"Yellow Pant",
+        price: 1.99,
+        quantity:1,
+        color: "Red",
         size:"M",
         imageSource: "https://lp2.hm.com/hmgoepprod?set=source[/f9/c3/f9c3f12b844b6e09bf4263406be48fcd783ab213.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[2]&call=url[file:/product/main]"
     },
@@ -53,7 +59,7 @@ function Product() {
     function initilizeSideImagesElement(){
       const imgElements = []
       for(let i=0;i<images.length;i++){
-        imgElements.push(<img onClick={()=>getNewMainImage(i)} src={images[i]}/>)
+        imgElements.push(<img key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
       }
       return imgElements
     }
@@ -71,6 +77,11 @@ function Product() {
     function toggleFavorite(){
       setIsFavorite(prev => !prev)
     }
+    function addToCartFromProduct(){
+      dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
+      dispatch(setIsCartOnHover(true))
+    }
+
     return (
       <div className="product-container">
        <div className="left">
@@ -97,14 +108,9 @@ function Product() {
             <span>{quantity}</span>
             <button onClick={increaseQuantity}><AddIcon className="icon"/></button>
           </div>
-          <div className="add-to-cart">
+          <div onClick={() => addToCartFromProduct()}className="add-to-cart">
             <AddShoppingCartIcon className="add-icon"/>
-            <span onClick={() => {
-                dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
-                dispatch(setIsCartOnHover(true))
-                }
-             
-              }>ADD TO CART</span>
+            <span >ADD TO CART</span>
           </div>
           <div className="favorite-and-compare">
               <div className="favorite">

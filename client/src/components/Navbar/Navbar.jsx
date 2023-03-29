@@ -16,16 +16,20 @@ function NavBar() {
         matches: window.innerWidth > 1000 ? true : false,
     });
 
+    const isOnSmallScreen = mQuery && !mQuery.matches
     React.useEffect(() => {
-    let mediaQuery = window.matchMedia("(min-width: 1000px)");
-    mediaQuery.addListener(setMQuery);
-    // this is the cleanup function to remove the listener
-    return () => mediaQuery.removeListener(setMQuery);
+        let mediaQuery = window.matchMedia("(min-width: 1000px)");
+        mediaQuery.addListener(setMQuery);
+        // this is the cleanup function to remove the listener
+        return () => mediaQuery.removeListener(setMQuery);
     }, []);
 
     const [isUsingNavMenu, setIsUsingNavMenu] = React.useState(false)
     const isCartHover = useSelector(state => state.cart.isOnHover)
+
+    const numberOfCartItem = useSelector(state => state.cart.cartItems.length)
     const dispatch = useDispatch()
+
     React.useEffect(()=>{
         setIsUsingNavMenu(false)
     },        
@@ -46,18 +50,21 @@ function NavBar() {
         setIsUsingNavMenu(prevIsUsing => !prevIsUsing)
     }
     function handleCloseCart(){
-        if(isCartHover==true){
+        if(!isUsingNavMenu){
             dispatch(setIsCartOnHover(false))
         }
     }
     function handleOpenCart(){
-        console.log("cart open"+isCartHover)
-        // setIsCardHover(prev => !prev)
-        if(isCartHover==false){
+
+        if(!isUsingNavMenu){
             dispatch(setIsCartOnHover(true))
         }
      
     }
+
+    console.log("is using nav: "+!(mQuery && !mQuery.matches))
+    console.log("is cart hover: "+isCartHover)
+
 
     return (
         <div className="navbar">
@@ -100,7 +107,7 @@ function NavBar() {
                     <div onMouseOver={handleOpenCart} className="cart">
                         <div className="cart-icon">
                             <ShoppingCartOutlinedIcon/>
-                            <span className="cart-item-count">0</span>
+                            <span className="cart-item-count">{numberOfCartItem}</span>
                         </div>
                         <ShoppingCart isOnHover={isCartHover} mouseLeave={()=>handleCloseCart()}/>
                     </div>
@@ -118,6 +125,8 @@ function NavBar() {
                 <div className="nav-menu-wrapper" onClick={handleOpenMenu}>
                 </div>
             }
+           <div className="mobile-wrapper">
+
            
             <div style={navigationMenuOpen} className="navigation-menu">
                 <div className="item">
@@ -155,16 +164,21 @@ function NavBar() {
                 <Link className="link"  to="/"><span className='center-logo'>3TStore</span></Link>
             </div>
             <div className="right">
-            <div className="icons">
+                
+            <div onMouseLeave={handleCloseCart}  className="icons">
                     <SearchIcon/>
                     <PersonOutlineIcon/>
                     <FavoriteBorderIcon/>
+                    <Link style={{textDecoration:"none", color:"grey"}} to="/checkout">
                     <div className="cart-icon">
                         <ShoppingCartOutlinedIcon/>
-                        <span>0</span>
+                        <span>{numberOfCartItem}</span>
                     </div>
+                    </Link>
+
             </div>
             </div>
+        </div>
         </div>
         </div>
       )}

@@ -50,7 +50,7 @@
                         top:-10px;
                         right: -10px;
                         color: white;
-                        background-color: #2879fe;
+                        background-color: #8db4f4;
                         width: 20px;
                         height: 20px;
                         border-radius: 50%;
@@ -124,7 +124,11 @@
     }
 
 }
+
+
+
 .mobile{
+    position: relative;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -172,7 +176,7 @@
                     right:-3px;
                     border-radius: 50%;
                     color: white;
-                    background-color: #2879fe;
+                    background-color: #b4b797;
                     width: 15px;
                     height: 15px;
                     display: flex;

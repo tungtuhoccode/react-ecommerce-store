@@ -6,20 +6,21 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y,Pagination } from 'swiper';
 import { useEffect, useState } from "react";
 import cartSlice from "../../app/cartSlice";
+import { setIsCartOnHover } from "../../app/cartSlice";
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function ShoppingCart(props){
     const isOnHover = useSelector( state => state.cart.isOnHover)
     const displayControl = {
         display: isOnHover ? "":"none",
     }
-    
+    let countKey = 0
     console.log("on hover in cart"+ isOnHover)
     const cartItems = useSelector( state => state.cart.cartItems)
-
+    const dispatch = useDispatch()
     console.log("cart items count: "+cartItems.length)
     const data = [
         {
@@ -50,10 +51,30 @@ export default function ShoppingCart(props){
     ]
     
 
-    const cartItemElement = cartItems.map( itemData => {
+    // const cartItemElement = () => {
+    //     let elementList = []
+    //     for(let i=cartItems.length-1;i>=0;i--){
+    //     let itemData = cartItems[i] 
+    //        elementList.push((<SwiperSlide> 
+    //         <CartItem 
+    //             key = {countKey}
+    //             name={itemData.itemName} 
+    //             price = {itemData.price} 
+    //             quantity = {itemData.quantity}
+    //             color = {itemData.color}
+    //             size = {itemData.size}
+    //             imageSource = {itemData.imageSource}
+    //         />
+    //     </SwiperSlide>))
+    //     }
+    // }
+    
+    const cartItemElement = [...cartItems].reverse().map( itemData => {
+        countKey++;
         return (
             <SwiperSlide> 
                 <CartItem 
+                    key = {countKey}
                     name={itemData.itemName} 
                     price = {itemData.price} 
                     quantity = {itemData.quantity}
@@ -63,7 +84,9 @@ export default function ShoppingCart(props){
                 />
             </SwiperSlide>
         )
-    })
+    }
+    
+    )
 
     function getItemHeight() {
         let h = 0
@@ -81,7 +104,27 @@ export default function ShoppingCart(props){
 
 
     return (
-        <div  style={displayControl} onMouseLeave = {props.mouseLeave} className="cart-hover-area">
+        <div  style={displayControl} onMouseLeave = {() => {dispatch(setIsCartOnHover(false))}} className="cart-hover-area">
+            {/* For small screen */}
+
+            {cartItems.length > 0 &&
+            <div className="adding-notification">
+                <h2>New Item Added</h2>
+            <CartItem 
+                    key = {countKey}
+                    name={cartItems[cartItems.length-1].itemName} 
+                    price = {cartItems[cartItems.length-1].price} 
+                    quantity = {cartItems[cartItems.length-1].quantity}
+                    color = {cartItems[cartItems.length-1].color}
+                    size = {cartItems[cartItems.length-1].size}
+                    imageSource = {cartItems[cartItems.length-1].imageSource}
+                    isNewItemAdded = {true}
+                    closeCart = {() => {dispatch(setIsCartOnHover(false))}}
+            />
+            </div>
+            }
+
+            {/* {for bigger screen} */}
             <div style={ swiperWrapperHeight } className="cart-item-area">
                 {cartItems.length > 1 && <KeyboardArrowUpIcon className="prev2"/>}
                     <Swiper

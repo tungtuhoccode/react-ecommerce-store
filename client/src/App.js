@@ -8,7 +8,7 @@ import "./App.scss"
 import {
   createBrowserRouter,
   RouterProvider,
-  Outlet
+  Outlet,
 } from "react-router-dom"
 import CheckOut from "./pages/CheckOut/CheckOut"
 
