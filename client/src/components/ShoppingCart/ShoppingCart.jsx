@@ -17,10 +17,7 @@ export default function ShoppingCart(props){
     const dispatch = useDispatch()
 
     //state from redux
-    const {isOnHover, cartItems, lastItemAdded, totalCartPrice }= useSelector( state => state.cart)
-    // const cartItems = useSelector( state => state.cart.cartItems)
-    // const lastItemAdded = useSelector(state => state.cart.lastItemAdded)
-    // const totalPrice = useSelector(state => state.cart.lastItemAdded)
+    const {isOnHover, cartItems, lastItemAdded, totalCartPrice } = useSelector( state => state.cart)
 
     //css style control for responsiveness
     const displayControl = {
@@ -41,15 +38,7 @@ export default function ShoppingCart(props){
         height: getItemHeight() == 300 ? getItemHeight()+0+"px":getItemHeight()+"px"
     }
 
-    //timer for adding notification
-    const [show, setShow] = useState(false)
 
-    function showNotification(){
-        setShow(true)
-        setTimeout(() => {
-            setShow(false);
-        }, 1000);
-    }
 
 
     //helper variable
@@ -110,33 +99,13 @@ export default function ShoppingCart(props){
     //FINAL COMPONENT
     return (
         <div  style={displayControl} onMouseLeave = {() => {dispatch(setIsCartOnHover(false))}} className="cart-hover-area">
-            {/* For small screen */}
-
-
-        <div className="adding-notification">
-                <h2>New Item Added</h2>
-            <CartItem 
-                    key = {countKey}
-                    name={lastItemAdded.itemName} 
-                    price = {lastItemAdded.price} 
-                    quantity = {lastItemAdded.quantity}
-                    color = {lastItemAdded.color}
-                    size = {lastItemAdded.size}
-                    imageSource = {lastItemAdded.imageSource}
-                    isNewItemAdded = {true}
-                    closeCart = {() => {
-                        dispatch(setIsCartOnHover(false)) 
-                    }}
-            />
-            </div>
-            
-
             {/* {for bigger screen} */}
             <div style={ swiperWrapperHeight } className="cart-item-area">
                 {cartItems.length > 1 && <KeyboardArrowUpIcon className="prev2"/>}
                     <Swiper
                         direction={"vertical"}
-                        modules={[Navigation, A11y]}
+                        modules={[Navigation, A11y,Pagination]}
+                        pagination = {true}
                         spaceBetween={0}
                         slidesPerView={cartItems.length > 1 ? 2:1}
 

@@ -12,6 +12,8 @@ import BalanceIcon from '@mui/icons-material/Balance';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { stepIconClasses } from "@mui/material";
+import AddNotification from "../../components/AddNotification/AddNotification";
+import { Global } from "@emotion/react";
 
 
 function Product() {
@@ -19,6 +21,26 @@ function Product() {
     console.log("productID: "+productID)
     const dispatch = useDispatch();
     
+    //notification and timer for notification
+    const [show, setShow] = useState(false)
+
+    function addToCartFromProduct(){
+      dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
+      showNotification()
+    }
+
+    function showNotification(){
+        setShow(true)
+        setNotificationOff()
+    }
+
+    function setNotificationOff(){
+      setTimeout(() => {
+          setShow(false)
+      }, 1300);
+    }
+
+
     const images = [
       "/img/productPageImg/productImage2.jpeg",
       "/img/productPageImg/tShirt.jpeg",
@@ -78,13 +100,18 @@ function Product() {
     function toggleFavorite(){
       setIsFavorite(prev => !prev)
     }
-    function addToCartFromProduct(){
-      dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
-      dispatch(setIsCartOnHover(true))
-    }
+
 
     return (
+
       <div className="product-container">
+
+        {show && <div div className="notification-container">
+          <AddNotification close = {() => {
+            setShow(false)
+          }}/>
+        </div>}
+        
        <div className="left">
           <div className="image-container">
            
@@ -109,9 +136,10 @@ function Product() {
             <span>{quantity}</span>
             <button onClick={increaseQuantity}><AddIcon className="icon"/></button>
           </div>
-          <div onClick={() => addToCartFromProduct()}className="add-to-cart">
-            <span >ADD TO CART</span>
-          </div>
+          <button onClick={() => addToCartFromProduct()}className="add-to-cart">
+            <span>ADD TO CART</span>
+          </button>
+
           <div className="favorite-and-compare">
               <div className="favorite">
                 {isFavorite && <FavoriteIcon onClick={toggleFavorite} className="icon-fav"/>}

@@ -13,10 +13,6 @@
     align-items: center;
     gap: 10px;
     cursor: default;
-    .adding-notification{
-        width: 100%;
-        display: none;
-    }
 
     .cart-item-area{
 
@@ -74,18 +70,18 @@
 }
 
 @media (max-width:1000px) {
- .cart-hover-area{
-    position: fixed;
-    right: 0px;
-    top: 0px;
-    width: 300px;
-    height: 150px;
-    .cart-item-area, .info, .link-with-button, hr{
-        display: none !important;
+    .cart-hover-area{
+        position: fixed;
+        right: 0px;
+        top: 0px;
+        width: 300px;
+        height: 150px;
+        .cart-item-area, .info, .link-with-button, hr{
+            display: none !important;
+        }
+        .adding-notification{
+            width: 100%;
+            display: block !important;
+        }
     }
-    .adding-notification{
-        width: 100%;
-        display: block !important;
-    }
-}
 }
