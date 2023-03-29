@@ -18,6 +18,7 @@ function Product() {
     const productID = useParams().id
     console.log("productID: "+productID)
     const dispatch = useDispatch();
+    
     const images = [
       "/img/productPageImg/productImage2.jpeg",
       "/img/productPageImg/tShirt.jpeg",
@@ -109,7 +110,6 @@ function Product() {
             <button onClick={increaseQuantity}><AddIcon className="icon"/></button>
           </div>
           <div onClick={() => addToCartFromProduct()}className="add-to-cart">
-            <AddShoppingCartIcon className="add-icon"/>
             <span >ADD TO CART</span>
           </div>
           <div className="favorite-and-compare">

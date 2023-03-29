@@ -13,15 +13,53 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from "react-redux";
 
 export default function ShoppingCart(props){
-    const isOnHover = useSelector( state => state.cart.isOnHover)
+    //react function()
+    const dispatch = useDispatch()
+
+    //state from redux
+    const {isOnHover, cartItems, lastItemAdded, totalCartPrice }= useSelector( state => state.cart)
+    // const cartItems = useSelector( state => state.cart.cartItems)
+    // const lastItemAdded = useSelector(state => state.cart.lastItemAdded)
+    // const totalPrice = useSelector(state => state.cart.lastItemAdded)
+
+    //css style control for responsiveness
     const displayControl = {
         display: isOnHover ? "":"none",
     }
-    let countKey = 0
+
+    function getItemHeight() {
+        let h = 0
+        if(cartItems.length == 1) h = 150
+        else if( cartItems.length >= 2 ) h = 300
+        return h
+    }
+
+    const cartItemHeight = {
+        height: ""+getItemHeight()+"px"
+    }
+    const swiperWrapperHeight = {
+        height: getItemHeight() == 300 ? getItemHeight()+0+"px":getItemHeight()+"px"
+    }
+
+    //timer for adding notification
+    const [show, setShow] = useState(false)
+
+    function showNotification(){
+        setShow(true)
+        setTimeout(() => {
+            setShow(false);
+        }, 1000);
+    }
+
+
+    //helper variable
+    let countKey = 0 //for uniqueID 
+
+    //console.log
     console.log("on hover in cart"+ isOnHover)
-    const cartItems = useSelector( state => state.cart.cartItems)
-    const dispatch = useDispatch()
     console.log("cart items count: "+cartItems.length)
+
+    //sample data
     const data = [
         {
             itemName:"Brown coat",
@@ -50,79 +88,48 @@ export default function ShoppingCart(props){
 
     ]
     
-
-    // const cartItemElement = () => {
-    //     let elementList = []
-    //     for(let i=cartItems.length-1;i>=0;i--){
-    //     let itemData = cartItems[i] 
-    //        elementList.push((<SwiperSlide> 
-    //         <CartItem 
-    //             key = {countKey}
-    //             name={itemData.itemName} 
-    //             price = {itemData.price} 
-    //             quantity = {itemData.quantity}
-    //             color = {itemData.color}
-    //             size = {itemData.size}
-    //             imageSource = {itemData.imageSource}
-    //         />
-    //     </SwiperSlide>))
-    //     }
-    // }
-    
+    //JSX component generated from data
     const cartItemElement = [...cartItems].reverse().map( itemData => {
-        countKey++;
-        return (
-            <SwiperSlide> 
-                <CartItem 
-                    key = {countKey}
-                    name={itemData.itemName} 
-                    price = {itemData.price} 
-                    quantity = {itemData.quantity}
-                    color = {itemData.color}
-                    size = {itemData.size}
-                    imageSource = {itemData.imageSource}
-                />
-            </SwiperSlide>
-        )
-    }
-    
-    )
-
-    function getItemHeight() {
-        let h = 0
-        if(cartItems.length == 1) h = 150
-        else if( cartItems.length >= 2 ) h = 300
-        return h
-    }
-
-    const cartItemHeight = {
-        height: ""+getItemHeight()+"px"
-    }
-    const swiperWrapperHeight = {
-        height: getItemHeight() == 300 ? getItemHeight()+0+"px":getItemHeight()+"px"
-    }
+            countKey++;
+            return (
+                <SwiperSlide> 
+                    <CartItem 
+                        key = {countKey}
+                        name={itemData.itemName} 
+                        price = {itemData.price} 
+                        quantity = {itemData.quantity}
+                        color = {itemData.color}
+                        size = {itemData.size}
+                        imageSource = {itemData.imageSource}
+                    />
+                </SwiperSlide>
+            )
+        })
 
 
+    //FINAL COMPONENT
     return (
         <div  style={displayControl} onMouseLeave = {() => {dispatch(setIsCartOnHover(false))}} className="cart-hover-area">
             {/* For small screen */}
 
-            {cartItems.length > 0 &&
-            <div className="adding-notification">
+
+        <div className="adding-notification">
                 <h2>New Item Added</h2>
             <CartItem 
                     key = {countKey}
-                    name={cartItems[cartItems.length-1].itemName} 
-                    price = {cartItems[cartItems.length-1].price} 
-                    quantity = {cartItems[cartItems.length-1].quantity}
-                    color = {cartItems[cartItems.length-1].color}
-                    size = {cartItems[cartItems.length-1].size}
-                    imageSource = {cartItems[cartItems.length-1].imageSource}
+                    name={lastItemAdded.itemName} 
+                    price = {lastItemAdded.price} 
+                    quantity = {lastItemAdded.quantity}
+                    color = {lastItemAdded.color}
+                    size = {lastItemAdded.size}
+                    imageSource = {lastItemAdded.imageSource}
                     isNewItemAdded = {true}
-                    closeCart = {() => {dispatch(setIsCartOnHover(false))}}
+                    closeCart = {() => {
+                        dispatch(setIsCartOnHover(false)) 
+                    }}
             />
             </div>
-            }
+            
 
             {/* {for bigger screen} */}
             <div style={ swiperWrapperHeight } className="cart-item-area">
@@ -156,16 +163,16 @@ export default function ShoppingCart(props){
             <hr/>
             <div className="info">
                 <span>Order Value</span>
-                <span>$79.98</span>
+                <span>${totalCartPrice.toFixed(2)}</span>
             </div>
             <div className="info">
                 <span>Delivery</span>
-                <span>Free</span>
+                <span>{totalCartPrice > 50? "Free":"Calculated at checkout"}</span>
             </div>
             <hr/>
             <div className="info">
                 <span className="total">Total</span>
-                <span className="total">$100</span>
+                <span className="total">${(totalCartPrice*113/100).toFixed(2)}</span>
             </div>
           
             <Link className="link-with-button" to="/checkout">

@@ -46,7 +46,7 @@
             margin-bottom: 5px;
         }
         h2{
-            color: #2879fe;
+            color: #878383;
         }
         
         .quantity{
@@ -79,11 +79,12 @@
             width: 180px;
             height: 40px;
             border-radius: 1px;
-            background-color: #2879fe;
+            background-color: #018849;
             display: flex;
             justify-content: center;
             gap: 10px;
             align-items: center;
+
             .add-icon{
                 font-size: 25px;
                 color: white;
@@ -94,8 +95,11 @@
                 font-weight: 600;
             }
         }
+        .add-to-cart:hover{
+            background-color: #127547;
+        }
         .favorite-and-compare{
-            color: #2879fe;
+            color:#018849;
             display: flex;
             gap: 25px;
             .favorite, .compare{
@@ -130,6 +134,7 @@
     }
 
 }
+
 @media (max-width:1300px) {
     .product-container{
         overflow: hidden;
