@@ -86,20 +86,21 @@
     }
 }
 .product-card-link:hover{
-   .title{
-       text-decoration: underline;
-   }
-}
-.product-card-link{
-    text-decoration: none;
-    .pc-title{
-        color: black;
-    }
-    .pc-card:hover{
-        .pc-second-image{
-            z-index: 2;
+    .products-card{
+        .pc-title{
+            text-decoration: underline;
+        }
+        .products-card-image{
+            .pc-second-image{
+                z-index: 3;
+            }
         }
     }
+
+}
+.product-card-link{
+    color: black;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 1150px) {

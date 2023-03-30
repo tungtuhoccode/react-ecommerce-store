@@ -1,18 +1,16 @@
 .notification-container{
     position: fixed;
     border-radius: 3%;
-    // background-color: white;
-    background-color: rgb(228, 228, 216);
-    h2{
-    text-align: center;
-        color: rgb(137, 96, 96);
-        margin-bottom: 5px;
-    }
     z-index: 2;
     width: 320px;
     height: 210px;
-    bottom: 0px;
-    right: 0px;
+    background-color: rgb(214, 206, 201);
+
+    h2{
+        text-align: center;
+        color: rgb(137, 96, 96);
+        margin-bottom: 5px;
+    }
 
     .adding-notification{
         width: 100%;
@@ -21,8 +19,6 @@
 }
 @media screen and (max-width: 1000px) {
     .notification-container{
-        height: 180px;
-        bottom: 0px;
-        right: 0px;
+        height: 200px;
     }
 }

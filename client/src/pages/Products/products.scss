@@ -139,7 +139,7 @@
             width: 100%;
             .catagory-img{
                 width: 100%;
-                height: calc(55 * min(75vw,1200px) /100);
+                height: calc(65 * min(75vw,1200px) /100);
                 object-fit:cover;
             }
             .bottom{
@@ -147,7 +147,7 @@
                 display: grid; /* 1 */
                 grid-template-columns: repeat(3, 33.33%); /* 2 */
                 grid-gap: 0.5rem;
-                grid-auto-rows: 60vw; /* 2 */
+                grid-auto-rows: 55vw; /* 2 */
                 .card-item{
                 }
             }
@@ -163,7 +163,7 @@
             width: 100%;
             .catagory-img{
                 width: 100%;
-                height: calc(55 * min(75vw,1200px) /100);
+                height: calc(65 * min(75vw,1200px) /100);
                 object-fit:cover;
             }
             .bottom{

@@ -1,11 +1,8 @@
 import "./ShoppingCart.scss"
 import CartItem from "./CartItem"
 import {Link} from "react-router-dom"
-import { Button } from "@mui/material"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y,Pagination } from 'swiper';
-import { useEffect, useState } from "react";
-import cartSlice from "../../app/cartSlice";
 import { setIsCartOnHover } from "../../app/cartSlice";
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -17,7 +14,7 @@ export default function ShoppingCart(props){
     const dispatch = useDispatch()
 
     //state from redux
-    const {isOnHover, cartItems, lastItemAdded, totalCartPrice } = useSelector( state => state.cart)
+    const {isOnHover, cartItems, totalCartPrice } = useSelector( state => state.cart)
 
     //css style control for responsiveness
     const displayControl = {
@@ -26,7 +23,7 @@ export default function ShoppingCart(props){
 
     function getItemHeight() {
         let h = 0
-        if(cartItems.length == 1) h = 150
+        if(cartItems.length === 1) h = 150
         else if( cartItems.length >= 2 ) h = 300
         return h
     }
@@ -35,11 +32,8 @@ export default function ShoppingCart(props){
         height: ""+getItemHeight()+"px"
     }
     const swiperWrapperHeight = {
-        height: getItemHeight() == 300 ? getItemHeight()+0+"px":getItemHeight()+"px"
+        height: getItemHeight() === 300 ? getItemHeight()+0+"px":getItemHeight()+"px"
     }
-
-
-
 
     //helper variable
     let countKey = 0 //for uniqueID 
@@ -99,7 +93,6 @@ export default function ShoppingCart(props){
     //FINAL COMPONENT
     return (
         <div  style={displayControl} onMouseLeave = {() => {dispatch(setIsCartOnHover(false))}} className="cart-hover-area">
-            {/* {for bigger screen} */}
             <div style={ swiperWrapperHeight } className="cart-item-area">
                 {cartItems.length > 1 && <KeyboardArrowUpIcon className="prev2"/>}
                     <Swiper
@@ -108,13 +101,12 @@ export default function ShoppingCart(props){
                         pagination = {true}
                         spaceBetween={0}
                         slidesPerView={cartItems.length > 1 ? 2:1}
-
+                        loop={true}
                         style={cartItemHeight}
                         navigation={cartItems.length>1?{
                             nextEl: '.next2', 
                             prevEl: '.prev2', 
                         }:false}
-
 
                         className="cartItemSwiper"
                     >
@@ -122,12 +114,6 @@ export default function ShoppingCart(props){
                     </Swiper>
                 {cartItems.length > 1 && <ExpandMoreIcon className="next2"/>}
             </div>
-
-            
-            {/* <div className="card-area">
-
-            <CartItem/>
-            </div> */}
 
             <hr/>
             <div className="info">

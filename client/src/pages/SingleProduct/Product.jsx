@@ -1,46 +1,65 @@
+//CSS
 import "./Product.scss"
 
+//MODULE
 import {useState} from "react"
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, setIsCartOnHover } from "../../app/cartSlice";
+import { addToCart } from "../../app/cartSlice";
 import { useParams } from "react-router-dom";
 
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+//ICON
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BalanceIcon from '@mui/icons-material/Balance';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import { stepIconClasses } from "@mui/material";
 import AddNotification from "../../components/AddNotification/AddNotification";
-import { Global } from "@emotion/react";
 
+
+let id = 0
+var id2 = 0
 
 function Product() {
     const productID = useParams().id
-    console.log("productID: "+productID)
     const dispatch = useDispatch();
     
+    //image area, quantity, favourite state
+    const [mainImageIndex, setMainImageIndex] = useState(0)
+    const [quantity, setQuantity] = useState(1)
+    const [isFavorite, setIsFavorite] = useState(false)
+
     //notification and timer for notification
     const [show, setShow] = useState(false)
+    const lastItemAdded = useSelector(state => state.cart.lastItemAdded) 
 
+    function showNotification(idIn){
+      setShow(true)
+      
+      setTimeout(() => {
+        if(idIn == id2){
+          setShow(false)
+        }
+      }, 2000);
+      
+    }
+
+    const notificationStyle = {
+      top: show ? "5px":"-300px",
+      right: show ? "5px":"-300px",
+      transition:"ease",
+      transitionDuration: "500ms",
+    }
+    //handle adding to cart
     function addToCartFromProduct(){
       dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
-      showNotification()
+      showNotification(id+1)
+      id2++
+      id++
     }
 
-    function showNotification(){
-        setShow(true)
-        setNotificationOff()
-    }
+    //handle 
 
-    function setNotificationOff(){
-      setTimeout(() => {
-          setShow(false)
-      }, 1300);
-    }
-
-
+    //data
     const images = [
       "/img/productPageImg/productImage2.jpeg",
       "/img/productPageImg/tShirt.jpeg",
@@ -76,16 +95,9 @@ function Product() {
     },
     ]
 
-    const [mainImageIndex, setMainImageIndex] = useState(0)
-    const [quantity, setQuantity] = useState(1)
-    const [isFavorite, setIsFavorite] = useState(false)
-    function initilizeSideImagesElement(){
-      const imgElements = []
-      for(let i=0;i<images.length;i++){
-        imgElements.push(<img key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
-      }
-      return imgElements
-    }
+ 
+
+    //image and other helper function
     function getNewMainImage(index){
       setMainImageIndex(index)
     }
@@ -102,14 +114,26 @@ function Product() {
     }
 
 
+    //JSX array element
+    function initilizeSideImagesElement(){
+      const imgElements = []
+      for(let i=0;i<images.length;i++){
+        imgElements.push(<img key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
+      }
+      return imgElements
+    }
+    
+
+    //RETURN JSX
     return (
 
       <div className="product-container">
 
-        {show && <div div className="notification-container">
-          <AddNotification close = {() => {
+        {lastItemAdded && <div className="notification-container" style = {notificationStyle}>
+          <AddNotification  close = {() => {
             setShow(false)
           }}/>
+
         </div>}
         
        <div className="left">

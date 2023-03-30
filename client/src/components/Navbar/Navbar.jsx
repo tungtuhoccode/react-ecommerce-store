@@ -12,29 +12,35 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 function NavBar() {
+    //responsiveness
     const [mQuery, setMQuery] = React.useState({
         matches: window.innerWidth > 1000 ? true : false,
     });
 
-    const isOnSmallScreen = mQuery && !mQuery.matches
     React.useEffect(() => {
         let mediaQuery = window.matchMedia("(min-width: 1000px)");
         mediaQuery.addListener(setMQuery);
         // this is the cleanup function to remove the listener
         return () => mediaQuery.removeListener(setMQuery);
     }, []);
-
-    const [isUsingNavMenu, setIsUsingNavMenu] = React.useState(false)
-    const isCartHover = useSelector(state => state.cart.isOnHover)
-
-    const numberOfCartItem = useSelector(state => state.cart.cartItems.length)
-    const dispatch = useDispatch()
+    const isOnSmallScreen = mQuery && !mQuery.matches
 
     React.useEffect(()=>{
         setIsUsingNavMenu(false)
     },        
     [mQuery])
 
+
+    //responsiveness - navbar
+    const [isUsingNavMenu, setIsUsingNavMenu] = React.useState(false)
+
+    //cart
+    const isCartHover = useSelector(state => state.cart.isOnHover)
+    const numberOfCartItem = useSelector(state => state.cart.cartItems.length)
+    const dispatch = useDispatch()
+
+
+    //CSS responsive NavBar
     const navigationMenuOpen = {
         // left: !isUsingNavMenu ? "-400px":"0px",
         width:!isUsingNavMenu? "100":"180px",
@@ -46,6 +52,7 @@ function NavBar() {
         display: isUsingNavMenu ? "flex":"flex"
     }
 
+    //helper function
     function handleOpenMenu(){
         setIsUsingNavMenu(prevIsUsing => !prevIsUsing)
     }
@@ -54,6 +61,7 @@ function NavBar() {
             dispatch(setIsCartOnHover(false))
         }
     }
+
     function handleOpenCart(){
 
         if(!isUsingNavMenu){
@@ -61,64 +69,64 @@ function NavBar() {
         }
      
     }
+    //Console output
+    // console.log("is using nav: "+!(mQuery && !mQuery.matches))
+    // console.log("is cart hover: "+isCartHover)
 
-    console.log("is using nav: "+!(mQuery && !mQuery.matches))
-    console.log("is cart hover: "+isCartHover)
 
-
+    //RETURN JSX
     return (
         <div className="navbar">
-            {/*If the two media query match*/}
             {!(mQuery && !mQuery.matches) ? 
-            (
-            <div>
-            <div className="wrapper">
-                <div className="left">
-                    <div className="item">
-                        <img src="/img/en.png" alt="language image" />
-                        <KeyboardArrowDownIcon />
-                    </div>
-                    <div className="item">
-                        <span>USD</span>
-                        <KeyboardArrowDownIcon />
-                    </div>
-                    <div className="item">
-                        <Link className="link" to="/products/1">Women</Link>
-                    </div>
-                    <div className="item">
-                        <Link className="link" to="/products/2">Men</Link>
-                    </div>
-                    <div className="item">
-                        <Link className="link" to="/products/3">Children</Link>
-                    </div>
-                </div>
-                <div className="center">
-                <Link className="link"  to="/"><span className='center-logo'>3TStore</span></Link>
-                </div>
-                <div className="right">
-                    <div className="item">Homepage</div>
-                    <div className="item">About</div>
-                    <div className="item">Contact</div>
-                    <div onMouseLeave={handleCloseCart}  className="icons">
-                    <SearchIcon/>
-                    <PersonOutlineIcon/>
-                    
-                    <FavoriteBorderIcon/>
-                    <div onMouseOver={handleOpenCart} className="cart">
-                        <div className="cart-icon">
-                            <ShoppingCartOutlinedIcon/>
-                            <span className="cart-item-count">{numberOfCartItem}</span>
+                (
+            // DESKTOP RESPONSIVE
+                    <div className="wrapper">
+                        <div className="left">
+                            <div className="item">
+                                <img src="/img/en.png" alt="language image" />
+                                <KeyboardArrowDownIcon />
+                            </div>
+                            <div className="item">
+                                <span>USD</span>
+                                <KeyboardArrowDownIcon />
+                            </div>
+                            <div className="item">
+                                <Link className="link" to="/products/1">Women</Link>
+                            </div>
+                            <div className="item">
+                                <Link className="link" to="/products/2">Men</Link>
+                            </div>
+                            <div className="item">
+                                <Link className="link" to="/products/3">Children</Link>
+                            </div>
                         </div>
-                        <ShoppingCart isOnHover={isCartHover} mouseLeave={()=>handleCloseCart()}/>
-                    </div>
+
+                        <div className="center">
+                            <Link className="link"  to="/"><span className='center-logo'>3TStore</span></Link>
+                        </div>
+                        
+                        <div className="right">
+                            <div className="item">Homepage</div>
+                            <div className="item">About</div>
+                            <div className="item">Contact</div>
+                            <div onMouseLeave={handleCloseCart}  className="icons">
+                                <SearchIcon/>
+                                <PersonOutlineIcon/>
+                                <FavoriteBorderIcon/>
+                                <div onMouseOver={handleOpenCart} className="cart">
+                                    <div className="cart-icon">
+                                        <ShoppingCartOutlinedIcon/>
+                                        <span className="cart-item-count">{numberOfCartItem}</span>
+                                    </div>
+                                <ShoppingCart isOnHover={isCartHover} mouseLeave={()=>handleCloseCart()}/>
+                                </div>
                     
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
            
-        </div>
       ) : (
-          
+        //   MOBILE RESPONSIVE
         <div >
             {
                 isUsingNavMenu && 

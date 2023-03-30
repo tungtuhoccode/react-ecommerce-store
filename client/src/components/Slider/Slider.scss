@@ -91,7 +91,7 @@
 
     }
     h2{
-        font-size: 16px !important;
+        font-size: 4vw !important;
         color: rgb(216, 186, 186);
     }
     h5{
@@ -101,6 +101,17 @@
         overflow-wrap: break-word !important;
         text-align: center;
     }
-
-    
+}
+@media screen and (max-width: 750px) {
+    h2{
+        font-size: 4.5vw !important;
+        color: rgb(216, 186, 186);
+    }
+    h5{
+        width: 90vw !important;
+        font-weight: 500;
+        font-size: 12px !important;
+        overflow-wrap: break-word !important;
+        text-align: center;
+    }
 }
