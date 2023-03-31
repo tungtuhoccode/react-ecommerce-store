@@ -34,3 +34,39 @@
     display: inline-block;
     width: 40%;
 }
+
+@media screen and (max-width: 1000px){
+    .item-wrapper{
+        width: 90%;
+        .img-wrapper{
+            img{
+                width: 70px;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+        h3{
+            font-size: 14px;
+        }
+        h4{
+            font-size: 12px;
+        }
+    
+        .item-info{
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            width: 100%;
+
+        }
+        p{
+            font-size: 11px;
+        }
+        
+    }
+    .w30{
+        // For lineup spacing 
+        width: 60%;
+    }
+    
+}

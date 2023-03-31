@@ -3,9 +3,13 @@ import "./Card.scss"
 
 const Card = ({item}) =>{
 
+    const priceColorStyle = {
+        color: item.oldPrice?"red":"gray"
+    }
+    
     return (
         <div>
-             <Link className="card-link" to={`/product/${item.id}`}>
+            <Link className="card-link" to={`/product/${item.id}`}>
                 <div className="card">
                     <div className="image">
                         <img src={item.img} alt="" className="main-image" />
@@ -21,7 +25,7 @@ const Card = ({item}) =>{
                     <p className="title">{item.title}</p>
 
                     <div className="price">
-                        <span style={{color: item.oldPrice?"red":"gray"}} className="current-price">${item.price}</span>
+                        <span style={priceColorStyle} className="current-price"> ${item.price} </span>
                         {item.oldPrice && <span className="sale-price">${item.oldPrice}</span>}
                     </div>
                 </div>  

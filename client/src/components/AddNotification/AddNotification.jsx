@@ -7,7 +7,7 @@ export default function AddNotification(props){
     return (
         <div className="notification-container">
             <div className="adding-notification">
-                <h2>New Item Added</h2>
+                <h2 className="notification-title">New Item Added</h2>
                 <CartItem 
                         key = {1}
                         name={lastItemAdded.itemName} 

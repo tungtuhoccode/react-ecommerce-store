@@ -15,7 +15,6 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import AddNotification from "../../components/AddNotification/AddNotification";
 
-
 let id = 0
 var id2 = 0
 
@@ -36,7 +35,7 @@ function Product() {
       setShow(true)
       
       setTimeout(() => {
-        if(idIn == id2){
+        if(idIn === id2){
           setShow(false)
         }
       }, 2000);
@@ -44,20 +43,20 @@ function Product() {
     }
 
     const notificationStyle = {
-      top: show ? "5px":"-300px",
-      right: show ? "5px":"-300px",
+      top: show ? "8px":"-300px",
+      right: show ? "8px":"-300px",
       transition:"ease",
       transitionDuration: "500ms",
     }
+
     //handle adding to cart
     function addToCartFromProduct(){
-      dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
+      let randomTestItem = (cartTestData[function(){return Math.floor(Math.random() * 3)}()] )
+      dispatch(addToCart(randomTestItem))
       showNotification(id+1)
       id2++
       id++
     }
-
-    //handle 
 
     //data
     const images = [
@@ -67,32 +66,32 @@ function Product() {
     ]
     const cartTestData = [
       {
-        id: 12,
-        itemName:"Brown coat",
-        price: 109.99,
-        quantity:1,
-        color: "Brown",
-        size:"S",
-        imageSource: "/img/cartImg/hmgoepprod.jpeg"
-    },
-    {
-        id: 13,
-        itemName:"Purple Sock",
-        price: 39.99,
-        quantity:1,
-        color: "Brown",
-        size:"S",
-        imageSource: "/img/cartImg/hmgoepprod2.jpeg"
-    },
-    {
-        id: 15,
-        itemName:"Yellow Pant",
-        price: 1.99,
-        quantity:1,
-        color: "Red",
-        size:"M",
-        imageSource: "https://lp2.hm.com/hmgoepprod?set=source[/f9/c3/f9c3f12b844b6e09bf4263406be48fcd783ab213.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[2]&call=url[file:/product/main]"
-    },
+          id: 12,
+          itemName:"Brown coat",
+          price: 109.99,
+          quantity:1,
+          color: "Brown",
+          size:"S",
+          imageSource: "/img/cartImg/hmgoepprod.jpeg"
+      },
+      {
+          id: 13,
+          itemName:"Purple Sock",
+          price: 39.99,
+          quantity:1,
+          color: "Brown",
+          size:"S",
+          imageSource: "/img/cartImg/hmgoepprod2.jpeg"
+      },
+      {
+          id: 15,
+          itemName:"Yellow Pant",
+          price: 1.99,
+          quantity:1,
+          color: "Red",
+          size:"M",
+          imageSource: "https://lp2.hm.com/hmgoepprod?set=source[/f9/c3/f9c3f12b844b6e09bf4263406be48fcd783ab213.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[2]&call=url[file:/product/main]"
+      },
     ]
 
  
@@ -118,7 +117,7 @@ function Product() {
     function initilizeSideImagesElement(){
       const imgElements = []
       for(let i=0;i<images.length;i++){
-        imgElements.push(<img key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
+        imgElements.push(<img alt="side images" key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
       }
       return imgElements
     }
@@ -130,9 +129,7 @@ function Product() {
       <div className="product-container">
 
         {lastItemAdded && <div className="notification-container" style = {notificationStyle}>
-          <AddNotification  close = {() => {
-            setShow(false)
-          }}/>
+          <AddNotification  close = {() => setShow(false)}/>
 
         </div>}
         
@@ -194,5 +191,6 @@ function Product() {
       </div>
     )
 }
+
 
 export default Product

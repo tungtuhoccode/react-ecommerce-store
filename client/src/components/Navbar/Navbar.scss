@@ -99,7 +99,6 @@
     background-color: white;
     height: 100vh;
     z-index: 1000;
-    // width: 200px;
     opacity: 1;
     position: fixed;
     z-index: 20;
@@ -118,9 +117,6 @@
     }
     .item:hover{
         cursor: pointer;
-        .icon{
-
-        }
     }
 
 }

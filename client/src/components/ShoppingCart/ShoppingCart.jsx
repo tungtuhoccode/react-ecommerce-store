@@ -139,7 +139,7 @@ export default function ShoppingCart(props){
             <Link className="link-with-button" to="/checkout">
                 <button className="white-button">
                     <span className="black-text">Shopping Bag</span>
-            </button>
+                </button>
             </Link>
         </div>
     )
