@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const connectDB = async () => {
+
+const connectDB = async (err) => {
     try{
         await mongoose.connect(process.env.DATABASE_URI, {
             useUnifiedTopology: true,
@@ -7,6 +8,7 @@ const connectDB = async () => {
         })
     }   
     catch{
+        console.log("Database connection error")
         console.log(err)
     }
 }

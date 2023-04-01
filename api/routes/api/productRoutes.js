@@ -1,15 +1,21 @@
 const express = require('express')
 const router = express.Router();
-const {getProducts, getTrendingProducts} = require('../../controllers/productController')
+const {
+    getProducts,
+    getTrendingProducts,
+    createProduct
+} = require('../../controllers/productController')
+const ROLES_LIST = require('../../constant/roles')
 
-
+//route for getting all products
 router.route('/')
     .get(getProducts)
+    .post(createProduct)
 
 router.route('/trending')
     .get(getTrendingProducts)
 
-//route for single product
+//route for get product by id
 router.route("/:id")
 
 
