@@ -2,7 +2,7 @@
 import "./Product.scss"
 
 //MODULE
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from "../../app/cartSlice";
 import { useParams } from "react-router-dom";
@@ -42,12 +42,17 @@ function Product() {
       
     }
 
-    const notificationStyle = {
-      top: show ? "8px":"-300px",
-      right: show ? "8px":"-300px",
-      transition:"ease",
-      transitionDuration: "500ms",
+    function setNotificationStyle(){
+      let offset = 0
+      if(window.innerHeight < 800){
+        offset = 5
+      }else{
+        offset = 20
+      }
+      document.documentElement.style.setProperty("--location-value", show? offset + "px" : "-300px")
     }
+
+    setNotificationStyle(show ? "8px":"-300px")
 
     //handle adding to cart
     function addToCartFromProduct(){
@@ -128,10 +133,9 @@ function Product() {
 
       <div className="product-container">
 
-        {lastItemAdded && <div className="notification-container" style = {notificationStyle}>
-          <AddNotification  close = {() => setShow(false)}/>
-
-        </div>}
+        <div className="notification-container">
+          {lastItemAdded &&  <AddNotification  close = {() => setShow(false)}/>}
+        </div>
         
        <div className="left">
           <div className="image-container">
@@ -145,6 +149,7 @@ function Product() {
             </div>
           </div>
        </div>
+
        <div className="right">
             <h1 className="title">Long SLeeve Graphic T-Shirt</h1>
             <h2 className="price">$19.9</h2>

@@ -104,7 +104,7 @@
 }
 @media screen and (max-width: 750px) {
     h2{
-        font-size: 4.5vw !important;
+        font-size: calc(3vw + 6px) !important;
         color: rgb(216, 186, 186);
     }
     h5{

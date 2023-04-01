@@ -1,7 +1,18 @@
+:root{
+    --location-value: -300px;
+}
+
 .product-container{
     display: flex;
     margin: 30px auto 30px auto;
     max-width: 1200px;
+    
+    .notification-container{
+        top: var(--location-value);
+        right: var(--location-value);
+        transition: ease;
+        transition-duration: 500ms;
+    }
     .left{
         width: 49%;
         margin: 0px 0px 0px 2%;
