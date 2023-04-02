@@ -1,31 +1,37 @@
 import { Link } from "react-router-dom"
 import "./ProductCards.scss"
 
-const ProductsCard = ({item}) =>{
+const ProductsCard = (props) =>{
     const currentPriceColor = {
-        color: item.oldPrice ? "red":"gray"
+        color: props.regularPrice ? "red":"gray"
+    }
+
+    function getPriceDifference(){
+        return Math.round(((props.regularPrice - props.salePrice)/props.regularPrice )*100)
     }
     return (
-        <Link className="product-card-link" to={`/product/${item.id}`}>
+        <Link className="product-card-link" to={`/product/${props.id}`}>
             <div className="products-card">
                 <div className="products-card-image">
-                    <img src={item.img} alt="" className="pc-main-image" />
-                    { item.img2 && <img src={item.img2} alt="" className="pc-second-image" />}
-                    {(item.isNew) && <span className="pc-new-season">New Season</span>}  
+                    <img src={props.img} alt="" className="pc-main-image" />
 
-                    {item.oldPrice && 
+                    { props.img2 && <img src={props.img2} alt="" className="pc-second-image" />}
+
+                    {(props.isNew) && <span className="pc-new-season">New Season</span>}  
+
+                    {props.salePrice && 
                     <div className="pc-sale-percentage">
-                        <span> -{Math.round(((item.oldPrice - item.price)/item.oldPrice )*100)}</span>
+                        <span> -{getPriceDifference()}</span>
                         <span style={{fontWeight:"600"}}>%</span>
                     </div>
                     }
                 </div>  
 
-                <p className="pc-title">{item.title}</p>
+                <p className="pc-title">{props.name}</p>
                 
                 <div className="pc-price">
-                    <span style={currentPriceColor} className="pc-current-price">${item.price}</span>
-                    {item.oldPrice && <span className="pc-sale-price">${item.oldPrice}</span>}
+                    <span style={currentPriceColor} className="pc-current-price">$ {props.regularPrice}</span>
+                    {props.salePrice && <span className="pc-sale-price">$ {props.salePrice}</span>}
                 </div>
             </div>  
         </Link>

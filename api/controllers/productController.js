@@ -1,5 +1,5 @@
 const Product = require('../model/productSchema');
-
+const CATAGORY_LIST = require("../constant/catagoryConstant");
 
 //@desc Fetch mutiple products
 //@route GET /products/
@@ -66,13 +66,32 @@ const createProduct = async (req, res, next) => {
     }
 }
 
+
+
+//@desc fetch products for women
+//@route Get /products/women
+//@acess    PUBLIC
+const getProductsForWomen = async (req, res, next) => {
+    const womenProducts = await Product.find(
+        {catagory: CATAGORY_LIST.WOMEN}
+    );
+
+    if(!womenProducts) return res.status(204).json({"message":"No product found for women"})
+    res.json(womenProducts)
+}
+
+
 const getTrendingProducts = async (req, res, next) => {
-    
+    console.log("getting products")
+    const products = await Product.find().limit(8);
+    if(!products) return res.status(204).json({"message":"No product found"})
+    res.json(products) 
 }
 
 module.exports = {
     getProducts,
     getTrendingProducts,
-    createProduct
+    createProduct, 
+    getProductsForWomen
 };
 

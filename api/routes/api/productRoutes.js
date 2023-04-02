@@ -1,21 +1,35 @@
+const CATAGORY_LIST = require("../../constant/catagoryConstant");
 const express = require('express')
 const router = express.Router();
 const {
     getProducts,
     getTrendingProducts,
-    createProduct
+    createProduct,
+    getProductsForWomen
 } = require('../../controllers/productController')
+
 const ROLES_LIST = require('../../constant/roles')
 
-//route for getting all products
+//@route /products/
 router.route('/')
     .get(getProducts)
     .post(createProduct)
 
+
+
+//@route /products/women
+router.route(`/${CATAGORY_LIST.WOMEN}`)
+    .get(getProductsForWomen)
+
+
+
+//@route /products/trending
 router.route('/trending')
     .get(getTrendingProducts)
 
-//route for get product by id
+
+
+//@route /products/:id
 router.route("/:id")
 
 

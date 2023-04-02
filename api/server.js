@@ -16,9 +16,9 @@ connectDB();
 const productRoute = require("./routes/api/productRoutes");
 const corsOptions = require('./config/corsOption');
 
-app.use(cors(corsOptions))
-//morgan logger
 app.use(logger('dev'));
+
+app.use(cors(corsOptions))
 
 // parse json otherwise body will be undefined
 app.use(bodyParserErrorHandler());

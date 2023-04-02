@@ -1,100 +1,48 @@
 import ProductsCard from "../../components/ProductsCard/ProductsCard"
 import "./products.scss"
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts"
+import env from "react-dotenv";
+import {useState, useEffect } from "react"
+import { useParams, useLocation } from "react-router-dom"
+import CATAGORY_LIST from "../../constant/catagoryConstant"
 
 function Products() {
-  const data = [
-    {
-      id: 1, 
-      img: "/img/featuredProduct/wollBlendCoatModel.jpeg",
-      img2: "/img/featuredProduct/wollblendCoat.jpeg",
-      title: "Long Sleeve Graphic T-shirt" ,
-      isNew: true,
-      price: 10,
-  },
-  {
-      
-      id: 2, 
-      img: "/img/featuredProduct/DenimOvershirt.jpeg",
-      img2: "/img/featuredProduct/DenimOvershirt2.jpeg",
-      title: "Denim Overshirt" ,
-      isNew: true,
-      price: 39.99,
-  },
-
-  {
-      id: 3, 
-      img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Skirt",
-      oldPrice: 22.99,
-      price: 11.99,
-  },
-  {
-    id: 1, 
-    img: "/img/featuredProduct/wollBlendCoatModel.jpeg",
-    img2: "/img/featuredProduct/wollblendCoat.jpeg",
-    title: "Long Sleeve Graphic T-shirt" ,
-    isNew: true,
-    price: 10,
-},
-{
-    
-    id: 2, 
-    img: "/img/featuredProduct/DenimOvershirt.jpeg",
-    img2: "/img/featuredProduct/DenimOvershirt2.jpeg",
-    title: "Denim Overshirt" ,
-    isNew: true,
-    price: 39.99,
-},
-
-{
-    id: 3, 
-    img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    title: "Skirt",
-    oldPrice: 22.99,
-    price: 11.99,
-},
-{
-  id: 1, 
-  img: "/img/featuredProduct/wollBlendCoatModel.jpeg",
-  img2: "/img/featuredProduct/wollblendCoat.jpeg",
-  title: "Long Sleeve Graphic T-shirt" ,
-  isNew: true,
-  price: 10,
-},
-{
+  const location = useLocation()
+  const [products, setProducts] = useState([])
+  console.log(location.pathname)
+  const API_URL = `${env.REACT_APP_API_URL}/products${location.pathname}`
+  console.log(API_URL)
   
-  id: 2, 
-  img: "/img/featuredProduct/DenimOvershirt.jpeg",
-  img2: "/img/featuredProduct/DenimOvershirt2.jpeg",
-  title: "Denim Overshirt" ,
-  isNew: true,
-  price: 39.99,
-},
+  useEffect(()=>{
 
-{
-  id: 3, 
-  img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  title: "Skirt",
-  oldPrice: 22.99,
-  price: 11.99,
-},
+      fetch(API_URL)
+        .then((response) => response.json())
+        .then((data)=>{
+          console.log(location.pathname+" data")
+          setProducts(data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    
+  },[])
+  
+  const productElement = products.map(product =>{
+    console.log(product)
+    return (
+      <ProductsCard 
+      id = { product._id}
+      name = {product.name}
+      img ={ product.images[0].url}
+      img2 ={ product.images[1].url}
+      regularPrice ={product.price}
+      salePrice ={product.price - 10}
+      key = {product.id}
+      isNew = {true}
+      />
+    )
+  })
 
-]
-
-
-const productCardsElement =  data.map (item =>
-      {
-        return(
-          <div className="card-item">
-            <ProductsCard item={item} key={item.id}/>
-          </div>
-        )
-      }
-  )
 
     return (
       <div className="products">
@@ -152,9 +100,9 @@ const productCardsElement =  data.map (item =>
           <div className="top">
               <img src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs-tinysrgb&w=1600" alt="" className="catagory-img" />
           </div>
-          <h1 style={{textAlign:"center"}}>WOMEN</h1>
+          <h1 style={{textAlign:"center"}}>{location.pathname.split("/")[1]}</h1>
           <div className="bottom">
-            {productCardsElement}
+            {productElement}
           </div>
           
         </div>

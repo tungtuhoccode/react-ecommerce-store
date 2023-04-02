@@ -92,13 +92,13 @@ function NavBar() {
                             <KeyboardArrowDownIcon />
                         </div>
                         <div className="item">
-                            <Link className="link" to="/products/1">Women</Link>
+                            <Link className="link" to="/women">Women</Link>
                         </div>
                         <div className="item">
-                            <Link className="link" to="/products/2">Men</Link>
+                            <Link className="link" to="/men">Men</Link>
                         </div>
                         <div className="item">
-                            <Link className="link" to="/products/3">Children</Link>
+                            <Link className="link" to="/children">Children</Link>
                         </div>
                     </div>
 
@@ -145,13 +145,13 @@ function NavBar() {
                             <KeyboardArrowDownIcon className='keyboardDown--hover'/>
                     </div>
                     <div className="item">
-                        <Link onClick={handleOpenMenu} className="link" to="/products/1">Women</Link>
+                        <Link onClick={handleOpenMenu} className="link" to="/women">Women</Link>
                     </div>
                     <div className="item">
-                        <Link onClick={handleOpenMenu} className="link" to="/products/2">Men</Link>
+                        <Link onClick={handleOpenMenu} className="link" to="/men">Men</Link>
                     </div>
                     <div className="item">
-                    <Link onClick={handleOpenMenu} className="link" to="/products/3">Children</Link>
+                    <Link onClick={handleOpenMenu} className="link" to="/children">Children</Link>
                     </div>
                     <div className="item">
                         <Link onClick={handleOpenMenu} className="link" to="/" >Homepage</Link>

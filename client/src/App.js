@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer"
 import Home from "./pages/Home/Home"
 import Product from "./pages/SingleProduct/Product"
 import SwiperCore, { Autoplay } from 'swiper';
+import ErrorPage from "./pages/ErrorPage/ErrorPage"
 import "./App.scss"
 import {
   createBrowserRouter,
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
     {
       path:"/",
       element:<Layout/>,
+      errorElement: <ErrorPage />,
       children:[
       {
         path:"/",
@@ -36,8 +38,17 @@ const router = createBrowserRouter([
         element:<CheckOut/>
       },
       {
-        path:"/products/:id",
-        element:<Products/>
+        path:"/women",
+        element:<Products/>,
+      },
+      
+      {
+        path:"/men",
+        element:<Products/>,
+      },
+      {
+        path:"/products/children",
+        element:<Products/>,
       },
       {
         path:"/product/:id",

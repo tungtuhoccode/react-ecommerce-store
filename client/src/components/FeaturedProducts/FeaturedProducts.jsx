@@ -1,10 +1,14 @@
+import env from "react-dotenv";
 import "./FeaturedProducts.scss"
 import Card from "../Card/Card"
 import { useEffect, useState } from "react"
 
 const ProductsList = (props) =>{
     const [data, setData] = useState([])
-    const API_URL = "http://localhost:4000/products"
+    // const API_URL = env.REACT_APP_API_URL+"products"
+    const API_URL = `${env.REACT_APP_API_URL}/products/trending`
+    console.log(API_URL)
+    console.log(env)
 
     useEffect( ()=>{
         const fetchProducts = async () => {
@@ -21,8 +25,6 @@ const ProductsList = (props) =>{
         (async () => await fetchProducts())()
     },[])
 
-
-
     console.log(data)
 
     return (
@@ -35,14 +37,15 @@ const ProductsList = (props) =>{
             </div>
             <div className="bottom">
                 {data && data.map(product => {
-            return (<Card
-                    id = { product.id}
-                    title = {product.name}
-                    img ={ product.images[0].url}
-                    img2 ={ product.images[1].url}
-                    oldPrice ={product.price}
-                    isNew = {true}
-                key={product.id}/>)
+                        return (<Card
+                                id = { product.id}
+                                title = {product.name}
+                                img ={ product.images[0].url}
+                                img2 ={ product.images[1].url}
+                                regularPrice ={product.price}
+                                isNew = {true}
+                                key={product.id}
+                                />)
         })}
             </div>
         </div>
