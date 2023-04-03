@@ -1,5 +1,5 @@
 const CATAGORY_LIST = {
-    MEN: 'Man',
+    MEN: 'Men',
     WOMEN: 'Women',
     CHILDREN: 'Children',
 }

@@ -58,7 +58,7 @@
             display: grid; /* 1 */
             grid-template-columns: repeat(5, 19.2%); /* 2 */
             grid-auto-rows: calc(40 * min(75vw,1250px) /100); /* 2 */
-            grid-gap: 0.5rem;
+            grid-gap: 0.2rem;
             justify-content: space-evenly; /* 4 */
         }
 

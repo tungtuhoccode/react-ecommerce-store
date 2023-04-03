@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom"
 import "./ProductCards.scss"
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const ProductsCard = (props) =>{
     const currentPriceColor = {
-        color: props.regularPrice ? "red":"gray"
+        color: isOnSale() ? "red":"gray"
     }
 
+    function isOnSale(){
+        return props.salePrice && props.salePrice != props.regularPrice
+    }
     function getPriceDifference(){
         return Math.round(((props.regularPrice - props.salePrice)/props.regularPrice )*100)
     }
@@ -16,11 +20,12 @@ const ProductsCard = (props) =>{
                     <img src={props.img} alt="" className="pc-main-image" />
 
                     { props.img2 && <img src={props.img2} alt="" className="pc-second-image" />}
-
+                    
                     {(props.isNew) && <span className="pc-new-season">New Season</span>}  
-
-                    {props.salePrice && 
+                    <FavoriteBorderIcon className="pc-favourite"/>
+                    {isOnSale() && 
                     <div className="pc-sale-percentage">
+
                         <span> -{getPriceDifference()}</span>
                         <span style={{fontWeight:"600"}}>%</span>
                     </div>
@@ -31,7 +36,7 @@ const ProductsCard = (props) =>{
                 
                 <div className="pc-price">
                     <span style={currentPriceColor} className="pc-current-price">$ {props.regularPrice}</span>
-                    {props.salePrice && <span className="pc-sale-price">$ {props.salePrice}</span>}
+                    {isOnSale() && <span className="pc-sale-price">$ {props.salePrice}</span>}
                 </div>
             </div>  
         </Link>

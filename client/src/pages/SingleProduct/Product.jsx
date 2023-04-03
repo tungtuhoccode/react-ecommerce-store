@@ -15,6 +15,9 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import AddNotification from "../../components/AddNotification/AddNotification";
 
+//API URL 
+import API_URL from "../../constant/routeConstants"
+
 let id = 0
 var id2 = 0
 
@@ -22,10 +25,30 @@ function Product() {
     const productID = useParams().id
     const dispatch = useDispatch();
     
+    //fetch product data
+    const [productData, setProductData] = useState({})
+    const [images, setImages] = useState([])
+
+    const fetchProductData = async () => {
+      const productURL = `${API_URL.SINGLE_PRODUCT}/${productID}`
+      const response = await fetch(productURL)
+      const data = await response.json()
+      console.log("data images: "+data.images)
+      setProductData(data)
+      setImages(data.images)
+    }
+
+    useEffect(()=>{
+      fetchProductData()
+    },[])
+    console.log(productData)
+
     //image area, quantity, favourite state
+
     const [mainImageIndex, setMainImageIndex] = useState(0)
     const [quantity, setQuantity] = useState(1)
     const [isFavorite, setIsFavorite] = useState(false)
+
 
     //notification and timer for notification
     const [show, setShow] = useState(false)
@@ -64,11 +87,6 @@ function Product() {
     }
 
     //data
-    const images = [
-      "/img/productPageImg/productImage2.jpeg",
-      "/img/productPageImg/tShirt.jpeg",
-
-    ]
     const cartTestData = [
       {
           id: 12,
@@ -99,8 +117,6 @@ function Product() {
       },
     ]
 
- 
-
     //image and other helper function
     function getNewMainImage(index){
       setMainImageIndex(index)
@@ -122,11 +138,10 @@ function Product() {
     function initilizeSideImagesElement(){
       const imgElements = []
       for(let i=0;i<images.length;i++){
-        imgElements.push(<img alt="side images" key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
+        imgElements.push(<img alt="side images" key={i} onClick={()=>getNewMainImage(i)} src={images[i].url}/>)
       }
       return imgElements
     }
-    
 
     //RETURN JSX
     return (
@@ -142,7 +157,7 @@ function Product() {
            
             
             <div className="main-image">
-              <img src={images[mainImageIndex]}/>
+              <img src={images[mainImageIndex]?.url}/>
             </div>
             <div className="side-images">
                 {initilizeSideImagesElement()}
@@ -151,20 +166,16 @@ function Product() {
        </div>
 
        <div className="right">
-            <h1 className="title">Long SLeeve Graphic T-Shirt</h1>
-            <h2 className="price">$19.9</h2>
+            <h1 className="title">{productData.name}</h1>
+            <h2 className="price">${productData.price}</h2>
+            <button onClick={() => addToCartFromProduct()}className="add-to-cart">
+              <span>ADD TO CART</span>
+            </button>
             <div className="desc">
-
-            <p className="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Riss commodo viverra maecenas accumsan lacus vel facilisis labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas.</p>
+              <p className="description">{productData.description}</p>
             </div>
-          <div className="quantity">
-            <button onClick={decreaseQuantity}><RemoveIcon className="icon"/></button>
-            <span>{quantity}</span>
-            <button onClick={increaseQuantity}><AddIcon className="icon"/></button>
-          </div>
-          <button onClick={() => addToCartFromProduct()}className="add-to-cart">
-            <span>ADD TO CART</span>
-          </button>
+
+
 
           <div className="favorite-and-compare">
               <div className="favorite">

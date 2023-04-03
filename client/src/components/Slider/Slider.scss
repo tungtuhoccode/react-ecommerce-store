@@ -28,11 +28,11 @@
             }
             h2{
 
-                font-size: min(calc(2vw + 12px), 50px);
+                font-size: min(calc(2vw + 12px), 40px);
                 color: rgb(216, 186, 186);
             }
             h5{
-                font-size: min(calc(1vw + 12px), 18px);
+                font-size: min(calc(1vw + 10px), 18px);
                 color: rgb(216, 186, 186);
             }
             button{
@@ -97,7 +97,6 @@
     h5{
         width: 90vw !important;
         font-weight: 500;
-        font-size: 12px !important;
         overflow-wrap: break-word !important;
         text-align: center;
     }
@@ -110,7 +109,6 @@
     h5{
         width: 90vw !important;
         font-weight: 500;
-        font-size: 12px !important;
         overflow-wrap: break-word !important;
         text-align: center;
     }

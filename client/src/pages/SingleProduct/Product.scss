@@ -52,11 +52,11 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        h1{
+        .title{
             font-size: 25px;
             margin-bottom: 5px;
         }
-        h2{
+        .price{
             color: #878383;
         }
         
@@ -90,7 +90,9 @@
             width: 180px;
             height: 40px;
             border-radius: 1px;
-            background-color: #018849;
+            // background-color: #018849;
+            background-color:#c79972;
+            border: #e6c09f;
             display: flex;
             justify-content: center;
             gap: 10px;
@@ -107,7 +109,8 @@
             }
         }
         .add-to-cart:hover{
-            background-color: #127547;
+            // background-color: #127547;
+            background-color:#a2876f;
         }
         .favorite-and-compare{
             color:#018849;
@@ -163,55 +166,6 @@
                     img{
                     }
                 }
-            }
-        }
-        .right{
- 
-            h1{
-            }
-            h2{
-            }
-            
-            .quantity{
-
-                button{
-
-                    .icon{
-
-                    }
-                }
-
-            }
-            .add-to-cart{
-                
-                .add-icon{
-                   
-                }
-                span{
-                   
-                }
-            }
-            .favorite-and-compare{
-               
-                .favorite, .compare{
-                  
-                    .icon-fav{
-                      
-                    }
-                }
-    
-            }
-            p{
-
-            }
-            .information{
-              
-                hr{
-
-                }
-            }
-            .hr-break-section{
-             
             }
         }
     
@@ -270,11 +224,6 @@
         }
         .right{
             width: 40%;
-            h1{
-            }
-            h2{
-            }
-            
             .quantity{
                 width: 120px;
                 height: 40px;
@@ -306,186 +255,48 @@
                 }
     
             }
-            p{
-
-            }
-            .information{
-              
-                hr{
-
-                }
-            }
-            .hr-break-section{
-             
-            }
         }
     
     }
 
 }
-@media screen and (max-width:750px) {
+@media screen and (max-width: 550px){
     .product-container{
-        overflow: f;
-        min-width: 280px;
         flex-direction: column;
-        margin: 30px 0px 0px 0px;
+        width: 95%;
+        margin-left: 0px;
+        
         .left{
-            margin: 0px;
+            
             width: 100%;
-            .image-container{
-                
-                min-height: 300px;
-                max-height: 500px;
-                .side-images{
-                    img{
-                    }
-                }
-                .main-image{
-                    img{
-                        min-width: 600px;
-                        max-height: 400px;
-                        object-fit: contain;
-                    }
-                }
+            .main-image{
             }
+
         }
         .right{
-            text-align: center;
-            padding: 20px 5% 50px 5%;
-            width: 90%;
-            gap: 15px;
+            // background-color: red;
+            margin: 20px auto 0px auto;
+            width: 85%;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            // background-color: rgb(231, 192, 192);
-            h1{
-                font-size: 20px;
+            text-align: center;
+            .title{
+                margin-top: 10px;
                 margin-bottom: 0px;
+                font-size: 16px;
+                font-weight: 600;
+                text-align: center;
             }
-            h2{
-                font-size: 22px;
-            }
-            
-            .quantity{
-
-                button{
-
-                    .icon{
-
-                    }
-                }
-
+            .price{
+                text-align: center;
             }
             .add-to-cart{
-                
-                .add-icon{
-                   
-                }
-                span{
-                   
-                }
-            }
-            .favorite-and-compare{
-
-                .favorite, .compare{
-                  
-                    .icon-fav{
-                      
-                    }
-                }
-    
-            }
-            .desc{
-                position: relative;
-                width: 90%;
-                text-align: justify;
-
-            }
-            .desc:hover{
-                max-height: fit-content;
-            }
-
-            .information{
-                width: 50%;
+                display: flex;
                 align-items: center;
-                p{
-                    text-align: center;
-                    
-                }
-                hr{
-                    width: 150px;
-                }
-            }
-            .hr-break-section{
-                width: 90%;
+                justify-content: center;
+                width: 50%;
             }
         }
-    
     }
-
-}
-@media (max-width:0px) {
-    .product-container{
-        .left{
-            .image-container{
-                .side-images{
-                    img{
-                    }
-                }
-                .main-image{
-                    img{
-                    }
-                }
-            }
-        }
-        .right{
- 
-            h1{
-            }
-            h2{
-            }
-            
-            .quantity{
-
-                button{
-
-                    .icon{
-
-                    }
-                }
-
-            }
-            .add-to-cart{
-                
-                .add-icon{
-                   
-                }
-                span{
-                   
-                }
-            }
-            .favorite-and-compare{
-               
-                .favorite, .compare{
-                  
-                    .icon-fav{
-                      
-                    }
-                }
-    
-            }
-            p{
-
-            }
-            .information{
-              
-                hr{
-
-                }
-            }
-            .hr-break-section{
-             
-            }
-        }
-    
-    }
-
 }

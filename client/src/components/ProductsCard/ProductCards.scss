@@ -31,16 +31,17 @@
                 z-index: -1;
             }
         }
-
-        .pc-new-season{
+        .pc-favourite{
             position: absolute;
-            z-index: 3;
-            top: 5px;
-            left: 5px;
-            background-color: white;
-            color: teal;
-            font-size: 12px;
-            padding: 4px;
+            z-index: 5;
+            bottom: 5px;
+            right: 5px;
+            font-size: 30px;
+
+            font-weight: 100;
+        }
+        .pc-favourite:hover{
+            cursor: pointer;
         }
 
         .pc-sale-percentage{

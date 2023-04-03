@@ -39,8 +39,8 @@ export default function ShoppingCart(props){
     let countKey = 0 //for uniqueID 
 
     //console.log
-    console.log("on hover in cart"+ isOnHover)
-    console.log("cart items count: "+cartItems.length)
+    // console.log("on hover in cart"+ isOnHover)
+    // console.log("cart items count: "+cartItems.length)
 
     //sample data
     const data = [

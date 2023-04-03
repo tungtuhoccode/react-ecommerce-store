@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { useRef, useEffect } from "react";
 import "./Card.scss"
 
 const Card = (props) =>{
@@ -9,6 +10,13 @@ const Card = (props) =>{
     // console.log("old price: ", props.regularPrice)
     // console.log("new price: ", props.salePrice)
 
+    function isOnSale(){
+        return props.salePrice && props.salePrice != props.regularPrice
+    }
+    function getPriceDifference(){
+        return Math.round(((props.regularPrice - props.salePrice)/props.regularPrice )*100)
+    }
+
     return (
         <div>
             <Link className="card-link" to={`/product/${props.id}`}>
@@ -18,9 +26,9 @@ const Card = (props) =>{
                         { props.img2 && <img src={props.img2} alt="" className="second-image" />}
                         {(props.isNew) && <span className="new-season">New Season</span>}  
 
-                        {props.salePrice && 
+                        {isOnSale() && 
                         <div className="sale-percentage">
-                            <span> -{Math.round(((props.regularPrice - props.salePrice)/props.regularPrice )*100)}</span>
+                            <span> -{getPriceDifference()}</span>
                             <span style={{fontWeight:"600"}}>%</span>
                         </div>
                         }
@@ -29,7 +37,7 @@ const Card = (props) =>{
 
                     <div className="price">
                         <span style={priceColorStyle} className="current-price"> ${props.regularPrice} </span>
-                        {props.salePrice && <span className="sale-price">${props.regularPrice}</span>}
+                        {isOnSale() && <span className="sale-price">${props.regularPrice}</span>}
                     </div>
                 </div>  
             </Link>

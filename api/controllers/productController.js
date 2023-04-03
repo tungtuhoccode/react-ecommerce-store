@@ -3,14 +3,13 @@ const CATAGORY_LIST = require("../constant/catagoryConstant");
 
 //@desc Fetch mutiple products
 //@route GET /products/
-//@acess Public (? may be this should be private)
+//@acess Public (? may be this should be private and for editing only, since public does not need to see all products)
 const getProducts = async (req, res, next) => {
     console.log("getting products")
     const products = await Product.find();
     if(!products) return res.status(204).json({"message":"No product found"})
     res.json(products)
 }
-
 
 //@desc Fetch mutiple products
 //@route POST /products/
@@ -66,32 +65,109 @@ const createProduct = async (req, res, next) => {
     }
 }
 
+//@desc fetch products for children
+//@route Get /products/children
+//@acess    PUBLIC
+const getProductsForChildren = async (req, res, next) => {
+    try{
+        const womenProducts = await Product.find(
+            {catagory: CATAGORY_LIST.CHILDREN}
+        );
+    
+        if(!womenProducts) return res.status(204).json({"message":"No product found for women"})
+        res.json(womenProducts)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
 
 
 //@desc fetch products for women
 //@route Get /products/women
 //@acess    PUBLIC
 const getProductsForWomen = async (req, res, next) => {
-    const womenProducts = await Product.find(
-        {catagory: CATAGORY_LIST.WOMEN}
-    );
-
-    if(!womenProducts) return res.status(204).json({"message":"No product found for women"})
-    res.json(womenProducts)
+    try{
+        const womenProducts = await Product.find(
+            {catagory: CATAGORY_LIST.WOMEN}
+        );
+    
+        if(!womenProducts) return res.status(204).json({"message":"No product found for women"})
+        res.json(womenProducts)
+    }
+   catch(err){
+       console.log(err)
+   }
 }
 
+//@desc fetch products for men 
+//@route Get /products/men
+//@acess    PUBLIC
+const getProductsForMen = async (req, res, next) => {
+    try{
+        const menProducts = await Product.find(
+            {catagory: CATAGORY_LIST.MEN}
+        );
+    
+        if(!menProducts) return res.status(204).json({"message":"No product found for men"})
+        res.json(menProducts)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
 
 const getTrendingProducts = async (req, res, next) => {
+    try{
+        const products = await Product.find().limit(8);
+        if(!products) return res.status(204).json({"message":"No product found"})
+        res.json(products) 
+    }
+    catch(err){
+        console.log("Error getting trending products")
+        console.log(err);
+    }
+}
+
+//@route /products/:id (PUBLIC)
+//@desc Getting product by id
+const getProductById = async (req, res, next) => {
+    const productID = req.url.split("/")[1]
+
+    if(!productID) return res.status(400).json({"message":"missing product ID"})
+
+    try{
+        const product = await Product.findById(productID);
+
+        if (!product) return res.status(204).json({"message":"product not found"})
+        res.json(product)
+
+    }
+    catch(err){
+        console.log("Error getting product by id")
+        console.log(err);
+        return res.status(200).json(err);
+
+    }
+
+
+}
+
+const exportProductData = async (req,res,next) =>{
     console.log("getting products")
-    const products = await Product.find().limit(8);
+    const products = await Product.find();
     if(!products) return res.status(204).json({"message":"No product found"})
-    res.json(products) 
+    res.json(products)
 }
 
 module.exports = {
     getProducts,
     getTrendingProducts,
     createProduct, 
-    getProductsForWomen
+    getProductsForWomen,
+    getProductsForMen,
+    getProductsForChildren,
+    getProductById,
+    exportProductData
 };
 

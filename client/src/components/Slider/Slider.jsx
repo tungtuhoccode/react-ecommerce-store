@@ -12,7 +12,7 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import "./Slider.scss"
 import 'swiper/css';
 
-
+let count = 1
 const data = [
   {
     img: "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/TOOLBOX/LOCAL%20ACTIVITIES/2022_s06/december_2022/0788297003-small-glass-vase-3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
@@ -36,7 +36,7 @@ const data = [
 
 const sliderElements = data.map(item => {
   return (
-    <SwiperSlide>
+    <SwiperSlide key={count++}>
     <div className='swiper-item-container'>
       <img className='img' src={item.img}/>
       <div className="text-container">

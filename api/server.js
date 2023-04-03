@@ -7,7 +7,6 @@ const cors = require('cors')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const connectDB = require('./config/dbCon')
-const bodyParserErrorHandler = require('express-body-parser-error-handler')
 
 //connect to database
 connectDB();
@@ -16,21 +15,19 @@ connectDB();
 const productRoute = require("./routes/api/productRoutes");
 const corsOptions = require('./config/corsOption');
 
+//middleware
 app.use(logger('dev'));
-
 app.use(cors(corsOptions))
 
-// parse json otherwise body will be undefined
-app.use(bodyParserErrorHandler());
-
+// parse json (Without this, server will not be able to handle json data in the body, thus will cause error)
 app.use(express.json());
 
-//pages route
+//ROUTE
 app.use("/products", productRoute);
 
 
 app.use("/",(request, res) =>{
-    res.json("hello world")
+    res.status(404)
 })
 
 mongoose.connection.once('open', () => {

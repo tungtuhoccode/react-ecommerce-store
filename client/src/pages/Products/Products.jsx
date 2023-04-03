@@ -4,31 +4,37 @@ import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts
 import env from "react-dotenv";
 import {useState, useEffect } from "react"
 import { useParams, useLocation } from "react-router-dom"
-import CATAGORY_LIST from "../../constant/catagoryConstant"
 
+import CATAGORY_LIST from "../../constant/catagoryConstant"
+import API_URL from "../../constant/routeConstants"
+
+let count = 0
 function Products() {
   const location = useLocation()
   const [products, setProducts] = useState([])
-  console.log(location.pathname)
-  const API_URL = `${env.REACT_APP_API_URL}/products${location.pathname}`
-  console.log(API_URL)
+  const GET_URL = `${API_URL.GENDER_CATAGORY}/${location.pathname}`
+  console.log("Products rendered")
   
-  useEffect(()=>{
+  //fetch products data
+  const fetchProducts = async () =>{
+    try{
+      const response = await fetch(GET_URL)
+      const data = await response.json()
 
-      fetch(API_URL)
-        .then((response) => response.json())
-        .then((data)=>{
-          console.log(location.pathname+" data")
-          setProducts(data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    
-  },[])
+      setProducts(data)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+
+  useEffect(()=>{
+    fetchProducts()
+  },[location])
   
+  //generate jsx products card
   const productElement = products.map(product =>{
-    console.log(product)
     return (
       <ProductsCard 
       id = { product._id}
@@ -36,14 +42,16 @@ function Products() {
       img ={ product.images[0].url}
       img2 ={ product.images[1].url}
       regularPrice ={product.price}
-      salePrice ={product.price - 10}
-      key = {product.id}
+      salePrice ={product.price}
+      key = {count++}
       isNew = {true}
       />
     )
   })
 
+  
 
+  //return 
     return (
       <div className="products">
         <div className="left">
