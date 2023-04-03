@@ -41,35 +41,6 @@ export default function ShoppingCart(props){
     //console.log
     // console.log("on hover in cart"+ isOnHover)
     // console.log("cart items count: "+cartItems.length)
-
-    //sample data
-    const data = [
-        {
-            itemName:"Brown coat",
-            price: 109.99,
-            quantity:1,
-            color: "Brown",
-            size:"S",
-            imageSource: "/img/cartImg/hmgoepprod.jpeg"
-        },
-        {
-            itemName:"Brown coat",
-            price: 39.99,
-            quantity:2,
-            color: "Brown",
-            size:"M",
-            imageSource: "/img/cartImg/hmgoepprod2.jpeg"
-        },
-        {
-            itemName:"Brown coat",
-            price: 109.99,
-            quantity:2,
-            color: "Brown",
-            size:"M",
-            imageSource: "https://lp2.hm.com/hmgoepprod?set=source[/f9/c3/f9c3f12b844b6e09bf4263406be48fcd783ab213.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[2]&call=url[file:/product/main]"
-        },
-
-    ]
     
     //JSX component generated from data
     const cartItemElement = [...cartItems].reverse().map( itemData => {

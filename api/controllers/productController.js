@@ -1,5 +1,5 @@
 const Product = require('../model/productSchema');
-const CATAGORY_LIST = require("../constant/catagoryConstant");
+const CATEGORY_LIST = require("../constant/categoryConstant");
 
 //@desc Fetch mutiple products
 //@route GET /products/
@@ -19,6 +19,7 @@ const createProduct = async (req, res, next) => {
     if(!req.body){
         return res.status(400).json({"message":"missing body"})
     }
+
     switch(true){
         case(!req.body.name):
             return res.status(400).json({"message": "missing name"})
@@ -28,14 +29,12 @@ const createProduct = async (req, res, next) => {
             return res.status(400).json({"message": "missing price"})
         case(!req.body.color):
             return res.status(400).json({"message": "missing color"})
-        case(!req.body.size):
-            return res.status(400).json({"message": "missing size"})
-        case(!req.body.catagory):
-            return res.status(400).json({"message": "missing catagory"})
+        case(!req.body.productVariant):
+            return res.status(400).json({"message": "missing product variant"})
+        case(!req.body.category):
+            return res.status(400).json({"message": "missing category"})
         case(!req.body.images):
             return res.status(400).json({"message": "missing images"})
-        case(!req.body.stock):
-            return  res.status(400).json({"message": "missing stock"})
 
         default: 
             break;   
@@ -47,10 +46,9 @@ const createProduct = async (req, res, next) => {
             description: req.body.description,
             price: req.body.price,
             color: req.body.color,
-            size: req.body.size,
-            catagory: req.body.catagory,
+            category: req.body.category,
+            productVariant: req.body.productVariant,
             images: req.body.images,
-            stock: req.body.stock,
         })
 
         res.status(200).json({
@@ -71,7 +69,7 @@ const createProduct = async (req, res, next) => {
 const getProductsForChildren = async (req, res, next) => {
     try{
         const womenProducts = await Product.find(
-            {catagory: CATAGORY_LIST.CHILDREN}
+            {category: CATEGORY_LIST.CHILDREN}
         );
     
         if(!womenProducts) return res.status(204).json({"message":"No product found for women"})
@@ -89,7 +87,7 @@ const getProductsForChildren = async (req, res, next) => {
 const getProductsForWomen = async (req, res, next) => {
     try{
         const womenProducts = await Product.find(
-            {catagory: CATAGORY_LIST.WOMEN}
+            {category: CATEGORY_LIST.WOMEN}
         );
     
         if(!womenProducts) return res.status(204).json({"message":"No product found for women"})
@@ -106,7 +104,7 @@ const getProductsForWomen = async (req, res, next) => {
 const getProductsForMen = async (req, res, next) => {
     try{
         const menProducts = await Product.find(
-            {catagory: CATAGORY_LIST.MEN}
+            {category: CATEGORY_LIST.MEN}
         );
     
         if(!menProducts) return res.status(204).json({"message":"No product found for men"})

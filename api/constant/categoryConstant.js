@@ -1,7 +1,7 @@
-const CATAGORY_LIST = {
+const CATEGORY_LIST = {
     MEN: 'Men',
     WOMEN: 'Women',
     CHILDREN: 'Children',
 }
 
-module.exports = CATAGORY_LIST;
+module.exports = CATEGORY_LIST;

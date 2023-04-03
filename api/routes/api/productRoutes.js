@@ -1,4 +1,4 @@
-const CATAGORY_LIST = require("../../constant/catagoryConstant");
+const CATAGORY_LIST = require("../../constant/categoryConstant");
 const express = require('express')
 const router = express.Router();
 const {
@@ -34,7 +34,6 @@ router.route(`/${CATAGORY_LIST.MEN}`)
 router.route(`/${CATAGORY_LIST.CHILDREN}`)
     .get(getProductsForChildren)
 
-
 //@route /products/trending (PUBLIC)
 //@desc Getting trending product (mostly for homepage)
 router.route('/trending')
@@ -42,6 +41,7 @@ router.route('/trending')
 
 router.route("/export_product_data")
     .get(exportProductData)
+
 //@route /products/:id (PUBLIC)
 //@desc Getting product by id
 router.route("/:id")

@@ -14,7 +14,9 @@ import BalanceIcon from '@mui/icons-material/Balance';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import AddNotification from "../../components/AddNotification/AddNotification";
-
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+//COMPONENT
+import SizeBox from "../../components/SizeBox/SizeBox"
 //API URL 
 import API_URL from "../../constant/routeConstants"
 
@@ -28,6 +30,8 @@ function Product() {
     //fetch product data
     const [productData, setProductData] = useState({})
     const [images, setImages] = useState([])
+    const [sizes, setSizes] = useState([])
+
 
     const fetchProductData = async () => {
       const productURL = `${API_URL.SINGLE_PRODUCT}/${productID}`
@@ -36,6 +40,14 @@ function Product() {
       console.log("data images: "+data.images)
       setProductData(data)
       setImages(data.images)
+      console.log(data.productVariant)
+      setSizes(
+        data.productVariant.map(variant => {
+          return {
+            size: variant.size,
+            isActive: false
+          }
+        }))
     }
 
     useEffect(()=>{
@@ -77,10 +89,52 @@ function Product() {
 
     setNotificationStyle(show ? "8px":"-300px")
 
+    //size box 
+    const [currentSize, setCurrentSize] = useState(-1)
+    function handleClickSizeBox(index){
+      let newSizes = []
+      setCurrentSize(index)
+      for (let i=0;i<sizes.length;i++){
+        let size = sizes[i]
+        newSizes.push({
+          ...sizes[i],
+          isActive: index == i ? true:false
+        })
+      }
+
+      setSizes(newSizes)
+    }
+
+    function generateSizeBoxElements(){
+      let sizeBoxElements = []
+
+      for (let i=0;i<sizes.length;i++){
+        let size = sizes[i]
+        sizeBoxElements.push(<SizeBox handleClick={() => handleClickSizeBox(i)} value={size.size} isActive={size.isActive} />)
+      }
+
+      return sizeBoxElements
+
+    }
+
     //handle adding to cart
     function addToCartFromProduct(){
-      let randomTestItem = (cartTestData[function(){return Math.floor(Math.random() * 3)}()] )
-      dispatch(addToCart(randomTestItem))
+      console.log(currentSize)
+      if (currentSize == -1) return
+
+      let thisProduct =  {
+        id:  productData.name +" with size "+ sizes[currentSize].size,
+        itemName: productData.name,
+        price: productData.price,
+        quantity: 1,
+        color: productData.color,
+        size: sizes[currentSize].size,
+        imageSource: productData.images[1].url
+      }
+
+      console.log("this product is")
+      console.log(thisProduct)
+      dispatch(addToCart(thisProduct))
       showNotification(id+1)
       id2++
       id++
@@ -168,8 +222,15 @@ function Product() {
        <div className="right">
             <h1 className="title">{productData.name}</h1>
             <h2 className="price">${productData.price}</h2>
+
+            <div className="sizes-container">
+              <h5 className="size-title">Sizes </h5>
+              <div className="sizes-wrapper">
+                {generateSizeBoxElements()}
+              </div>
+            </div>
             <button onClick={() => addToCartFromProduct()}className="add-to-cart">
-              <span>ADD TO CART</span>
+              <span style={{display:"flex", alignItems:"center",gap:"5px"}}><ShoppingBagOutlinedIcon></ShoppingBagOutlinedIcon>ADD TO CART</span>
             </button>
             <div className="desc">
               <p className="description">{productData.description}</p>

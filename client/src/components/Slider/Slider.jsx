@@ -40,8 +40,8 @@ const sliderElements = data.map(item => {
     <div className='swiper-item-container'>
       <img className='img' src={item.img}/>
       <div className="text-container">
-        <h2>{item.title}</h2>
-        <h5>{item.description}</h5>
+        <h2 className='item-title'>{item.title}</h2>
+        <h5 className='item-description'>{item.description}</h5>
         <button>Shop now</button>
       </div>
     </div>

@@ -6,13 +6,14 @@ export const cartSlice = createSlice({
         cartItems: [],
         cartItemSet: {}, //key: itemID, value: itemIndex (in cartItems)
         orderValue: 0,
-        isOnHover: false,
+        isOnHover: true,
         lastItemAdded: undefined,
         totalCartPrice: 0
     },
     reducers:{
         addToCart: (state, action) =>{
             let itemID = action.payload.id
+            let itemSize = action.payload.size
             let cartItemSet = state.cartItemSet
 
             if(itemID in cartItemSet){
@@ -31,7 +32,6 @@ export const cartSlice = createSlice({
 
             state.lastItemAdded = action.payload
             state.totalCartPrice += action.payload.price 
-
         },
 
         removeFromCart: (state, action) =>{

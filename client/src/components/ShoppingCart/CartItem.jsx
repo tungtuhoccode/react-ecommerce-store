@@ -11,14 +11,14 @@ export default function CartItem(props){
                 </div>
 
                 <div className="item-info">
-                    <h3>{props.name}</h3>
-                    <h4>${props.price}</h4>
-                    <p>
+                    <h3 className="item-name">{props.name}</h3>
+                    <h4 className="item-price">${props.price}</h4>
+                    <p className="p-element">
                         <span className="w30">Quantity: </span> 
                         <span>{props.quantity}</span>
                     </p>
-                    <p><span className="w30">Color: </span> <span>{props.color}</span></p>
-                    <p><span className="w30">Size: </span> <span>{props.size}</span></p>
+                    <p className="p-element"><span className="w30">Color: </span> <span>{props.color}</span></p>
+                    <p className="p-element"><span className="w30">Size: </span> <span>{props.size}</span></p>
                     
                 </div>
 

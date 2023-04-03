@@ -26,12 +26,12 @@
                 width: max-content;
                 gap: min(calc(10vw - 100px),15px);
             }
-            h2{
+            .item-title{
 
                 font-size: min(calc(2vw + 12px), 40px);
                 color: rgb(216, 186, 186);
             }
-            h5{
+            .item-description{
                 font-size: min(calc(1vw + 10px), 18px);
                 color: rgb(216, 186, 186);
             }
@@ -90,11 +90,11 @@
         }    
 
     }
-    h2{
+    .item-title{
         font-size: 4vw !important;
         color: rgb(216, 186, 186);
     }
-    h5{
+    .item-description{
         width: 90vw !important;
         font-weight: 500;
         overflow-wrap: break-word !important;
@@ -102,11 +102,11 @@
     }
 }
 @media screen and (max-width: 750px) {
-    h2{
+    .item-title{
         font-size: calc(3vw + 6px) !important;
         color: rgb(216, 186, 186);
     }
-    h5{
+    .item-description{
         width: 90vw !important;
         font-weight: 500;
         overflow-wrap: break-word !important;

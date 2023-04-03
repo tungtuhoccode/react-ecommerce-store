@@ -10,10 +10,10 @@
             object-fit: cover;
         }
     }
-    h3{
-        font-size: 18px;
+    .item-name{
+        font-size: 16px;
     }
-    h4{
+    .item-price{
         font-size: 16px;
     }
 
@@ -23,7 +23,7 @@
         gap: 3px;
         width: 100%;
     }
-    p{
+    .p-element{
         font-size: 13px;
     }
     
@@ -45,10 +45,10 @@
                 object-fit: cover;
             }
         }
-        h3{
+        .item-name{
             font-size: 14px;
         }
-        h4{
+        .item-price{
             font-size: 12px;
         }
     
@@ -59,7 +59,7 @@
             width: 100%;
 
         }
-        p{
+        .p-element{
             font-size: 11px;
         }
         
