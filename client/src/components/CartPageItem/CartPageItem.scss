@@ -1,0 +1,130 @@
+:root{
+    .link-element{
+        text-decoration: none;
+        color: rgb(39, 37, 37);
+    }
+    .link-element:hover{
+        text-decoration: underline;
+        color: rgb(187, 128, 46);
+    }
+}
+
+
+
+
+
+.cart-page-container{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    width: 100%;
+    height: max(170px, 100%);
+
+    
+    .delete-icon{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        background-color:  rgb(248, 249, 249);
+        cursor: pointer;
+    }
+    .delete-icon:hover{
+        color: rgb(187, 128, 46);
+
+    }
+    .left{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        align-items: center;
+        padding: 10px 5px 10px 10px;
+        gap: 5px;
+
+        .product-image{
+            width: 90px;
+        }   
+        .favourite-button{
+            position: absolute;
+            font-size: 25px;
+            color: rgb(65, 65, 65);
+            bottom: 30px;
+            right: 10px;
+        }
+    }
+
+
+    .product-info{
+        padding: 10px 5px 10px 10px;
+        width: 100%;
+        .price{
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .variant-info{
+            margin-top: 5px;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            .color-size{
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                
+            }
+            .w-30{
+                display: inline-block;
+                width: 40%;
+            }
+            .size-selection{
+                display: flex;
+                font-size: 14px;
+                .select-box{
+                    color: black;
+                    border: 0.2px solid gray;
+                    width: 45px;
+                    height: 22px;
+                    border-radius: 5px;
+                }
+            }
+        }
+        .product-name{
+            max-width: 180px;
+        }
+        
+
+    }
+}
+
+@media screen and (min-width: 330px) {
+    .cart-page-container{
+        .product-info{
+            .product-name{
+                max-width: none !important;
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 768px) {
+    
+    .cart-page-container{
+        background-color: rgb(248, 249, 249);
+        height: 185px;
+        .left{
+            .product-image{
+                width: 110px;
+            }   
+            .favourite-button{
+                bottom: 15px;
+            }
+        }
+        .product-info{
+            .product-name{
+            }
+        }
+    }
+        
+}
+

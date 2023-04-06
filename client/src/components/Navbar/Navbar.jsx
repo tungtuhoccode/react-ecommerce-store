@@ -3,15 +3,16 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {Link} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 import "./Navbar.scss"
 import React from "react"
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import { setIsCartOnHover } from '../../app/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 
 function NavBar() {
+    
     //responsiveness
     const [mQuery, setMQuery] = React.useState({
         matches: window.innerWidth > 1000 ? true : false,
@@ -30,6 +31,7 @@ function NavBar() {
     },        
     [mQuery])
 
+    const location = useLocation()
 
     //responsiveness - navbar
     const [isUsingNavMenu, setIsUsingNavMenu] = React.useState(false)
@@ -64,6 +66,7 @@ function NavBar() {
     }
 
     function handleOpenCart(){
+        if (location.pathname =="/cart" ) return 
         if(!isUsingNavMenu){
             dispatch(setIsCartOnHover(true))
         }
@@ -107,21 +110,23 @@ function NavBar() {
                     </div>
                     
                     <div className="right">
-                        <div className="item">Homepage</div>
+
+                        <Link className="link"  to="/"> <div className="item">Homepage</div> </Link>
                         <div className="item">About</div>
                         <div className="item">Contact</div>
                         <div onMouseLeave={handleCloseCart}  className="icons">
                             <SearchIcon/>
                             <PersonOutlineIcon/>
                             <FavoriteBorderIcon/>
-                            <div onMouseOver={handleOpenCart} className="cart">
-                                <div className="cart-icon">
-                                    <ShoppingCartOutlinedIcon/>
-                                    <span className="cart-item-count">{numberOfCartItem}</span>
+                            <Link onClick={() => dispatch(setIsCartOnHover(false))} style={{textDecoration:"none", color:"grey"}} to="/cart">
+                                <div onMouseOver={handleOpenCart} className="cart">
+                                    <div className="cart-icon">
+                                        <ShoppingBagOutlined/>
+                                        <span className="cart-item-count">{numberOfCartItem}</span>
+                                    </div>
                                 </div>
+                            </Link>
                             <ShoppingCart isOnHover={isCartHover} mouseLeave={()=>handleCloseCart()}/>
-                            </div>
-                
                         </div>
                     </div>
                 </div>
@@ -175,9 +180,9 @@ function NavBar() {
                             <SearchIcon/>
                             <PersonOutlineIcon/>
                             <FavoriteBorderIcon/>
-                            <Link style={{textDecoration:"none", color:"grey"}} to="/checkout">
+                            <Link onClick={() => dispatch(setIsCartOnHover(false))} style={{textDecoration:"none", color:"grey"}} to="/cart">
                                 <div className="cart-icon">
-                                    <ShoppingCartOutlinedIcon/>
+                                    <ShoppingBagOutlined/>
                                     <span>{numberOfCartItem}</span>
                                 </div>
                             </Link>

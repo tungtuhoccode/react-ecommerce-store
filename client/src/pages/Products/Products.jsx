@@ -12,7 +12,7 @@ let count = 0
 function Products() {
   const location = useLocation()
   const [products, setProducts] = useState([])
-  const GET_URL = `${API_URL.GENDER_CATAGORY}/${location.pathname}`
+  const GET_URL = `${API_URL.GENDER_CATEGORY}${location.pathname}`
   console.log("Products rendered")
   
   //fetch products data
@@ -106,7 +106,8 @@ function Products() {
 
         <div className="right">
           <div className="top">
-              <img src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs-tinysrgb&w=1600" alt="" className="catagory-img" />
+              {location.pathname == "/men" && <img src="/img/featuredProduct/men_banner.jpeg" alt="" className="catagory-img" />}
+              {location.pathname == "/women" &&<img src="/img/featuredProduct/women_banner.jpeg" alt="" className="catagory-img" />}
           </div>
           <h1 style={{textAlign:"center"}}>{location.pathname.split("/")[1]}</h1>
           <div className="bottom">

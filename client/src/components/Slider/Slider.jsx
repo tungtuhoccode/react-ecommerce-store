@@ -27,9 +27,9 @@ const data = [
   },
 
   {
-    img:  "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/divided_s06/december_2022/5096c/5096C-3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
-    title: "Hello new season and new fits",
-    description: "Find your fave pants.",
+    img:  "/img/featuredProduct/landing_page_banner.jpg",
+    title: "",
+    description: "",
   }
   ,
 ];
@@ -42,7 +42,7 @@ const sliderElements = data.map(item => {
       <div className="text-container">
         <h2 className='item-title'>{item.title}</h2>
         <h5 className='item-description'>{item.description}</h5>
-        <button>Shop now</button>
+        <button className='shop-button'>Shop now</button>
       </div>
     </div>
   </SwiperSlide>

@@ -14,7 +14,7 @@ const ProductsCard = (props) =>{
         return Math.round(((props.regularPrice - props.salePrice)/props.regularPrice )*100)
     }
     return (
-        <Link className="product-card-link" to={`/product/${props.id}`}>
+        <Link className="products-card-link" to={`/product/${props.id}`}>
             <div className="products-card">
                 <div className="products-card-image">
                     <img src={props.img} alt="" className="pc-main-image" />

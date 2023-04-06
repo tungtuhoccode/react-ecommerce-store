@@ -1,15 +1,13 @@
-.notification-container{
-    position: fixed;
+.notification-wrapper{
     border-radius: 3%;
     z-index: 2;
-    width: 280px;
+    width: 290px;
     height: 190px;
-    // background-color: rgb(214, 206, 201);
     background-color: rgb(232, 225, 221);
 
     .notification-title{
         text-align: center;
-        color: rgb(137, 96, 96);
+        color: rgb(108, 89, 72);
         margin-bottom: 5px;
     }
 
@@ -19,9 +17,9 @@
     
 }
 @media screen and (max-width: 1000px) {
-    .notification-container{
-        height: 150px;
-        width: 230px;
+    .notification-wrapper{
+        width: 240px;
+        height: 160px;
 
         .notification-title{
             font-size: 18px;

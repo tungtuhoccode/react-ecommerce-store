@@ -11,7 +11,7 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom"
-import CheckOut from "./pages/CheckOut/CheckOut"
+import Cart from "./pages/Cart/CartPage"
 
 
 const Layout = () => {
@@ -23,6 +23,7 @@ const Layout = () => {
     </div>
   )
 }
+
 const router = createBrowserRouter([
     {
       path:"/",
@@ -34,8 +35,8 @@ const router = createBrowserRouter([
         element:<Home/>
       },
       {
-        path:"/checkout",
-        element:<CheckOut/>
+        path:"/cart",
+        element:<Cart/>
       },
       {
         path:"/women",

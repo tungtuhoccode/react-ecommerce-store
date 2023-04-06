@@ -1,5 +1,5 @@
 
-.product-card-link{
+.products-card-link{
     width: 100%;
     height: 100%;
     display: block;
@@ -11,7 +11,7 @@
         margin-bottom: 10px;
         .products-card-image{
             display: block;
-            height: 75%;
+            height: 80%;
             position: relative;
             img{
                 width: 100%;
@@ -85,7 +85,7 @@
     
     }
 }
-.product-card-link:hover{
+.products-card-link:hover{
     .products-card{
         .pc-title{
             text-decoration: underline;
@@ -98,16 +98,17 @@
     }
 
 }
-.product-card-link{
+.products-card-link{
     color: black;
     text-decoration: none;
 }
 
-@media screen and (max-width: 1150px) {
+
+@media screen and (max-width: 760px) {
     .products-card-link{
         .products-card{
-            .image{
-                height: 80%;
+            .products-card-image{
+                height: 75%;
             }
         }
     }
@@ -115,8 +116,10 @@
 @media screen and (max-width: 425px) {
     .products-card-link{
         .products-card{
-            .image{
-                height: 90%;
+            .products-card-image{
+                height: 75%;
+                .image{
+                }
             }
         }
     }

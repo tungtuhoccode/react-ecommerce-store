@@ -8,7 +8,6 @@ import API_URL from "../../constant/routeConstants"
 let count = 1
 const ProductsList = (props) =>{
     const [data, setData] = useState([])
-
     useEffect( ()=>{
         const fetchProducts = async () => {
             try{

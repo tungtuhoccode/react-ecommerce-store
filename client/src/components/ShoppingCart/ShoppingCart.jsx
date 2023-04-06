@@ -8,6 +8,7 @@ import { setIsCartOnHover } from "../../app/cartSlice";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from "react-redux";
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
 export default function ShoppingCart(props){
     //react function()
@@ -43,38 +44,63 @@ export default function ShoppingCart(props){
     // console.log("cart items count: "+cartItems.length)
     
     //JSX component generated from data
-    const cartItemElement = [...cartItems].reverse().map( itemData => {
-            countKey++;
-            return (
+    // const cartItemElement = [...cartItems].reverse().map( itemData => {
+    //         countKey++;
+    //         return (
+    //             <SwiperSlide> 
+    //                 <CartItem 
+    //                     key = {countKey}
+    //                     id = {itemData.id}
+    //                     name={itemData.itemName} 
+    //                     price = {itemData.price} 
+    //                     quantity = {itemData.quantity}
+    //                     color = {itemData.color}
+    //                     size = {itemData.size}
+    //                     imageSource = {itemData.imageSource}
+    //                 />
+    //             </SwiperSlide>
+    //         )
+    //     })
+
+    const cartItemElement = (() => {
+        let cartItemElementList = []
+        for(let i=cartItems.length-1;i >= 0;i--){
+            let itemData = cartItems[i]
+            cartItemElementList.push (
                 <SwiperSlide> 
-                    <CartItem 
-                        key = {countKey}
+                    <CartItem
+                        key = {i}
+                        id = {itemData.id}
                         name={itemData.itemName} 
                         price = {itemData.price} 
                         quantity = {itemData.quantity}
                         color = {itemData.color}
                         size = {itemData.size}
                         imageSource = {itemData.imageSource}
+                        index = {i}
                     />
                 </SwiperSlide>
             )
-        })
+        }
+        return cartItemElementList
+    })()
+
 
 
     //FINAL COMPONENT
     return (
         <div  style={displayControl} onMouseLeave = {() => {dispatch(setIsCartOnHover(false))}} className="cart-hover-area">
             <div style={ swiperWrapperHeight } className="cart-item-area">
-                {cartItems.length > 1 && <KeyboardArrowUpIcon className="prev2"/>}
+                {cartItems.length > 2 && <KeyboardArrowUpIcon className="prev2"/>}
                     <Swiper
                         direction={"vertical"}
-                        modules={[Navigation, A11y,Pagination]}
-                        pagination = {true}
+                        modules={[Navigation, A11y, Pagination]}
+                        pagination = {{ clickable: true }}
                         spaceBetween={0}
                         slidesPerView={cartItems.length > 1 ? 2:1}
                         loop={true}
                         style={cartItemHeight}
-                        navigation={cartItems.length>1?{
+                        navigation={cartItems.length>2?{
                             nextEl: '.next2', 
                             prevEl: '.prev2', 
                         }:false}
@@ -83,7 +109,7 @@ export default function ShoppingCart(props){
                     >
                         {cartItemElement}
                     </Swiper>
-                {cartItems.length > 1 && <ExpandMoreIcon className="next2"/>}
+                {cartItems.length > 2 && <ExpandMoreIcon className="next2"/>}
             </div>
 
             <hr/>
@@ -103,14 +129,16 @@ export default function ShoppingCart(props){
           
             <Link className="link-with-button" to="/checkout">
                 <button className="black-button">
+
                     <span className="white-text">Checkout</span>
                 </button>
             </Link>
           
-            <Link className="link-with-button" to="/checkout">
-                <button className="white-button">
+            <Link onClick={() => dispatch(setIsCartOnHover(false))} className="link-with-button" to="/cart">
+                <div className="white-button">
+                    {/* <ShoppingBagOutlinedIcon className="black-text"></ShoppingBagOutlinedIcon> */}
                     <span className="black-text">Shopping Bag</span>
-                </button>
+                </div>
             </Link>
         </div>
     )

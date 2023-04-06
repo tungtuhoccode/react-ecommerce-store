@@ -51,8 +51,9 @@
         gap: 30px;
         .catagory-img{
             width: 100%;
-            height: calc(28 * min(80vw,1200px) /100);
-            object-fit:cover;
+            height: calc(40 * min(80vw,1200px) /100);
+            object-fit: fill;
+            max-height: 300px;
         }
         .bottom{
             display: grid; /* 1 */
@@ -76,7 +77,7 @@
                 margin: 20px;
                 display: grid; /* 1 */
                 grid-template-columns: repeat(4, 25%); /* 2 */
-                grid-auto-rows: 35vw; /* 2 */
+                grid-auto-rows: 34vw; /* 2 */
                 .card-item{
                 }
             }
@@ -172,8 +173,6 @@
                 grid-template-columns: repeat(2, 50%); /* 2 */
                 grid-gap: 0.5rem;
                 grid-auto-rows: 80vw; /* 2 */
-                .card-item{
-                }
             }
         }
     }

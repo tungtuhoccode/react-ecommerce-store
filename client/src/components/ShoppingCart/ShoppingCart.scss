@@ -1,5 +1,6 @@
+
 .cart-hover-area{
- 
+    
     position: absolute;
     right: 27px;
     top: 45px;
@@ -41,6 +42,9 @@
 .total{
     margin-bottom: 10px;
 }
+.cart-icon:hover{
+    color: rgb(211, 45, 45);
+}
 .link-with-button{
     text-decoration: none;
     width: 85%;
@@ -56,16 +60,26 @@
 }
 
 .white-text{
-    color: white;
+    color: black;
 }
 .black-button{
-    background-color: rgb(39, 38, 38);
+    background-color: rgb(255, 255, 255);
 }
 .white-button{
-    background-color: white;
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#ad7646;
+    border: #e6c09f;
 }
 .black-text{
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 @media (max-width:1000px) {

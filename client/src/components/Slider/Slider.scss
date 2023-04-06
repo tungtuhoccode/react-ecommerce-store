@@ -13,6 +13,7 @@
                 height: 80%;
                 max-height: 700px;
                 object-fit: cover;
+                object-position: 5% 5%; 
             }
             .text-container{
                 width: 100%;
@@ -35,15 +36,17 @@
                 font-size: min(calc(1vw + 10px), 18px);
                 color: rgb(216, 186, 186);
             }
-            button{
-                width: 80px;
-                height: 35px;
+            .shop-button{
+                width: 160px;
+                height: 50px;
+                border-radius: 20px;
                 margin-top: 15px;
                 border: none;
-                background-color: white;
+                background-color: rgb(221, 207, 187);
                 opacity: 1;
-                color: black;
-                font-size: 13px;
+                color: rgb(58, 58, 58);
+                font-size: 15px;
+                font-weight: 600;
                 font-weight: 600;
             }
 

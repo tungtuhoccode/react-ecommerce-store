@@ -2,10 +2,11 @@
 import "./Product.scss"
 
 //MODULE
-import {useEffect, useState} from "react"
+import {useEffect, useState, useRef} from "react"
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from "../../app/cartSlice";
-import { useParams } from "react-router-dom";
+import { addToCart, setIsCartOnHover } from "../../app/cartSlice";
+import { useParams, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //ICON
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -15,8 +16,10 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import AddNotification from "../../components/AddNotification/AddNotification";
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+
 //COMPONENT
 import SizeBox from "../../components/SizeBox/SizeBox"
+
 //API URL 
 import API_URL from "../../constant/routeConstants"
 
@@ -24,6 +27,7 @@ let id = 0
 var id2 = 0
 
 function Product() {
+    const location = useLocation()
     const productID = useParams().id
     const dispatch = useDispatch();
     
@@ -31,16 +35,16 @@ function Product() {
     const [productData, setProductData] = useState({})
     const [images, setImages] = useState([])
     const [sizes, setSizes] = useState([])
-
+  
 
     const fetchProductData = async () => {
       const productURL = `${API_URL.SINGLE_PRODUCT}/${productID}`
       const response = await fetch(productURL)
       const data = await response.json()
-      console.log("data images: "+data.images)
+      // console.log("data images: "+data.images)
       setProductData(data)
       setImages(data.images)
-      console.log(data.productVariant)
+      // console.log(data.productVariant)
       setSizes(
         data.productVariant.map(variant => {
           return {
@@ -52,8 +56,9 @@ function Product() {
 
     useEffect(()=>{
       fetchProductData()
-    },[])
-    console.log(productData)
+      setShow(false)
+    },[location])
+    // console.log(productData)
 
     //image area, quantity, favourite state
 
@@ -63,31 +68,59 @@ function Product() {
 
 
     //notification and timer for notification
+    const notifiaiton_tracker_ref = useRef(null)
     const [show, setShow] = useState(false)
     const lastItemAdded = useSelector(state => state.cart.lastItemAdded) 
 
     function showNotification(idIn){
       setShow(true)
+      startAnimation() 
       
       setTimeout(() => {
         if(idIn === id2){
           setShow(false)
+          endAnimation()
         }
-      }, 2000);
+      }, 650);
       
     }
 
-    function setNotificationStyle(){
-      let offset = 0
-      if(window.innerHeight < 800){
-        offset = 5
-      }else{
-        offset = 20
-      }
-      document.documentElement.style.setProperty("--location-value", show? offset + "px" : "-300px")
+    useEffect(() => {
+      window.scrollTo(0, 0)
+    }, [])
+    
+    // function setNotificationStyle(){
+    //   let offset = 0
+    //   if(window.innerHeight < 800){
+    //     offset = 5
+    //   }else{
+    //     offset = 20
+    //   }
+    //   document.documentElement.style.setProperty("--location-value", show? offset + "px" : "-300px")
+    // }
+
+    // setNotificationStyle()
+    // useEffect(() => {
+    //   if (notifiaiton_tracker_ref && notifiaiton_tracker_ref.current) {
+    //     notifiaiton_tracker_ref.current.classList.add("hide")
+    //     console.log("use effect running");
+    //   }
+    // }, []);
+
+    function startAnimation(){
+      console.log("start");
+      notifiaiton_tracker_ref.current.classList.remove("hide")
+      notifiaiton_tracker_ref.current.classList.add("show")
+      console.log(notifiaiton_tracker_ref.current.classList);
+
+    }
+    function endAnimation(){
+      console.log("end");
+      notifiaiton_tracker_ref.current.classList.remove("show")
+      notifiaiton_tracker_ref.current.classList.add("hide")
+      console.log(notifiaiton_tracker_ref.current.classList);
     }
 
-    setNotificationStyle(show ? "8px":"-300px")
 
     //size box 
     const [currentSize, setCurrentSize] = useState(-1)
@@ -119,11 +152,10 @@ function Product() {
 
     //handle adding to cart
     function addToCartFromProduct(){
-      console.log(currentSize)
       if (currentSize == -1) return
 
       let thisProduct =  {
-        id:  productData.name +" with size "+ sizes[currentSize].size,
+        id: productID,
         itemName: productData.name,
         price: productData.price,
         quantity: 1,
@@ -132,44 +164,14 @@ function Product() {
         imageSource: productData.images[1].url
       }
 
-      console.log("this product is")
-      console.log(thisProduct)
+      // console.log("this product is")
+      // console.log(thisProduct)
       dispatch(addToCart(thisProduct))
       showNotification(id+1)
       id2++
       id++
     }
 
-    //data
-    const cartTestData = [
-      {
-          id: 12,
-          itemName:"Brown coat",
-          price: 109.99,
-          quantity:1,
-          color: "Brown",
-          size:"S",
-          imageSource: "/img/cartImg/hmgoepprod.jpeg"
-      },
-      {
-          id: 13,
-          itemName:"Purple Sock",
-          price: 39.99,
-          quantity:1,
-          color: "Brown",
-          size:"S",
-          imageSource: "/img/cartImg/hmgoepprod2.jpeg"
-      },
-      {
-          id: 15,
-          itemName:"Yellow Pant",
-          price: 1.99,
-          quantity:1,
-          color: "Red",
-          size:"M",
-          imageSource: "https://lp2.hm.com/hmgoepprod?set=source[/f9/c3/f9c3f12b844b6e09bf4263406be48fcd783ab213.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[2]&call=url[file:/product/main]"
-      },
-    ]
 
     //image and other helper function
     function getNewMainImage(index){
@@ -202,8 +204,14 @@ function Product() {
 
       <div className="product-container">
 
-        <div className="notification-container">
-          {lastItemAdded &&  <AddNotification  close = {() => setShow(false)}/>}
+        <div ref={notifiaiton_tracker_ref} className="notification-container">
+          {lastItemAdded &&  
+            <Link style={{textDecoration:"none"}} to={`/cart`}>
+                <AddNotification  close = {() => {
+                  setShow(false)
+                }} />
+            </Link>
+          }
         </div>
         
        <div className="left">

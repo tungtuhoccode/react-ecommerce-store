@@ -5,7 +5,7 @@ import "./AddNotification.scss"
 export default function AddNotification(props){
     let {lastItemAdded} = useSelector( state => state.cart)
     return (
-        <div className="notification-container">
+        <div className="notification-wrapper">
             <div className="adding-notification">
                 <h3 className="notification-title">New Item Added</h3>
                 <CartItem 
