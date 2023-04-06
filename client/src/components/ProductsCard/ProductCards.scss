@@ -1,5 +1,5 @@
 
-.product-card-link{
+.products-card-link{
     width: 100%;
     height: 100%;
     display: block;
@@ -7,12 +7,11 @@
     .products-card{
         width: 100%;
         height: 100%;
-        display: block;
         position: relative;
         margin-bottom: 10px;
         .products-card-image{
             display: block;
-            height: 75%;
+            height: 80%;
             position: relative;
             img{
                 width: 100%;
@@ -32,16 +31,17 @@
                 z-index: -1;
             }
         }
-
-        .pc-new-season{
+        .pc-favourite{
             position: absolute;
-            z-index: 3;
-            top: 5px;
-            left: 5px;
-            background-color: white;
-            color: teal;
-            font-size: 12px;
-            padding: 4px;
+            z-index: 5;
+            bottom: 5px;
+            right: 5px;
+            font-size: 30px;
+
+            font-weight: 100;
+        }
+        .pc-favourite:hover{
+            cursor: pointer;
         }
 
         .pc-sale-percentage{
@@ -85,28 +85,30 @@
     
     }
 }
-.product-card-link:hover{
-   .title{
-       text-decoration: underline;
-   }
-}
-.product-card-link{
-    text-decoration: none;
-    .pc-title{
-        color: black;
-    }
-    .pc-card:hover{
-        .pc-second-image{
-            z-index: 2;
+.products-card-link:hover{
+    .products-card{
+        .pc-title{
+            text-decoration: underline;
+        }
+        .products-card-image{
+            .pc-second-image{
+                z-index: 3;
+            }
         }
     }
+
+}
+.products-card-link{
+    color: black;
+    text-decoration: none;
 }
 
-@media screen and (max-width: 1150px) {
+
+@media screen and (max-width: 760px) {
     .products-card-link{
         .products-card{
-            .image{
-                height: 80%;
+            .products-card-image{
+                height: 75%;
             }
         }
     }
@@ -114,8 +116,10 @@
 @media screen and (max-width: 425px) {
     .products-card-link{
         .products-card{
-            .image{
-                height: 90%;
+            .products-card-image{
+                height: 75%;
+                .image{
+                }
             }
         }
     }

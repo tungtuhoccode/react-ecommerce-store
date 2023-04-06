@@ -102,6 +102,8 @@
     }
 }
 
+
+
 @media screen and (max-width: 1150px) {
     .card-link{
         .card{
@@ -111,6 +113,19 @@
         }
     }
 }
+
+@media screen and (max-width: 840px) {
+    .card-link{
+        .card{
+            .image{
+                .new-season{
+                    font-size: 9px;
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 425px) {
     .card-link{
     .card{

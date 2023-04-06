@@ -1,69 +1,179 @@
+//CSS
 import "./Product.scss"
 
-import {useState} from "react"
+//MODULE
+import {useEffect, useState, useRef} from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, setIsCartOnHover } from "../../app/cartSlice";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+//ICON
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BalanceIcon from '@mui/icons-material/Balance';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import { stepIconClasses } from "@mui/material";
+import AddNotification from "../../components/AddNotification/AddNotification";
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
+//COMPONENT
+import SizeBox from "../../components/SizeBox/SizeBox"
+
+//API URL 
+import API_URL from "../../constant/routeConstants"
+
+let id = 0
+var id2 = 0
 
 function Product() {
+    const location = useLocation()
     const productID = useParams().id
-    console.log("productID: "+productID)
     const dispatch = useDispatch();
     
-    const images = [
-      "/img/productPageImg/productImage2.jpeg",
-      "/img/productPageImg/tShirt.jpeg",
+    //fetch product data
+    const [productData, setProductData] = useState({})
+    const [images, setImages] = useState([])
+    const [sizes, setSizes] = useState([])
+  
 
-    ]
-    const cartTestData = [
-      {
-        id: 12,
-        itemName:"Brown coat",
-        price: 109.99,
-        quantity:1,
-        color: "Brown",
-        size:"S",
-        imageSource: "/img/cartImg/hmgoepprod.jpeg"
-    },
-    {
-        id: 13,
-        itemName:"Purple Sock",
-        price: 39.99,
-        quantity:1,
-        color: "Brown",
-        size:"S",
-        imageSource: "/img/cartImg/hmgoepprod2.jpeg"
-    },
-    {
-        id: 15,
-        itemName:"Yellow Pant",
-        price: 1.99,
-        quantity:1,
-        color: "Red",
-        size:"M",
-        imageSource: "https://lp2.hm.com/hmgoepprod?set=source[/f9/c3/f9c3f12b844b6e09bf4263406be48fcd783ab213.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[z],hmver[2]&call=url[file:/product/main]"
-    },
-    ]
+    const fetchProductData = async () => {
+      const productURL = `${API_URL.SINGLE_PRODUCT}/${productID}`
+      const response = await fetch(productURL)
+      const data = await response.json()
+      // console.log("data images: "+data.images)
+      setProductData(data)
+      setImages(data.images)
+      // console.log(data.productVariant)
+      setSizes(
+        data.productVariant.map(variant => {
+          return {
+            size: variant.size,
+            isActive: false
+          }
+        }))
+    }
+
+    useEffect(()=>{
+      fetchProductData()
+      setShow(false)
+    },[location])
+    // console.log(productData)
+
+    //image area, quantity, favourite state
 
     const [mainImageIndex, setMainImageIndex] = useState(0)
     const [quantity, setQuantity] = useState(1)
     const [isFavorite, setIsFavorite] = useState(false)
-    function initilizeSideImagesElement(){
-      const imgElements = []
-      for(let i=0;i<images.length;i++){
-        imgElements.push(<img key={i} onClick={()=>getNewMainImage(i)} src={images[i]}/>)
-      }
-      return imgElements
+
+
+    //notification and timer for notification
+    const notifiaiton_tracker_ref = useRef(null)
+    const [show, setShow] = useState(false)
+    const lastItemAdded = useSelector(state => state.cart.lastItemAdded) 
+
+    function showNotification(idIn){
+      setShow(true)
+      startAnimation() 
+      
+      setTimeout(() => {
+        if(idIn === id2){
+          setShow(false)
+          endAnimation()
+        }
+      }, 650);
+      
     }
+
+    useEffect(() => {
+      window.scrollTo(0, 0)
+    }, [])
+    
+    // function setNotificationStyle(){
+    //   let offset = 0
+    //   if(window.innerHeight < 800){
+    //     offset = 5
+    //   }else{
+    //     offset = 20
+    //   }
+    //   document.documentElement.style.setProperty("--location-value", show? offset + "px" : "-300px")
+    // }
+
+    // setNotificationStyle()
+    // useEffect(() => {
+    //   if (notifiaiton_tracker_ref && notifiaiton_tracker_ref.current) {
+    //     notifiaiton_tracker_ref.current.classList.add("hide")
+    //     console.log("use effect running");
+    //   }
+    // }, []);
+
+    function startAnimation(){
+      console.log("start");
+      notifiaiton_tracker_ref.current.classList.remove("hide")
+      notifiaiton_tracker_ref.current.classList.add("show")
+      console.log(notifiaiton_tracker_ref.current.classList);
+
+    }
+    function endAnimation(){
+      console.log("end");
+      notifiaiton_tracker_ref.current.classList.remove("show")
+      notifiaiton_tracker_ref.current.classList.add("hide")
+      console.log(notifiaiton_tracker_ref.current.classList);
+    }
+
+
+    //size box 
+    const [currentSize, setCurrentSize] = useState(-1)
+    function handleClickSizeBox(index){
+      let newSizes = []
+      setCurrentSize(index)
+      for (let i=0;i<sizes.length;i++){
+        let size = sizes[i]
+        newSizes.push({
+          ...sizes[i],
+          isActive: index == i ? true:false
+        })
+      }
+
+      setSizes(newSizes)
+    }
+
+    function generateSizeBoxElements(){
+      let sizeBoxElements = []
+
+      for (let i=0;i<sizes.length;i++){
+        let size = sizes[i]
+        sizeBoxElements.push(<SizeBox handleClick={() => handleClickSizeBox(i)} value={size.size} isActive={size.isActive} />)
+      }
+
+      return sizeBoxElements
+
+    }
+
+    //handle adding to cart
+    function addToCartFromProduct(){
+      if (currentSize == -1) return
+
+      let thisProduct =  {
+        id: productID,
+        itemName: productData.name,
+        price: productData.price,
+        quantity: 1,
+        color: productData.color,
+        size: sizes[currentSize].size,
+        imageSource: productData.images[1].url
+      }
+
+      // console.log("this product is")
+      // console.log(thisProduct)
+      dispatch(addToCart(thisProduct))
+      showNotification(id+1)
+      id2++
+      id++
+    }
+
+
+    //image and other helper function
     function getNewMainImage(index){
       setMainImageIndex(index)
     }
@@ -78,40 +188,64 @@ function Product() {
     function toggleFavorite(){
       setIsFavorite(prev => !prev)
     }
-    function addToCartFromProduct(){
-      dispatch(addToCart(cartTestData[function(){return Math.floor(Math.random() * 3)}()] ))
-      dispatch(setIsCartOnHover(true))
+
+
+    //JSX array element
+    function initilizeSideImagesElement(){
+      const imgElements = []
+      for(let i=0;i<images.length;i++){
+        imgElements.push(<img alt="side images" key={i} onClick={()=>getNewMainImage(i)} src={images[i].url}/>)
+      }
+      return imgElements
     }
 
+    //RETURN JSX
     return (
+
       <div className="product-container">
+
+        <div ref={notifiaiton_tracker_ref} className="notification-container">
+          {lastItemAdded &&  
+            <Link style={{textDecoration:"none"}} to={`/cart`}>
+                <AddNotification  close = {() => {
+                  setShow(false)
+                }} />
+            </Link>
+          }
+        </div>
+        
        <div className="left">
           <div className="image-container">
            
             
             <div className="main-image">
-              <img src={images[mainImageIndex]}/>
+              <img src={images[mainImageIndex]?.url}/>
             </div>
             <div className="side-images">
                 {initilizeSideImagesElement()}
             </div>
           </div>
        </div>
-       <div className="right">
-            <h1 className="title">Long SLeeve Graphic T-Shirt</h1>
-            <h2 className="price">$19.9</h2>
-            <div className="desc">
 
-            <p className="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Riss commodo viverra maecenas accumsan lacus vel facilisis labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas.</p>
+       <div className="right">
+            <h1 className="title">{productData.name}</h1>
+            <h2 className="price">${productData.price}</h2>
+
+            <div className="sizes-container">
+              <h5 className="size-title">Sizes </h5>
+              <div className="sizes-wrapper">
+                {generateSizeBoxElements()}
+              </div>
             </div>
-          <div className="quantity">
-            <button onClick={decreaseQuantity}><RemoveIcon className="icon"/></button>
-            <span>{quantity}</span>
-            <button onClick={increaseQuantity}><AddIcon className="icon"/></button>
-          </div>
-          <div onClick={() => addToCartFromProduct()}className="add-to-cart">
-            <span >ADD TO CART</span>
-          </div>
+            <button onClick={() => addToCartFromProduct()}className="add-to-cart">
+              <span style={{display:"flex", alignItems:"center",gap:"5px"}}><ShoppingBagOutlinedIcon></ShoppingBagOutlinedIcon>ADD TO CART</span>
+            </button>
+            <div className="desc">
+              <p className="description">{productData.description}</p>
+            </div>
+
+
+
           <div className="favorite-and-compare">
               <div className="favorite">
                 {isFavorite && <FavoriteIcon onClick={toggleFavorite} className="icon-fav"/>}
@@ -142,5 +276,6 @@ function Product() {
       </div>
     )
 }
+
 
 export default Product

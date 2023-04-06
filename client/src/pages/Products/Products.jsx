@@ -1,92 +1,59 @@
 import ProductsCard from "../../components/ProductsCard/ProductsCard"
 import "./products.scss"
 import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts"
+import env from "react-dotenv";
+import {useState, useEffect } from "react"
+import { useParams, useLocation } from "react-router-dom"
 
+import CATAGORY_LIST from "../../constant/catagoryConstant"
+import API_URL from "../../constant/routeConstants"
+
+let count = 0
 function Products() {
-  const data = [
-    {
-      id: 1, 
-      img: "/img/featuredProduct/wollBlendCoatModel.jpeg",
-      img2: "/img/featuredProduct/wollblendCoat.jpeg",
-      title: "Long Sleeve Graphic T-shirt" ,
-      isNew: true,
-      price: 10,
-  },
-  {
-      
-      id: 2, 
-      img: "/img/featuredProduct/DenimOvershirt.jpeg",
-      img2: "/img/featuredProduct/DenimOvershirt2.jpeg",
-      title: "Denim Overshirt" ,
-      isNew: true,
-      price: 39.99,
-  },
-
-  {
-      id: 3, 
-      img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      title: "Skirt",
-      oldPrice: 22.99,
-      price: 11.99,
-  },
-  {
-    id: 1, 
-    img: "/img/featuredProduct/wollBlendCoatModel.jpeg",
-    img2: "/img/featuredProduct/wollblendCoat.jpeg",
-    title: "Long Sleeve Graphic T-shirt" ,
-    isNew: true,
-    price: 10,
-},
-{
-    
-    id: 2, 
-    img: "/img/featuredProduct/DenimOvershirt.jpeg",
-    img2: "/img/featuredProduct/DenimOvershirt2.jpeg",
-    title: "Denim Overshirt" ,
-    isNew: true,
-    price: 39.99,
-},
-
-{
-    id: 3, 
-    img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    title: "Skirt",
-    oldPrice: 22.99,
-    price: 11.99,
-},
-{
-  id: 1, 
-  img: "/img/featuredProduct/wollBlendCoatModel.jpeg",
-  img2: "/img/featuredProduct/wollblendCoat.jpeg",
-  title: "Long Sleeve Graphic T-shirt" ,
-  isNew: true,
-  price: 10,
-},
-{
+  const location = useLocation()
+  const [products, setProducts] = useState([])
+  const GET_URL = `${API_URL.GENDER_CATEGORY}${location.pathname}`
+  console.log("Products rendered")
   
-  id: 2, 
-  img: "/img/featuredProduct/DenimOvershirt.jpeg",
-  img2: "/img/featuredProduct/DenimOvershirt2.jpeg",
-  title: "Denim Overshirt" ,
-  isNew: true,
-  price: 39.99,
-},
+  //fetch products data
+  const fetchProducts = async () =>{
+    try{
+      const response = await fetch(GET_URL)
+      const data = await response.json()
 
-{
-  id: 3, 
-  img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  title: "Skirt",
-  oldPrice: 22.99,
-  price: 11.99,
-},
+      setProducts(data)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
 
-]
+
+  useEffect(()=>{
+    fetchProducts()
+  },[location])
+  
+  //generate jsx products card
+  const productElement = products.map(product =>{
+    return (
+      <ProductsCard 
+      id = { product._id}
+      name = {product.name}
+      img ={ product.images[0].url}
+      img2 ={ product.images[1].url}
+      regularPrice ={product.price}
+      salePrice ={product.price}
+      key = {count++}
+      isNew = {true}
+      />
+    )
+  })
+
+  
+
+  //return 
     return (
       <div className="products">
-
         <div className="left">
           <h2>Product Catagories</h2>
           <div className="filter-item">
@@ -98,25 +65,22 @@ function Products() {
               />
               <label htmlFor="1">Shoes</label>
             </div>
-         
             <div>
-            <input
-              type="checkbox"
-              id="2"
-              value={2}
-            />
-            <label htmlFor="2">Skirt</label>
-
-           </div>
-           <div>
-            <input
-              type="checkbox"
-              id="3"
-              value={3}
-            />
-            <label htmlFor="3">Short</label>
-
-           </div>
+                <input
+                  type="checkbox"
+                  id="2"
+                  value={2}
+                />
+                <label htmlFor="2">Skirt</label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="3"
+                value={3}
+              />
+              <label htmlFor="3">Short</label>
+            </div>
           </div>
           <div className="filter-item">
             <h2>Filter by price</h2>
@@ -140,26 +104,14 @@ function Products() {
           </div>
         </div>
 
-        
-          
-
         <div className="right">
           <div className="top">
-              <img src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs-tinysrgb&w=1600" alt="" className="catagory-img" />
+              {location.pathname == "/men" && <img src="/img/featuredProduct/men_banner.jpeg" alt="" className="catagory-img" />}
+              {location.pathname == "/women" &&<img src="/img/featuredProduct/women_banner.jpeg" alt="" className="catagory-img" />}
           </div>
-          <h1 style={{textAlign:"center"}}>WOMEN</h1>
+          <h1 style={{textAlign:"center"}}>{location.pathname.split("/")[1]}</h1>
           <div className="bottom">
-          {data.map (item =>
-                {
-                  return(
-                    <div className="card-item">
-                      <ProductsCard item={item} key={item.id}/>
-                    </div>
-                  )
-                }
-
-          )}
-
+            {productElement}
           </div>
           
         </div>

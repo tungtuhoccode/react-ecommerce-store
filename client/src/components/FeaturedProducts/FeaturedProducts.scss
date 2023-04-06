@@ -10,7 +10,7 @@
         align-items: center;
         margin: 0px auto 30px auto;
         max-width: 1200px;
-        h1{
+        .type{
             flex: 2;
         }
         p{
@@ -45,7 +45,7 @@
 }
 
 @media screen and (max-width: 830px){
-    h1{
+    .type{
         text-align: center;
     }
     .featured-product-text{
@@ -62,7 +62,7 @@
             grid-auto-rows: 58vw; /* 2 */
         }
         .top{
-            h1{
+            .type{
                 text-align: center;
             }
             .featured-product-text{
@@ -80,7 +80,7 @@
             grid-auto-rows: 85vw; /* 2 */
         }
         .top{
-            h1{
+            .type{
                 text-align: center;
             }
         }

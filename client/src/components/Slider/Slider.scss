@@ -13,6 +13,7 @@
                 height: 80%;
                 max-height: 700px;
                 object-fit: cover;
+                object-position: 5% 5%; 
             }
             .text-container{
                 width: 100%;
@@ -26,24 +27,26 @@
                 width: max-content;
                 gap: min(calc(10vw - 100px),15px);
             }
-            h2{
+            .item-title{
 
-                font-size: min(calc(2vw + 12px), 50px);
+                font-size: min(calc(2vw + 12px), 40px);
                 color: rgb(216, 186, 186);
             }
-            h5{
-                font-size: min(calc(1vw + 12px), 18px);
+            .item-description{
+                font-size: min(calc(1vw + 10px), 18px);
                 color: rgb(216, 186, 186);
             }
-            button{
-                width: 80px;
-                height: 35px;
+            .shop-button{
+                width: 160px;
+                height: 50px;
+                border-radius: 20px;
                 margin-top: 15px;
                 border: none;
-                background-color: white;
+                background-color: rgb(221, 207, 187);
                 opacity: 1;
-                color: black;
-                font-size: 13px;
+                color: rgb(58, 58, 58);
+                font-size: 15px;
+                font-weight: 600;
                 font-weight: 600;
             }
 
@@ -90,17 +93,26 @@
         }    
 
     }
-    h2{
-        font-size: 16px !important;
+    .item-title{
+        font-size: 4vw !important;
         color: rgb(216, 186, 186);
     }
-    h5{
+    .item-description{
         width: 90vw !important;
         font-weight: 500;
-        font-size: 12px !important;
         overflow-wrap: break-word !important;
         text-align: center;
     }
-
-    
+}
+@media screen and (max-width: 750px) {
+    .item-title{
+        font-size: calc(3vw + 6px) !important;
+        color: rgb(216, 186, 186);
+    }
+    .item-description{
+        width: 90vw !important;
+        font-weight: 500;
+        overflow-wrap: break-word !important;
+        text-align: center;
+    }
 }

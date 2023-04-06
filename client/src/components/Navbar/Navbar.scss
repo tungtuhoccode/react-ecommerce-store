@@ -47,12 +47,12 @@
                     .cart-item-count{
                         position: absolute;
                         font-size: 12px;
-                        top:-10px;
-                        right: -10px;
+                        top:-5px;
+                        right: -5px;
                         color: white;
                         background-color: #b7a697;
-                        width: 20px;
-                        height: 20px;
+                        width: 16px;
+                        height: 16px;
                         border-radius: 50%;
                         display: flex;
                         align-items: center;
@@ -99,7 +99,6 @@
     background-color: white;
     height: 100vh;
     z-index: 1000;
-    // width: 200px;
     opacity: 1;
     position: fixed;
     z-index: 20;
@@ -118,9 +117,6 @@
     }
     .item:hover{
         cursor: pointer;
-        .icon{
-
-        }
     }
 
 }
@@ -128,7 +124,7 @@
 
 
 .mobile{
-    position: relative;
+    background-color: white;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;

@@ -1,20 +1,32 @@
 .item-wrapper{
+    position: relative;
     display: flex;
     width: 90%;
     margin: auto;
     gap: 20px;
+    justify-content: center;
+    .delete-icon-cart-item{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
+    .delete-icon-cart-item:hover{
+        color: rgb(187, 128, 46);
+    }
     .img-wrapper{
+
         img{
-            width: 100px;
+            width: 90px;
             height: auto;
             object-fit: cover;
         }
     }
-    h3{
-        font-size: 18px;
+    .item-name{
+        font-size: 14px;
     }
-    h4{
-        font-size: 16px;
+    .item-price{
+        font-size: 13px;
     }
 
     .item-info{
@@ -23,13 +35,57 @@
         gap: 3px;
         width: 100%;
     }
-    p{
+    .p-element{
         font-size: 13px;
     }
+    
 
 }
 .w30{
     // For lineup spacing 
     display: inline-block;
     width: 40%;
+}
+
+@media screen and (max-width: 1000px){
+    .item-wrapper{
+        width: 90%;
+        .img-wrapper{
+            img{
+                width: 70px;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+        .item-name{
+            font-size: 14px;
+        }
+        .item-price{
+            font-size: 12px;
+        }
+    
+        .item-name{
+            font-size: 13px;
+        }
+        .item-price{
+            font-size: 12px;
+            color: gray;
+        }
+        .item-info{
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            width: 100%;
+
+        }
+        .p-element{
+            font-size: 11px;
+        }
+        
+    }
+    .w30{ 
+        // For lineup spacing 
+        width: 30%;
+    }
+    
 }

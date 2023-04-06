@@ -1,0 +1,29 @@
+.notification-wrapper{
+    border-radius: 3%;
+    z-index: 2;
+    width: 290px;
+    height: 190px;
+    background-color: rgb(232, 225, 221);
+
+    .notification-title{
+        text-align: center;
+        color: rgb(108, 89, 72);
+        margin-bottom: 5px;
+    }
+
+    .adding-notification{
+        width: 100%;
+    }
+    
+}
+@media screen and (max-width: 1000px) {
+    .notification-wrapper{
+        width: 240px;
+        height: 160px;
+
+        .notification-title{
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+    }
+}

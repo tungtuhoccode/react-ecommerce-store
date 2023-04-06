@@ -4,13 +4,14 @@ import Footer from "./components/Footer/Footer"
 import Home from "./pages/Home/Home"
 import Product from "./pages/SingleProduct/Product"
 import SwiperCore, { Autoplay } from 'swiper';
+import ErrorPage from "./pages/ErrorPage/ErrorPage"
 import "./App.scss"
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
 } from "react-router-dom"
-import CheckOut from "./pages/CheckOut/CheckOut"
+import Cart from "./pages/Cart/CartPage"
 
 
 const Layout = () => {
@@ -22,22 +23,32 @@ const Layout = () => {
     </div>
   )
 }
+
 const router = createBrowserRouter([
     {
       path:"/",
       element:<Layout/>,
+      // errorElement: <ErrorPage />,
       children:[
       {
         path:"/",
         element:<Home/>
       },
       {
-        path:"/checkout",
-        element:<CheckOut/>
+        path:"/cart",
+        element:<Cart/>
       },
       {
-        path:"/products/:id",
-        element:<Products/>
+        path:"/women",
+        element:<Products/>,
+      },
+      {
+        path:"/men",
+        element:<Products/>,
+      },
+      {
+        path:"/children",
+        element:<Products/>,
       },
       {
         path:"/product/:id",
