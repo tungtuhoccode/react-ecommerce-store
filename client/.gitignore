@@ -6,8 +6,6 @@
 .pnp.js
 env.js
 .env
-/public/img/featuredProduct
-.jpeg
 
 # testing
 /coverage

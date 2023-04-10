@@ -25,7 +25,6 @@ app.use(express.json());
 //ROUTE
 app.use("/products", productRoute);
 
-
 app.use("/",(request, res) =>{
     res.status(404)
 })
