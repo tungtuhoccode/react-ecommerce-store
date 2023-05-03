@@ -1,0 +1,28 @@
+PRODUCT NUMBER 1
+
+{
+    "name": "Basic Hoodie Sweatshirt",
+    "description": "Hoodie sweatshirt available in different colors. Collar with adjustable hood and long sleeves. Front pouch pocket. Rib trim.",
+    "price": 49.9,
+    "color": "Black ",
+    "size": "S",
+    "catagory": "Men",
+    "images": [
+        {
+            "url": "/img/featuredProduct/basic_hoodie.jpeg.jpg",
+            "alt": "image 1"
+        },
+        {
+            "url": "/img/featuredProduct/basic_hoodie2.jpeg.jpg",
+            "alt": "image 2"
+        }
+    ],
+    "stock": 15
+}
+
+------------------------------------
+
+
+
+
+

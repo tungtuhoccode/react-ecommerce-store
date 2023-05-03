@@ -1,0 +1,142 @@
+//wrapper of the card 
+
+.card-link{
+    width: 100%;
+    height: 100%;
+    display: block;
+
+
+    .card{
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+        margin-bottom: 10px;
+        .image{
+            display: block;
+            height: 85%;
+            position: relative;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+            .main-image{
+                overflow: hidden;
+                object-fit: fill;
+                position: absolute;
+                z-index: 1;
+                aspect-ratio: 2/3;
+            }
+            .second-image{
+                overflow: hidden;
+                object-fit: cover;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+        .title{
+            font-size: 14px;
+            padding: 10px 5px 0px 10px;
+        }
+        .new-season{
+            position: absolute;
+            z-index: 3;
+            top: 5px;
+            left: 5px;
+            background-color: white;
+            color: teal;
+            font-size: 12px;
+            padding: 4px;
+        }
+        .sale-percentage{
+            background-color: rgb(199, 9, 9);
+            color: white;
+            width: 45px;
+            font-weight: 500;
+            font-size: 13px;       
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            bottom: 40px;
+            right: 0px;
+            z-index: 3;
+            gap: 1px;
+
+        }
+        .price{
+            display: flex;
+            gap: 15px;
+            padding: 3px 0px 0px 10px;
+            font-size: 13px;
+            align-items: center;
+            font-weight: 600;
+            .current-price{
+                color: red;
+            }
+            .sale-price{
+                color: gray;
+                text-decoration: line-through 1.5px;
+                -webkit-text-decoration-line: line-through;
+            }
+
+        }
+    
+    }
+}
+.card-link:hover{
+   .title{
+       text-decoration: underline;
+   }
+}
+.card-link{
+    text-decoration: none;
+    .title{
+        color: black;
+    }
+    .card:hover{
+        .second-image{
+            z-index: 2;
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 1150px) {
+    .card-link{
+        .card{
+            .image{
+                height: 75%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .card-link{
+        .card{
+            .image{
+                .new-season{
+                    font-size: 9px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .card-link{
+    .card{
+        .image{
+            height: 70%;
+        }
+    }
+    .card:hover{
+        .second-image{
+            z-index: 2;
+        }
+    }
+}
+}

@@ -1,0 +1,91 @@
+
+.featured-products{
+    // background-color: red;
+    margin: 20px auto;
+    max-width: 1200px;
+    .top{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0px auto 30px auto;
+        max-width: 1200px;
+        .type{
+            flex: 2;
+        }
+        p{
+            flex: 3;
+            color: gray;
+        }
+    }
+
+    .bottom{
+        display: grid; /* 1 */
+        grid-template-columns: repeat(5, 19.2%); /* 2 */
+        grid-auto-rows: calc(33 * min(100vw,1200px) /100); /* 2 */
+        grid-gap: 0.5rem; /* 3 */
+        justify-content: space-evenly; /* 4 */
+        .card-item{
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+@media (max-width: 1150px){
+    .featured-products{
+        margin: 20px 20px;
+        .bottom{
+            display: grid;
+            margin: auto;
+            grid-template-columns: repeat(4, 24%); /* 2 */
+            grid-auto-rows: 44vw; /* 2 */
+        }
+    }
+   
+}
+
+@media screen and (max-width: 830px){
+    .type{
+        text-align: center;
+    }
+    .featured-product-text{
+        display: none;
+    }
+
+}
+@media screen and (max-width: 768px){
+    .featured-products{
+        .bottom{
+            display: grid;
+            margin: auto;
+            grid-template-columns: repeat(3, 33%); /* 2 */
+            grid-auto-rows: 58vw; /* 2 */
+        }
+        .top{
+            .type{
+                text-align: center;
+            }
+            .featured-product-text{
+                display: none;
+            }
+        }
+    }
+}
+@media screen and (max-width: 425px){
+    .featured-products{
+        .bottom{
+            gap: 10px;
+            margin: 5px;
+            grid-template-columns: repeat(2, 50%); /* 2 */
+            grid-auto-rows: 85vw; /* 2 */
+        }
+        .top{
+            .type{
+                text-align: center;
+            }
+        }
+    }
+    .control-display{
+        display: none;
+    }
+}
