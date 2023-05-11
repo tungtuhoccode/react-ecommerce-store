@@ -170,6 +170,15 @@
              cursor: pointer;
              align-items: center;
 
+             .test-favourite{
+                color: #777;
+                display: flex;
+                align-items: center;
+             }
+             .test-favourite:hover{
+                color: rgb(211, 45, 45);
+            }
+             
              .cart-icon{
                 display: flex;
                 align-items: center;

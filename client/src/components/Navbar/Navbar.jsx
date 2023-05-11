@@ -181,7 +181,9 @@ function NavBar() {
                         <div onMouseLeave={handleCloseCart}  className="icons">
                             <SearchIcon/>
                             <PersonOutlineIcon/>
-                            <FavoriteBorderIcon/>
+                            <Link className="test-favourite" to="/favourite">
+                                <FavoriteBorderIcon/>
+                            </Link>
                             <Link onClick={() => dispatch(setIsCartOnHover(false))} style={{textDecoration:"none", color:"grey"}} to="/cart">
                                 <div className="cart-icon">
                                     <ShoppingBagOutlined/>

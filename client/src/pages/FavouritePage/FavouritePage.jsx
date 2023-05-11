@@ -6,24 +6,35 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const FavouritePage = () => {
     const {favouriteItems} = useSelector( state => state.favourite)
-    console.log(favouriteItems)
+    console.log(favouriteItems[0])
+
+    const favouriteItemsElement = function(){
+        let elements = []
+        for (let i=0;i<favouriteItems.length;i++){
+            let currentItem = favouriteItems[i]
+            elements.push(
+
+                <CartPageItem
+                key = {currentItem.id}
+                id = {currentItem.id}
+                name={currentItem.itemName} 
+                price = {currentItem.price} 
+                quantity = {currentItem.quantity}
+                color = {currentItem.color}
+                size = {"S"}
+                imageSource = { currentItem.imageSource}
+                index = {i}
+                />
+            )
+        }
+        return elements
+    }()
+
 
     return (
         <div className="favourite-page">
-            <div className="favourite-item-container">
-                <CartPageItem
-                key = {"642afeab800ea17aaaea3d67"}
-                id = {"642afeab800ea17aaaea3d67"}
-                name={"Lady Midi 2"} 
-                price = {500} 
-                quantity = {1}
-                color = {"Beige"}
-                size = {"S"}
-                imageSource = { "/img/featuredProduct/lady_midi1.jpg"}
-                index = {2}
-                />
-            </div>
-           
+            <h1>Favourite Page</h1>
+            {favouriteItemsElement}
         </div>
     )
 }
