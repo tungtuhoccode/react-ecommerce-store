@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home"
 import Product from "./pages/SingleProduct/Product"
 import SwiperCore, { Autoplay } from 'swiper';
 import FavouritePage from "./pages/FavouritePage/FavouritePage"
+
 import ErrorPage from "./pages/ErrorPage/ErrorPage"
 import "./App.scss"
 import {
@@ -14,6 +15,9 @@ import {
 } from "react-router-dom"
 import Cart from "./pages/Cart/CartPage"
 import Checkout from "./pages/Checkout/Checkout"
+import LoginSignUp from "./pages/SignIn/SignIn"
+import SignIn from "./pages/SignIn/SignIn"
+import SignUp from "./pages/SignUp/SignUp"
 
 
 const Layout = () => {
@@ -63,6 +67,14 @@ const router = createBrowserRouter([
       {
         path:"/checkout",
         element:<Checkout/>,
+      },
+      {
+        path:"/signin",
+        element:<SignIn/>,
+      },
+      {
+        path:"/signup",
+        element:<SignUp/>,
       }
       ]
     }

@@ -116,7 +116,9 @@ function NavBar() {
                         <div onMouseLeave={handleCloseCart}  className="icons">
                             
                             <SearchIcon/>
-                            <PersonOutlineIcon/>
+                            <Link className="test-favourite" to="/signin">
+                                <PersonOutlineIcon/>
+                            </Link>
                             <Link className="test-favourite" to="/favourite">
                                 <FavoriteBorderIcon/>
                             </Link>
@@ -180,7 +182,9 @@ function NavBar() {
                     <div className="right">        
                         <div onMouseLeave={handleCloseCart}  className="icons">
                             <SearchIcon/>
-                            <PersonOutlineIcon/>
+                            <Link style={{textDecoration:"none", color:"grey"}} className="test-favourite" to="/signin">
+                                <PersonOutlineIcon/>
+                            </Link>
                             <Link className="test-favourite" to="/favourite">
                                 <FavoriteBorderIcon/>
                             </Link>
