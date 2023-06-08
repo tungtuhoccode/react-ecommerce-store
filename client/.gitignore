@@ -9,6 +9,9 @@ env.js
 /public/img/featuredProduct
 .jpeg
 
+#MacOS
+.DS_Store
+
 # testing
 /coverage
 
