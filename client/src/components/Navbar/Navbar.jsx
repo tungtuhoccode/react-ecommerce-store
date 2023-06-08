@@ -11,6 +11,7 @@ import { setIsCartOnHover } from '../../app/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 
+
 function NavBar() {
     
     //responsiveness
@@ -40,7 +41,6 @@ function NavBar() {
     const isCartHover = useSelector(state => state.cart.isOnHover)
     const numberOfCartItem = useSelector(state => state.cart.cartItems.length)
     const dispatch = useDispatch()
-
 
     //CSS responsive NavBar
     const navigationMenuOpen = {
@@ -110,14 +110,16 @@ function NavBar() {
                     </div>
                     
                     <div className="right">
-
                         <Link className="link"  to="/"> <div className="item">Homepage</div> </Link>
                         <div className="item">About</div>
                         <div className="item">Contact</div>
                         <div onMouseLeave={handleCloseCart}  className="icons">
+                            
                             <SearchIcon/>
                             <PersonOutlineIcon/>
-                            <FavoriteBorderIcon/>
+                            <Link className="test-favourite" to="/favourite">
+                                <FavoriteBorderIcon/>
+                            </Link>
                             <Link onClick={() => dispatch(setIsCartOnHover(false))} style={{textDecoration:"none", color:"grey"}} to="/cart">
                                 <div onMouseOver={handleOpenCart} className="cart">
                                     <div className="cart-icon">

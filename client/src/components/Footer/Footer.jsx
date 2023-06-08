@@ -50,7 +50,7 @@ function Footer() {
     return (
     <div>
             {
-            (isInMobileQuery) ?  
+            (!isInMobileQuery) ?  
             <div className="footer">
                 <div className="top">
                     <div className="item">

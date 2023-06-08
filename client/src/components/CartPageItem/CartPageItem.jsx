@@ -34,7 +34,9 @@ const CartPageItem = (props) =>{
                 <DeleteOutlineIcon/>
             </div>
             <div className="left">
-                <FavoriteBorderIcon className="favourite-button"/>
+
+                    <FavoriteBorderIcon className="favourite-button"/>
+
                 <img className="product-image" src ={props.imageSource}/>
             
             </div>

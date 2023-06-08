@@ -3,8 +3,13 @@ import "./Product.scss"
 
 //MODULE
 import {useEffect, useState, useRef} from "react"
+
+
+//REDUX
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, setIsCartOnHover } from "../../app/cartSlice";
+import { addToFavourite, removeFromFavourite } from "../../app/favouriteSlice";
+
 import { useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -151,7 +156,7 @@ function Product() {
     }
 
     //handle adding to cart
-    function addToCartFromProduct(){
+    function addToCartFromProduct(){ //FromProduct is to avoid having the same name as reducer
       if (currentSize == -1) return
 
       let thisProduct =  {
@@ -170,6 +175,34 @@ function Product() {
       showNotification(id+1)
       id2++
       id++
+    }
+
+    //handle adding to favourites list
+    function addToFavouriteFromProduct(){  //FromProduct is to avoid having the same name as reducer
+      let thisProduct =  {
+        id: productID,
+        itemName: productData.name,
+        price: productData.price,
+        quantity: 1,
+        color: productData.color,
+        imageSource: productData.images[1].url
+      }
+      
+      dispatch(addToFavourite(thisProduct))
+
+    }
+
+    function removeFromFavouriteFromProduct(){  //FromProduct is to avoid having the same name as reducer
+      let thisProduct =  {
+        id: productID,
+        itemName: productData.name,
+        price: productData.price,
+        quantity: 1,
+        color: productData.color,
+        imageSource: productData.images[1].url
+      }
+      
+      dispatch(removeFromFavourite(thisProduct))
     }
 
 
@@ -248,8 +281,26 @@ function Product() {
 
           <div className="favorite-and-compare">
               <div className="favorite">
-                {isFavorite && <FavoriteIcon onClick={toggleFavorite} className="icon-fav"/>}
-                {!isFavorite && <FavoriteBorderIcon onClick={toggleFavorite} className="icon-fav"/>}
+                {isFavorite && 
+                  <FavoriteIcon
+                    onClick={() => {
+                        toggleFavorite()
+                        console.log("remove from favorites")
+                        removeFromFavouriteFromProduct()
+                      }} 
+                    className="icon-fav"
+                  />
+                }
+                {!isFavorite && 
+                   <FavoriteBorderIcon
+                    onClick={() => {
+                        toggleFavorite()
+                        console.log("adding to favorites")
+                        addToFavouriteFromProduct()
+                      }} 
+                    className="icon-fav"
+                  />
+                }
                 <span>ADD TO WISH LIST</span>
               </div>
               <div className="compare"> 

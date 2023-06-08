@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer"
 import Home from "./pages/Home/Home"
 import Product from "./pages/SingleProduct/Product"
 import SwiperCore, { Autoplay } from 'swiper';
+import FavouritePage from "./pages/FavouritePage/FavouritePage"
 import ErrorPage from "./pages/ErrorPage/ErrorPage"
 import "./App.scss"
 import {
@@ -12,6 +13,7 @@ import {
   Outlet,
 } from "react-router-dom"
 import Cart from "./pages/Cart/CartPage"
+import Checkout from "./pages/Checkout/Checkout"
 
 
 const Layout = () => {
@@ -53,6 +55,14 @@ const router = createBrowserRouter([
       {
         path:"/product/:id",
         element:<Product/>
+      },
+      {
+        path:"/favourite",
+        element:<FavouritePage/>,
+      },
+      {
+        path:"/checkout",
+        element:<Checkout/>,
       }
       ]
     }
