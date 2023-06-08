@@ -13,8 +13,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import { Stack } from '@mui/system';
 import {useState} from 'react'
+import { red } from '@mui/material/colors';
 
 function Copyright(props) {
   return (
@@ -29,15 +31,26 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#ad7646',
+        // main: '#ab784b',
+        // main:'#b88253'
+      },
 
-export default function SignIn() {
+    }
+  }
+);
+
+export default function Register() {
     const [passwordValue, setPasswordValue] = useState("")
     const [confirmPasswordValue, setConfirmPasswordValue] = useState("")
     const [isPasswordMatch, setIsPasswordMatch] = useState(passwordValue === confirmPasswordValue)
 
     const handlePasswordChange = (event) => {
-        setPasswordValue(event.target.value)
+      setPasswordValue(event.target.value)
     }
 
     const handleConfirmPasswordChange = (event) => {
@@ -66,7 +79,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container style={{ background: 'rgb(248, 247, 247)', borderRadius: "1%",}} component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -76,7 +89,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, mt: 5, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -117,22 +130,32 @@ export default function SignIn() {
               onChange={ event => handleConfirmPasswordChange(event)}
             />
 
-            <Stack direction="row" gap="10px">
-            {isPasswordMatch ? 
-                <Box>
-                    <CheckIcon/>
-                    <Typography>Password does not matching</Typography>
-                </Box>
             
-             :
-                 <Box>
-                    <CheckIcon/>
-                    <Typography>Password does not matching</Typography>
-                </Box>
-        
-            }
-               
-            </Stack>
+              {isPasswordMatch ? 
+                  <Stack sx={{
+                    mt: 1,
+                    color: "green"
+                  }} 
+                  direction="row"
+                   gap="10px">
+                      <CheckIcon/>
+                      <Typography>Password match</Typography>
+                  </Stack>
+              
+              :
+                    <Stack
+                    sx={{
+                      mt: 1,
+                      color: "red"
+                    }} 
+                      direction="row"
+                      gap="10px">
+                      <CloseIcon/>
+                      <Typography>Password does not match</Typography>
+                    </Stack>
+          
+              }
+          
 
             <Button
               type="submit"
@@ -150,14 +173,15 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link href="/login" variant="body2">
                   {"Already have an account? Sign In"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
+          <Copyright sx={{ mt: 5, mb: 4}} />
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+       
       </Container>
     </ThemeProvider>
   );
