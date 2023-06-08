@@ -6,8 +6,6 @@
 .pnp.js
 env.js
 .env
-/public/img/featuredProduct
-.jpeg
 
 #MacOS
 .DS_Store

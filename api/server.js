@@ -27,7 +27,6 @@ app.use(express.json());
 app.use("/products", productRoute);
 app.use("/auth",userAuthenticationRoute );
 
-
 app.use("/",(request, res) =>{
     res.status(404)
 })
