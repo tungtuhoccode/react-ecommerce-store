@@ -65,45 +65,58 @@ export default function LogIn() {
 
   
 
-  const [email, setEmail] = useState('thu?@gmail.com')
-  const [password, setPassword] = useState('thu?mups')
+  const [email, setEmail] = useState('tung1@gmail.com')
+  const [password, setPassword] = useState('tungdeptrai')
+  const [isFailedLogin, setIsFailedLogin] = useState(false)
   const [isWaitingLogin, setIsWaitingLogin] = useState(false)
 
+
+
+  //helper methods
+
+  const isEmailValid = (email) => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+
+    return emailRegex.test(email)
+  }
+
+  
+  const validateAccount = async (emailIn, passwordIn ) => {
+    const loginUrl = `${API_URL.LOGIN}`
+    const response = await fetch(loginUrl, {
+      method: 'POST', // Specify the HTTP method
+      headers: {'Content-Type':'application/json'},
+      credentials: 'include',
+      body: JSON.stringify({
+        email: emailIn, 
+        password: passwordIn
+      })
+    })
+    
+    const data = await response.json()
+    setIsWaitingLogin(false)
+    console.log("data isLoggedIn: ", data.isLoggedIn)
+    if(data.isLoggedIn){
+      dispatch(setLogin(true))
+      navigate("/account")
+    }
+    else{
+      setIsFailedLogin(true)
+    }
+    console.log(data)
+  }
 
   const handleSubmit = (event) => {
     if (isWaitingLogin) {
       console.log("stop it")
       return }
 
-
     setIsWaitingLogin(true)
-
-
-    const validateAccount = async (emailIn, passwordIn ) => {
-      const loginUrl = `${API_URL.LOGIN}`
-      const response = await fetch(loginUrl, {
-        method: 'POST', // Specify the HTTP method
-        headers: {'Content-Type':'application/json'},
-			  credentials: 'include',
-			  body: JSON.stringify({
-          email: emailIn, 
-          password: passwordIn
-        })
-      })
-      const data = await response.json()
-      setIsWaitingLogin(false)
-      console.log("data isLoggedIn: ", data.isLoggedIn)
-      if(data.isLoggedIn){
-        dispatch(setLogin(true))
-        navigate("/account")
-      }
-     
-      console.log(data)
-    }
-
     validateAccount(email, password)
+    
   };
 
+  console.log("email: ",isEmailValid(email)) 
   return (
     <ThemeProvider theme={theme}>
       <Container  
@@ -140,9 +153,28 @@ export default function LogIn() {
               fullWidth
               id="email"
               name="email"
-              onChange={(event) => {setEmail(event.target.value)}}
+              label="Email"
+              onChange={(event) => {
+                setEmail(event.target.value)
+                if(isFailedLogin){
+                  setIsFailedLogin(false)
+                }
+              }}
               value={email}
+              error={email === "" ? false : !isEmailValid(email) || isFailedLogin}
+              helperText={ function(email) {
+                if (email === ""){
+                  return ""
+                }
+                if (!isEmailValid(email) ){
+                  return "You have entered an incorrect email address."
+                }
+                
+                return ""
+              }(email)}
+
               autoFocus
+              color = {email === "" ? "primary":"success"}
             />
             <TextField
               margin="normal"
@@ -152,7 +184,15 @@ export default function LogIn() {
               label="Password"
               type="password"
               id="password"
-              onChange={(event) => {setPassword(event.target.value)}}
+              onChange={(event) => {
+                setPassword(event.target.value)
+                if(isFailedLogin){
+                  setIsFailedLogin(false)
+                }
+              }}
+              color={password === "" ? "primary":"success"}
+              error= {isFailedLogin}
+              helperText={isFailedLogin ? "Wrong email or password, please try again.":""}
               value={password}
             />
 
@@ -176,7 +216,7 @@ export default function LogIn() {
               }}
               
             >
-              {/* {!isWaitingLogin && "Sign in"} */}
+              
               <Box sx ={{
                 
                 opacity: isWaitingLogin ?  0.2 : 1

@@ -14,18 +14,28 @@ const handleUserRegistration = async (req, res, next) => {
     const {email, password} = req.body
 
     if (!email ) {
-        return res.status(400).json({"message":"missing email"})
+        return res.status(400).json({
+            "isSuccess":false,
+            "message":"missing email"
+        })
     }
 
     if (!password ) {
-        return res.status(400).json({"message":"missing password"})
+        return res.status(400).json({
+            "isSuccess":false,
+            "message":"missing password"
+        })
     }
 
     //check for duplicate email in the database
     try{
         const isDuplicate = await User.isDuplicateEmail(email)
         if (isDuplicate){
-            return res.status(409).json({"message":"Email already exists"}) //code 409 is for conflict
+            return res.status(409).json({
+                "isSuccess":false,
+                "message":"Email already exists"
+                
+            }) //code 409 is for conflict
         }
     }
     catch(err){
@@ -44,6 +54,7 @@ const handleUserRegistration = async (req, res, next) => {
         });
 
         return res.status(201).json({
+            "isSuccess":true,
             "message:":"Sduccessfully registered",
             "user": newUser
         })

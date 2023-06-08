@@ -6,7 +6,7 @@
     
 // }
 
-const MAIN_API_URL = `https://tungstore.herokuapp.com`
+const MAIN_API_URL = `http://${window.location.hostname}:${process.env.REACT_APP_API_PORT}`
 
 const API_URL = {
     MAIN: MAIN_API_URL,

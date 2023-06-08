@@ -1,6 +1,8 @@
 const mongoose  = require('mongoose');  
 const Schema = mongoose.Schema;
 
+
+//user
 const userSchema = new Schema({
     email:{type:String, required:true},
     password:{ type:String,required:true },
@@ -10,6 +12,13 @@ const userSchema = new Schema({
     ]
 })
 
+
+
+
+
+
+
+//methods
 userSchema.statics.isDuplicateEmail = async function (email){
     try{
         const emailFound = await this.findOne({"email": email})

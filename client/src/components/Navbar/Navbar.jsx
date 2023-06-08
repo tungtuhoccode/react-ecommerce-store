@@ -70,12 +70,16 @@ function NavBar() {
 
     function handleOpenCart(){
         if (location.pathname =="/cart" ) return 
+        if (location.pathname == "/register" || location.pathname == "/login" ) return
         if(!isUsingNavMenu){
             dispatch(setIsCartOnHover(true))
         }
      
     }
     
+    React.useEffect(() => {
+        dispatch(setIsCartOnHover(false))
+    },[location.pathname])
     //Console output
     // console.log("is using nav: "+!(mQuery && !mQuery.matches))
     // console.log("is cart hover: "+isCartHover)
