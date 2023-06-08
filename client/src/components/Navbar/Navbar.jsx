@@ -11,6 +11,7 @@ import { setIsCartOnHover } from '../../app/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 
+
 function NavBar() {
     
     //responsiveness
@@ -41,7 +42,6 @@ function NavBar() {
     const numberOfCartItem = useSelector(state => state.cart.cartItems.length)
     const dispatch = useDispatch()
 
-
     //CSS responsive NavBar
     const navigationMenuOpen = {
         // left: !isUsingNavMenu ? "-400px":"0px",
@@ -54,6 +54,9 @@ function NavBar() {
     const navBarDisplay ={
         display: isUsingNavMenu ? "flex":"flex"
     }
+
+    //authentication status
+    const isLoggedIn = useSelector( state => state.user.isLoggedIn)
 
     //helper function
     function handleOpenMenu(){
@@ -110,19 +113,26 @@ function NavBar() {
                     </div>
                     
                     <div className="right">
-
                         <Link className="link"  to="/"> <div className="item">Homepage</div> </Link>
                         <div className="item">About</div>
                         <div className="item">Contact</div>
                         <div onMouseLeave={handleCloseCart}  className="icons">
                             <SearchIcon/>
-                            <PersonOutlineIcon/>
-                            <FavoriteBorderIcon/>
+                            {/* <Link className="icon-with-link" to="/signin" to>
+                                <PersonOutlineIcon/>
+                            </Link> */}
+                            <Link className="icon-with-link" to={isLoggedIn ? "/account":"/login"}>
+                                <PersonOutlineIcon/>
+                            </Link>
+                            <Link className="icon-with-link" to="/favourite">
+                                <FavoriteBorderIcon/>
+                            </Link>
                             <Link onClick={() => dispatch(setIsCartOnHover(false))} style={{textDecoration:"none", color:"grey"}} to="/cart">
                                 <div onMouseOver={handleOpenCart} className="cart">
-                                    <div className="cart-icon">
+                                    <div className="cart-icon">                  
                                         <ShoppingBagOutlined/>
                                         <span className="cart-item-count">{numberOfCartItem}</span>
+
                                     </div>
                                 </div>
                             </Link>
@@ -130,7 +140,6 @@ function NavBar() {
                         </div>
                     </div>
                 </div>
-           
       ) : (
         //   MOBILE RESPONSIVE
         <div >
@@ -168,6 +177,7 @@ function NavBar() {
                     </div>
 
 
+
                 </div>
                 <ShoppingCart/>
                 <div style={navBarDisplay} className="mobile">
@@ -178,8 +188,14 @@ function NavBar() {
                     <div className="right">        
                         <div onMouseLeave={handleCloseCart}  className="icons">
                             <SearchIcon/>
-                            <PersonOutlineIcon/>
-                            <FavoriteBorderIcon/>
+                            {/* <Link className="icon-with-link" to={isLoggedIn ? "/account":"/login"}> */}
+                            <Link className="icon-with-link" to={"/login"}>
+                                <PersonOutlineIcon/>
+                            </Link>
+
+                            <Link className="icon-with-link" to="/favourite">
+                                <FavoriteBorderIcon/>
+                            </Link>
                             <Link onClick={() => dispatch(setIsCartOnHover(false))} style={{textDecoration:"none", color:"grey"}} to="/cart">
                                 <div className="cart-icon">
                                     <ShoppingBagOutlined/>
@@ -191,12 +207,9 @@ function NavBar() {
                     </div>
                 </div>
             </div>
-    </div>
-      )}
-            
-            
-           
         </div>
+      )}  
+    </div>
         
     )
   }

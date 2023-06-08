@@ -15,8 +15,8 @@ const API_URL = {
     // SINGLE_PRODUCT: "http://"+window.location.hostname+":4000" +"/products",
     SINGLE_PRODUCT: `${MAIN_API_URL}/products`,
     GENDER_CATEGORY: `${MAIN_API_URL}/products`,
-
-    
+    LOGIN:`${MAIN_API_URL}/auth/login`,
+    REGISTER:`${MAIN_API_URL}/auth/register`,
 }
 
 export default API_URL;

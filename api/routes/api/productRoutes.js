@@ -1,6 +1,7 @@
 const CATAGORY_LIST = require("../../constant/categoryConstant");
 const express = require('express')
 const router = express.Router();
+
 const {
     getProducts,
     getTrendingProducts,

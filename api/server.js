@@ -6,13 +6,14 @@ const PORT = process.env.PORT || 4000
 const cors = require('cors')
 const logger = require('morgan')
 const mongoose = require('mongoose')
-const connectDB = require('./config/dbCon')
+const connectDB = require('./config/dbConfigs')
 
 //connect to database
 connectDB();
 
 //import routes
 const productRoute = require("./routes/api/productRoutes");
+const userAuthenticationRoute = require("./routes/api/userAuthenticationRoutes");
 const corsOptions = require('./config/corsOption');
 
 //middleware
@@ -24,6 +25,7 @@ app.use(express.json());
 
 //ROUTE
 app.use("/products", productRoute);
+app.use("/auth",userAuthenticationRoute );
 
 app.use("/",(request, res) =>{
     res.status(404)

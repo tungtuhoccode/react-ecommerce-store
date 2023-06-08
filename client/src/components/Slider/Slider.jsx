@@ -19,19 +19,11 @@ const data = [
     title: "Trending now: decorative vases from $5.99",
     description: "Trendy vases that make the perfect additon to any decor style.",
   },
-
   {
     img: "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/TOOLBOX/PRE_SEASON/2022_s06/december_2022/TCM6026_3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
     title: "Streetwear new arrivals",
     description: "Casual layers alongside quality, silhouettes exude the perfect street style mood.",
   },
-
-  {
-    img:  "/img/featuredProduct/landing_page_banner.jpg",
-    title: "",
-    description: "",
-  }
-  ,
 ];
 
 const sliderElements = data.map(item => {

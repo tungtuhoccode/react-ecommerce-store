@@ -7,6 +7,9 @@
 env.js
 .env
 
+#MacOS
+.DS_Store
+
 # testing
 /coverage
 

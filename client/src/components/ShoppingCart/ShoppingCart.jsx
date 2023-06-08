@@ -8,7 +8,6 @@ import { setIsCartOnHover } from "../../app/cartSlice";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from "react-redux";
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 
 export default function ShoppingCart(props){
     //react function()

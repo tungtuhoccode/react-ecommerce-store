@@ -8,7 +8,6 @@ const calculatePrice = (list) => {
     return price
 }
 
-
 export const cartSlice = createSlice({
     name: 'cartSlice',
     initialState: {
@@ -26,14 +25,17 @@ export const cartSlice = createSlice({
             function isDuplicate(item1, item2){
                 return item1.itemName === item2.itemName && item1.color === item2.color && item1.size == item2.size
             }
+
             let containDuplicate = false
+
             for(let i=0;i<cart.length;i++){
-                if(isDuplicate(cart[i],item)){
+                if(isDuplicate(cart[i], item)){
                     cart[i].quantity += 1
                     containDuplicate = true
                     break
                 }
             }
+            
             if(!containDuplicate){
                 cart.push(item)
             }
@@ -61,6 +63,8 @@ export const cartSlice = createSlice({
             }
 
         },
+
+        //to allow changeing quanity of a particular item 
         setQuantity: (state, action) => {
             let indexItemChange = action.payload.index
             let newQuantity = action.payload.quantity
@@ -75,6 +79,7 @@ export const cartSlice = createSlice({
             state.totalCartPrice = calculatePrice(state.cartItems)
         },
         
+        //to manage the cart preview 
         setIsCartOnHover: (state, action) => {
             console.log("cart toggled")
             state.isOnHover = action.payload
