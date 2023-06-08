@@ -92,8 +92,10 @@ export default function LogIn() {
       })
       const data = await response.json()
       setIsWaitingLogin(false)
+      console.log("data isLoggedIn: ", data.isLoggedIn)
       if(data.isLoggedIn){
         dispatch(setLogin(true))
+        navigate("/account")
       }
      
       console.log(data)

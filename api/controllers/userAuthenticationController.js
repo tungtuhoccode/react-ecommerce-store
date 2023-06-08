@@ -115,21 +115,21 @@ const handleUserLogIn = async (req, res, next) => {
             //send information back to browser
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 365 * 24 * 60 * 60 * 1000 });
             //simulating taking 1 second to complete
-            setTimeout (() => {
-                res.json({
-                    "isLoggedIn": true,
-                    "accessToken": accessToken,
-                    "message":"Sign in successfully",
-                    "user": userAfter
-                })
-            }, 400)
-            return
-
-            // return  res.json({
-            //     "accessToken": accessToken,
-            //     "message":"Sign in successfully",
-            //     "user": userAfter
-            // })
+            // setTimeout (() => {
+            //     res.json({
+            //         "isLoggedIn": true,
+            //         "accessToken": accessToken,
+            //         "message":"Sign in successfully",
+            //         "user": userAfter
+            //     })
+            // }, 1)
+            // return
+            return  res.json({
+                "isLoggedIn": true,
+                "accessToken": accessToken,
+                "message":"Sign in successfully",
+                "user": userAfter
+            })
             
         }
 
