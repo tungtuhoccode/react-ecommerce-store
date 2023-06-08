@@ -65,17 +65,32 @@ function Product() {
     },[location])
     // console.log(productData)
 
+
     //image area, quantity, favourite state
+    const {favouriteItems} = useSelector( state => state.favourite)
+    
+    function isFavourite(){
+
+      for (let i = 0; i <favouriteItems.length; i++){
+        if (productID === favouriteItems[i].id){
+          return true
+        }
+      }
+      return false
+    }
 
     const [mainImageIndex, setMainImageIndex] = useState(0)
     const [quantity, setQuantity] = useState(1)
-    const [isFavorite, setIsFavorite] = useState(false)
-
+    const [isFavorite, setIsFavorite] = useState(() => {
+      console.log(isFavourite())
+      return isFavourite()
+    })
 
     //notification and timer for notification
     const notifiaiton_tracker_ref = useRef(null)
     const [show, setShow] = useState(false)
     const lastItemAdded = useSelector(state => state.cart.lastItemAdded) 
+
 
     function showNotification(idIn){
       setShow(true)

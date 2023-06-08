@@ -3,8 +3,14 @@ import Navbar from "./components/Navbar/Navbar"
 import Footer from "./components/Footer/Footer"
 import Home from "./pages/Home/Home"
 import Product from "./pages/SingleProduct/Product"
+import Cart from "./pages/Cart/CartPage"
+import Checkout from "./pages/Checkout/Checkout"
+import Register from "./pages/Register/Register"
+import Account from "./pages/Account/Account"
+
 import SwiperCore, { Autoplay } from 'swiper';
 import FavouritePage from "./pages/FavouritePage/FavouritePage"
+
 import ErrorPage from "./pages/ErrorPage/ErrorPage"
 import "./App.scss"
 import {
@@ -12,9 +18,7 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom"
-import Cart from "./pages/Cart/CartPage"
-import Checkout from "./pages/Checkout/Checkout"
-
+import LogIn from "./pages/LogIn/LogIn"
 
 const Layout = () => {
   return (
@@ -63,11 +67,24 @@ const router = createBrowserRouter([
       {
         path:"/checkout",
         element:<Checkout/>,
-      }
+      },
+      {
+        path:"/login",
+        element:<LogIn/>,
+      },
+      {
+        path:"/register",
+        element:<Register/>,
+      },
+      {
+        path:"/account",
+        element:<Account/>,
+      },
       ]
     }
   
 ])
+
 function App() {
   SwiperCore.use([Autoplay])
   return (

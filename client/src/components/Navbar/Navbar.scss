@@ -36,12 +36,12 @@
                 color: #777;
                 cursor: pointer;
                 align-items: center;
-                .test-favourite{
+                .icon-with-link{
                     color: #777;
                     display: flex;
                     align-items: center;
                 }
-                .test-favourite:hover{
+                .icon-with-link:hover{
                     color: rgb(211, 45, 45);
                 }
             }
@@ -72,17 +72,16 @@
         .center{
             padding: auto;
             margin: 0px;
-            margin-left: 20px;
+            margin-left: 50px;
             margin-right: 20px;
             font-size: 25px;
-
+            // position: fixed;
+            // transform: translateX(-50%);
+            // background-color: red;
           
             .center-logo{
                 font-size: 38px;
-                font-family: 'Moon Dance' , cursive;
-               
-
-
+                font-family: 'Moon Dance' , cursive;;
             }
             .center-logo:hover{
                 background-clip: text;
@@ -170,6 +169,15 @@
              cursor: pointer;
              align-items: center;
 
+             .icon-with-link{
+                color: #777;
+                display: flex;
+                align-items: center;
+             }
+             .icon-with-link:hover{
+                color: rgb(211, 45, 45);
+            }
+             
              .cart-icon{
                 display: flex;
                 align-items: center;

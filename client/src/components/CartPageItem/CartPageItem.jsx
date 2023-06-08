@@ -33,9 +33,9 @@ const CartPageItem = (props) =>{
             <div onClick={() => dispatch(removeFromCart(props.index))} className="delete-icon">
                 <DeleteOutlineIcon/>
             </div>
-            <div className="left">
+            <div className = "left-card-page-item">
 
-                    <FavoriteBorderIcon className="favourite-button"/>
+                <FavoriteBorderIcon className="favourite-button"/>
 
                 <img className="product-image" src ={props.imageSource}/>
             
