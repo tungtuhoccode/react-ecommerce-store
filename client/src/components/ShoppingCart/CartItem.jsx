@@ -2,11 +2,15 @@ import {Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { removeFromCart, setQuantity } from "../../app/cartSlice";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
+import { useEffect } from "react";
 import "./CartItem.scss"
+
+
+
 
 export default function CartItem(props){
     const dispatch = useDispatch()
+    const cartItems = useSelector(state => state.cartItems)
 
     return (  
         <div style={{color:"black"}} className="item-wrapper">

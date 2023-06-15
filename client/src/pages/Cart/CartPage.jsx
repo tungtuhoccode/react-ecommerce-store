@@ -68,7 +68,7 @@ export default function Cart(){
                     <div>
                         Log in to use your personal offers!
                     </div>
-                    <Link style={{textDecoration:"none"}} to="/checkout">
+                    <Link style={{textDecoration:"none"}} to="/login">
                         <button className="login-button">
                             <span>Log in</span>
                         </button>

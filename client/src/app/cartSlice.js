@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
 const calculatePrice = (list) => {
     let price = 0
     list.forEach(element => {
@@ -8,11 +9,27 @@ const calculatePrice = (list) => {
     return price
 }
 
+const saveToLocalStorage = (data) => {
+    localStorage.setItem('cartItems',JSON.stringify(data))
+}
+
+
+
+const getTotalPriceLocalStorage = () => {
+    const cartItems = localStorage.getItem('cartItems')
+    if(!cartItems) {
+        return 0
+    }
+    if(cartItems){
+        return JSON.parse(cartItems).totalCartPrice
+    }
+}
+
+
 export const cartSlice = createSlice({
     name: 'cartSlice',
     initialState: {
         cartItems: [],
-        cartItemSet: {}, //key: itemID, value: itemIndex (in cartItems)
         isOnHover: false,
         lastItemAdded: undefined, //this is use for Notificaiton only
         totalCartPrice: 0
@@ -77,16 +94,23 @@ export const cartSlice = createSlice({
                 }
             })
             state.totalCartPrice = calculatePrice(state.cartItems)
+
         },
         
         //to manage the cart preview 
         setIsCartOnHover: (state, action) => {
             console.log("cart toggled")
             state.isOnHover = action.payload
+        },
+
+        setCartItems: (state, action) => {
+            console.log(action.payload)
+            state.cartItems = action.payload.cartItems
+            state.totalCartPrice = action.payload.totalCartPrice
         }
 
     }
 });
 
-export const {addToCart, removeFromCart, setIsCartOnHover, setQuantity} = cartSlice.actions;
+export const {addToCart, removeFromCart, setIsCartOnHover, setQuantity, setCartItems} = cartSlice.actions;
 export default cartSlice.reducer;

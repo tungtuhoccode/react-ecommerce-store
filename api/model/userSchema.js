@@ -1,6 +1,15 @@
 const mongoose  = require('mongoose');  
 const Schema = mongoose.Schema;
 
+const cartItemSchema = new mongoose.Schema({
+    color: {type: String, required: true},
+    id:  {type: String, required: true},
+    imageSource:  {type: String, required: true},
+    itemName:  {type: String, required: true},
+    price:  {type: Number, required: true},
+    quantity: {type: Number, required: true},
+    size: {type: String, required: true}
+})
 
 //user
 const userSchema = new Schema({
@@ -9,15 +18,15 @@ const userSchema = new Schema({
     
     refreshToken: [
         {type:String}
-    ]
+    ],
+
+    cart: {
+        totalCartPrice: {type:Number},
+        cartItems: [
+            cartItemSchema
+        ]
+    }
 })
-
-
-
-
-
-
-
 //methods
 userSchema.statics.isDuplicateEmail = async function (email){
     try{

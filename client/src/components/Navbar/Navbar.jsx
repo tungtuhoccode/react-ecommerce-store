@@ -25,6 +25,7 @@ function NavBar() {
         // this is the cleanup function to remove the listener
         return () => mediaQuery.removeListener(setMQuery);
     }, []);
+    
     const isOnSmallScreen = mQuery && !mQuery.matches
 
     React.useEffect(()=>{

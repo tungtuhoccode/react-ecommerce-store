@@ -8,6 +8,17 @@ import { setIsCartOnHover } from "../../app/cartSlice";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from "react-redux";
+import { setCartItems } from "../../app/cartSlice";
+import { useEffect } from "react";
+
+const getCartItemsLocalStorage = () => {
+    const cartItems = localStorage.getItem('cartItems')
+    if(!cartItems) {
+        return []
+    }
+    
+    return JSON.parse(cartItems)
+}
 
 export default function ShoppingCart(props){
     //react function()
@@ -15,6 +26,18 @@ export default function ShoppingCart(props){
 
     //state from redux
     const {isOnHover, cartItems, totalCartPrice } = useSelector( state => state.cart)
+    const {isLoggedIn} = useSelector( state => state.user)
+
+    console.log(cartItems)
+    //check and set the cart items
+    useEffect(()=> {
+        dispatch(setCartItems(getCartItemsLocalStorage()))
+    },[])
+
+    //set new state of the cart to local storage and to server whenever the cart items change
+    useEffect( () => {
+
+    },[cartItems])
 
     //css style control for responsiveness
     const displayControl = {
@@ -37,29 +60,6 @@ export default function ShoppingCart(props){
 
     //helper variable
     let countKey = 0 //for uniqueID 
-
-    //console.log
-    // console.log("on hover in cart"+ isOnHover)
-    // console.log("cart items count: "+cartItems.length)
-    
-    //JSX component generated from data
-    // const cartItemElement = [...cartItems].reverse().map( itemData => {
-    //         countKey++;
-    //         return (
-    //             <SwiperSlide> 
-    //                 <CartItem 
-    //                     key = {countKey}
-    //                     id = {itemData.id}
-    //                     name={itemData.itemName} 
-    //                     price = {itemData.price} 
-    //                     quantity = {itemData.quantity}
-    //                     color = {itemData.color}
-    //                     size = {itemData.size}
-    //                     imageSource = {itemData.imageSource}
-    //                 />
-    //             </SwiperSlide>
-    //         )
-    //     })
 
     const cartItemElement = (() => {
         let cartItemElementList = []

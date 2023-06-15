@@ -17,6 +17,7 @@ const API_URL = {
     GENDER_CATEGORY: `${MAIN_API_URL}/products`,
     LOGIN:`${MAIN_API_URL}/auth/login`,
     REGISTER:`${MAIN_API_URL}/auth/register`,
+    LOGOUT:`${MAIN_API_URL}/auth/logout`,
 }
 
 export default API_URL;

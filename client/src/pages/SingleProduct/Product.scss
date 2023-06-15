@@ -200,7 +200,8 @@
             height: 40px;
             border-radius: 1px;
             // background-color: #018849;
-            background-color:#c79972;
+            // background-color:#c79972;
+            background-color:#b47b49;
             border: #e6c09f;
             display: flex;
             justify-content: center;
@@ -222,7 +223,8 @@
             background-color:#a2876f;
         }
         .favorite-and-compare{
-            color:#018849;
+            color: #9f7046;
+            font-weight: 500;
             display: flex;
             gap: 25px;
             .favorite, .compare{

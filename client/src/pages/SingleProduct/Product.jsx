@@ -59,6 +59,8 @@ function Product() {
         }))
     }
 
+    
+
     useEffect(()=>{
       fetchProductData()
       setShow(false)

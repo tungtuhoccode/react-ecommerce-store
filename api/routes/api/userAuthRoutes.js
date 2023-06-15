@@ -1,14 +1,19 @@
 const express = require('express')
 const User = require('../../model/userSchema');
 const router = express.Router();
+
 const {
     handleUserRegistration,
-    handleUserLogIn
-} = require('../../controllers/userAuthenticationController');
+    handleUserLogIn,
+    handleLogout
+} = require('../../controllers/userAuthController');
 
 router.route('/register').post(handleUserRegistration)
 
 router.route('/login').post(handleUserLogIn)
+
+router.route('/logout').post(handleLogout)
+
 
 //for testing purposes only
 router.route('/testDeleteUser').delete(async function (req,res){
@@ -18,9 +23,7 @@ router.route('/testDeleteUser').delete(async function (req,res){
 
     catch(err){
         res.json("error",err.message)
-
     }
-
 
     res.json("successfully deleted")
 })

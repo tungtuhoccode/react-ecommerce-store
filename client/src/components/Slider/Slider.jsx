@@ -15,14 +15,14 @@ import 'swiper/css';
 let count = 1
 const data = [
   {
-    img: "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/TOOLBOX/LOCAL%20ACTIVITIES/2022_s06/december_2022/0788297003-small-glass-vase-3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
-    title: "Trending now: decorative vases from $5.99",
-    description: "Trendy vases that make the perfect additon to any decor style.",
+    img: "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/TOOLBOX/PRE_SEASON/2022_s06/december_2022/TCM6026_3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
+    title:"Streetwear new arrivals",
+    description:"Casual layers alongside quality, silhouettes exude the perfect street style mood."
   },
   {
-    img: "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/TOOLBOX/PRE_SEASON/2022_s06/december_2022/TCM6026_3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
-    title: "Streetwear new arrivals",
-    description: "Casual layers alongside quality, silhouettes exude the perfect street style mood.",
+    img: "https://lp2.hm.com/hmgoepprod?source=url[https://www2.hm.com/content/dam/TOOLBOX/LOCAL%20ACTIVITIES/2022_s06/december_2022/0788297003-small-glass-vase-3x2.jpg]&scale=size[960]&sink=format[jpeg],quality[80]",
+    title:"Trending now: decorative vases from $5.99",
+    description:"Trendy vases that make the perfect additon to any decor style."
   },
 ];
 
@@ -34,7 +34,7 @@ const sliderElements = data.map(item => {
       <div className="text-container">
         <h2 className='item-title'>{item.title}</h2>
         <h5 className='item-description'>{item.description}</h5>
-        <button className='shop-button'>Shop now</button>
+        {/* <button className='shop-button'>Shop now</button> */}
       </div>
     </div>
   </SwiperSlide>

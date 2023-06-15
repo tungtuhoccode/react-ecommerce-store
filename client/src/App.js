@@ -8,6 +8,8 @@ import Checkout from "./pages/Checkout/Checkout"
 import Register from "./pages/Register/Register"
 import Account from "./pages/Account/Account"
 
+
+
 import SwiperCore, { Autoplay } from 'swiper';
 import FavouritePage from "./pages/FavouritePage/FavouritePage"
 
@@ -20,9 +22,13 @@ import {
 } from "react-router-dom"
 import LogIn from "./pages/LogIn/LogIn"
 
+
+
+
 const Layout = () => {
+
   return (
-    <div className="app">
+    <div className="app" style={{}}>
       <Navbar />
       <Outlet/>
       <Footer />
@@ -85,8 +91,13 @@ const router = createBrowserRouter([
   
 ])
 
+
+
 function App() {
   SwiperCore.use([Autoplay])
+
+  //if not, try to get the data from the local storage
+
   return (
     <div>
       <RouterProvider router={router} />

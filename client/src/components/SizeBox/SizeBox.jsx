@@ -2,7 +2,7 @@ import "./SizeBox.css"
 
 const SizeBox = (props) =>{
     const colorStyle = {
-        backgroundColor: "#9e9995",
+        backgroundColor: "#c79972",
         color: "white"
     }
     return (

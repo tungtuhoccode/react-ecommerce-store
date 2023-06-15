@@ -7,8 +7,8 @@ const bcrypt = require('bcrypt');
 
 //jwt: session controller
 const jwt = require('jsonwebtoken')
-const accessTokenKey = process.env.ACCESS_TOKEN_SECRET
-const refreshTokenKey  = process.env.REFRESH_TOKEN_SECRET
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+const refreshTokenSecret  = process.env.REFRESH_TOKEN_SECRET
 
 const handleUserRegistration = async (req, res, next) => {
     const {email, password} = req.body
@@ -106,12 +106,12 @@ const handleUserLogIn = async (req, res, next) => {
             //if the user already have a refresh token, send that refresh token to the browser
             const accessToken = jwt.sign(
                 {"email":user.email},
-                accessTokenKey,
+                accessTokenSecret,
                 {expiresIn: '5h'}
             )
             const refreshToken = jwt.sign(
                 {"email":user.email},
-                refreshTokenKey,
+                refreshTokenSecret,
                 {expiresIn: '365d'}
             )
 
@@ -124,7 +124,7 @@ const handleUserLogIn = async (req, res, next) => {
             })
 
             //send information back to browser
-            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 365 * 24 * 60 * 60 * 1000 });
+            res.cookie('jwtRefreshToken', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 365 * 24 * 60 * 60 * 1000 });
             //simulating taking 1 second to complete
             // setTimeout (() => {
             //     res.json({
@@ -135,6 +135,7 @@ const handleUserLogIn = async (req, res, next) => {
             //     })
             // }, 1)
             // return
+            res.cookie('jwtAccessToken',accessToken)
             return  res.json({
                 "isLoggedIn": true,
                 "accessToken": accessToken,
@@ -156,10 +157,39 @@ const handleUserLogIn = async (req, res, next) => {
 }
 
 //TODO: handle log out
+const handleLogout = async (req,res, next) => {
+    const refreshToken = req.cookies.jwtRefreshToken
+    if (!refreshToken){
+        return res.status(404).json({"message:":"Token does not exist. Can't log out"})
+    }
+    console.log(refreshToken)
+    let tokenEmail 
+    jwt.verify(refreshToken, refreshTokenSecret, (err, decodedToken) => {
+        if(err){
+            console.log(err.message)
+            return res.status(404).json({"message:":"Token is not valid. Can't log out"})
+        }
+        tokenEmail = decodedToken.email
 
+    } )
+    console.log(tokenEmail)
+    //find the refresh token in the database
+    try{
+        const user = await User.findOne({ email: tokenEmail})
+        
+        user.refreshToken = user.refreshToken.filter(token => token != refreshToken) //remove the current refresh token from database
+
+        await user.save()
+    }
+    catch(err){
+        return res.status(404).json({"message:":"Error in getting user. Can't log out"})
+    }
+    res.json("logged out")
+}
 
 
 module.exports = {
     handleUserRegistration,
-    handleUserLogIn
+    handleUserLogIn,
+    handleLogout
 };

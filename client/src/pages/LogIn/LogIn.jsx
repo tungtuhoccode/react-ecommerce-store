@@ -1,4 +1,10 @@
+//REACT
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {useState, useEffect} from "react"
+import { useSelector, useDispatch } from 'react-redux';
+
+//MU
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,14 +19,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import {useState, useEffect} from "react"
-import { useSelector, useDispatch } from 'react-redux';
 
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import { IconButton } from '@mui/material';
+
+//local 
 import {setLogin} from "../../app/userSlice";
-
 import API_URL from "../../constant/routeConstants"
 
+//copyright props
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -34,6 +44,7 @@ function Copyright(props) {
   );
 }
 
+//theme
 const theme = createTheme(
   {
     palette: {
@@ -49,13 +60,14 @@ const theme = createTheme(
 );
 
 export default function LogIn() {
-
+  //react router dom
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const isLoggedIn = useSelector(state => state.user.isLoggedIn)
   console.log('login status: ',isLoggedIn)
 
+  //check if user is already logged to prevent double login
   useEffect(()=> {
     if(isLoggedIn) {
       console.log("already logged in")
@@ -63,27 +75,47 @@ export default function LogIn() {
     }
   }, [isLoggedIn])
 
-  
 
+
+
+  //dynamic form data
   const [email, setEmail] = useState('tung1@gmail.com')
   const [password, setPassword] = useState('tungdeptrai')
+
+  //booleans for form data
   const [isFailedLogin, setIsFailedLogin] = useState(false)
-  const [isWaitingLogin, setIsWaitingLogin] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
 
+  //hide/show password
+  const [isShowPassword, setIsShowPassword] = useState(false)
+  const handleClickShowPassword = () => {
+    setIsShowPassword(isShowPassword => !isShowPassword)
+  }
 
-
-  //helper methods
-
+  //email form validation
   const isEmailValid = (email) => {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
     return emailRegex.test(email)
   }
 
-  
-  const validateAccount = async (emailIn, passwordIn ) => {
+  const login = async () => {
+    if (isProcessing) {
+      console.log("stop it")
+    return 
+    }
+    
+    sendLoginRequest(email, password)
+  }
+
+
+  const sendLoginRequest = async (emailIn, passwordIn ) => {
+
+  //server validation
+    setIsProcessing(true)
     const loginUrl = `${API_URL.LOGIN}`
-    const response = await fetch(loginUrl, {
+
+    const payload =  {
       method: 'POST', // Specify the HTTP method
       headers: {'Content-Type':'application/json'},
       credentials: 'include',
@@ -91,11 +123,18 @@ export default function LogIn() {
         email: emailIn, 
         password: passwordIn
       })
-    })
-    
+    }
+
+    const response = await fetch(loginUrl, payload)
     const data = await response.json()
-    setIsWaitingLogin(false)
-    console.log("data isLoggedIn: ", data.isLoggedIn)
+    setIsProcessing(false)
+    //after login request
+    processAfterRequest(data) //return the data from the login request
+  } 
+
+
+  const processAfterRequest = async (data) => {
+    console.log("process after request data",data)
     if(data.isLoggedIn){
       dispatch(setLogin(true))
       navigate("/account")
@@ -103,20 +142,20 @@ export default function LogIn() {
     else{
       setIsFailedLogin(true)
     }
-    console.log(data)
   }
 
-  const handleSubmit = (event) => {
-    if (isWaitingLogin) {
-      console.log("stop it")
-      return }
+  // const processAfterRequest = async (dataPromise) => {
+  //   const data = await dataPromise 
 
-    setIsWaitingLogin(true)
-    validateAccount(email, password)
-    
-  };
+  //   if(data.isLoggedIn){
+  //     dispatch(setLogin(true))
+  //     navigate("/account")
+  //   }
+  //   else{
+  //     setIsFailedLogin(true)
+  //   }
+  // }
 
-  console.log("email: ",isEmailValid(email)) 
   return (
     <ThemeProvider theme={theme}>
       <Container  
@@ -135,18 +174,17 @@ export default function LogIn() {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-         
         >
           
+{/* TOP SECTION */}
           <Avatar sx={{ m: 1, mt: 5, bgcolor: "primary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in
-          </Typography>
           <Box  sx={{ 
             mt: 1,
             }}>
+
+{/* EMAIL */}
             <TextField
               margin="normal"
               required
@@ -176,13 +214,15 @@ export default function LogIn() {
               autoFocus
               color = {email === "" ? "primary":"success"}
             />
+
+{/* PASSWORD */}
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
               label="Password"
-              type="password"
+
               id="password"
               onChange={(event) => {
                 setPassword(event.target.value)
@@ -194,44 +234,56 @@ export default function LogIn() {
               error= {isFailedLogin}
               helperText={isFailedLogin ? "Wrong email or password, please try again.":""}
               value={password}
+          
+          //HIDE - SHOW 
+              type={isShowPassword ? "text" : "password"}
+              InputProps={{ // <-- This is where the toggle button is added.
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => handleClickShowPassword()}
+                    >
+                      {isShowPassword ?<VisibilityOff />: <Visibility /> }
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
 
-              
+{/* REMEMBER ME */}
             <FormControlLabel
-
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
 
-
+{/* SIGN IN */}
             <Button
-              onClick={() => {handleSubmit()}}
+              onClick={() => {login()}}
               fullWidth
               variant="contained"
               sx={{ 
                 mt: 3,
                 mb: 2,
-                opacity: isWaitingLogin ? 0.7: 1,
+                opacity: isProcessing ? 0.7: 1,
                 bgcolor: 'primary.lighter',
               }}
               
             >
               
-              <Box sx ={{
-                
-                opacity: isWaitingLogin ?  0.2 : 1
-              }}>
-                Sign in 
+              
+              <Box sx ={{opacity: isProcessing ?  0.2 : 1,}}>
+                    Log in 
               </Box>
-              {isWaitingLogin && <CircularProgress size= "20px" sx={{
+              {isProcessing && <CircularProgress size= "20px" sx={{
                 display:"block",
                 position:"absolute",
                 color: "white", 
-                ml: "auto",
-                mr: "auto"
+                m: "auto",
               }}/>
               }
 
+{/* FORGOT PASSWORD */}
             </Button>
             <Grid container>
               <Grid item xs>

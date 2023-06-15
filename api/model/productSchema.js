@@ -6,6 +6,7 @@ const productVariantSchema = new mongoose.Schema({
     stock:{type: Number, required: true},
     sold: {type: Number, required: true, default: 0}
 })
+
 const productSchema = new Schema({
     id: {type: mongoose.SchemaTypes.ObjectId},
     name: {type: String,required: true},
