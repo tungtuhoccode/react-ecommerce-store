@@ -281,6 +281,7 @@ function Product() {
             <h1 className="title">{productData.name}</h1>
             <h2 className="price">${productData.price}</h2>
 
+
             <div className="sizes-container">
               <h5 className="size-title">Sizes </h5>
               <div className="sizes-wrapper">

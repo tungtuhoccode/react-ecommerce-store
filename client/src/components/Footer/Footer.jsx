@@ -2,6 +2,8 @@ import "./Footer.scss"
 import React from "react"
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 function Footer() {
     const [mQuery, setMQuery] = React.useState({
@@ -96,7 +98,7 @@ function Footer() {
                     <div className="item" >
                         <div className="footer-menu-nav" onClick={handleOpenCatagories}>
                                 <h1 >Catagories</h1>
-                                {isOpenCatagories ? <RemoveIcon/>:<AddIcon/>}
+                                {isOpenCatagories ? <ArrowDropUpIcon/>:<ArrowDropDownIcon/>}
                         </div>
                         {isOpenCatagories && 
                         <div className="footer-menu-items">
@@ -112,7 +114,7 @@ function Footer() {
                     <div className="item">
                         <div className="footer-menu-nav" onClick={handleOpenLinks}>
                             <h1 >Links</h1>
-                            {isOpenLinks ? <RemoveIcon/>:<AddIcon/>}
+                            {isOpenLinks ? <ArrowDropUpIcon/>:<ArrowDropDownIcon/>}
                         </div>
                         {isOpenLinks &&
                         <div className="footer-menu-items">
@@ -128,7 +130,7 @@ function Footer() {
                     <div className="item">
                         <div className="footer-menu-nav" onClick={handleOpenAbout}>
                             <h1>About</h1>
-                                {isOpenAbout ? <RemoveIcon/>:<AddIcon/>}
+                               {isOpenAbout ? <ArrowDropUpIcon/>:<ArrowDropDownIcon/>}
                             </div>
 
                             {
@@ -141,7 +143,7 @@ function Footer() {
                     <div className="item">
                         <div className="footer-menu-nav" onClick={handleOpenContact}>
                             <h1 >Contact</h1>
-                            {isOpenContact ? <RemoveIcon/>:<AddIcon/>}
+                            {isOpenContact ? <ArrowDropUpIcon/>:<ArrowDropDownIcon/>}
                         </div>
                         
                         {isOpenContact &&<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, seddo eiusmod tempor incididunt ut labore etdolore.</p>}

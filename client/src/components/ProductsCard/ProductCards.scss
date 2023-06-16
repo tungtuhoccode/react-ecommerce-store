@@ -30,18 +30,26 @@
                 position: absolute;
                 z-index: -1;
             }
-        }
-        .pc-favourite{
-            position: absolute;
-            z-index: 5;
-            bottom: 5px;
-            right: 5px;
-            font-size: 30px;
-
-            font-weight: 100;
-        }
-        .pc-favourite:hover{
-            cursor: pointer;
+            .pc-favourite{
+                position: absolute;
+                z-index: 5;
+                bottom: 10px;
+                right: 10px;
+                font-size: 30px;
+                font-weight: 100;
+            }
+            .pc-favourite2{
+                position: absolute;
+                z-index: 6;
+                bottom: 10px;
+                right: 10px;
+                font-size: 30px;
+                font-weight: 100;
+            }
+            .pc-favourite:hover{
+                background-color: red;
+                cursor: pointer;
+            }
         }
 
         .pc-sale-percentage{
@@ -71,12 +79,13 @@
             padding: 3px 0px 0px 10px;
             font-size: 13px;
             align-items: center;
-            font-weight: 600;
+            font-weight: 400;
             .pc-current-price{
-                color: red;
+                color: gray;
+                
             }
             .pc-sale-price{
-                color: gray;
+                color: red;
                 text-decoration: line-through 1.5px;
                 -webkit-text-decoration-line: line-through;
             }
@@ -85,11 +94,20 @@
     
     }
 }
+
+// .pc-hr{
+//     display: none;
+// }
 .products-card-link:hover{
+    // .pc-hr{
+    //     display: block;
+    // }
     .products-card{
         .pc-title{
-            text-decoration: underline;
+            text-decoration:overline;
+            color: #ad7646;
         }
+        
         .products-card-image{
             .pc-second-image{
                 z-index: 3;

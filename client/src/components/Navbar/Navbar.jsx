@@ -70,6 +70,8 @@ function NavBar() {
     }
 
     function handleOpenCart(){
+        // let restrictedPath = ["/cart", "/register", "/login"]
+        // if (location.pathname)
         if (location.pathname =="/cart" ) return 
         if (location.pathname == "/register" || location.pathname == "/login" ) return
         if(!isUsingNavMenu){

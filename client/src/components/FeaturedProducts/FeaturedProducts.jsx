@@ -12,7 +12,6 @@ const ProductsList = (props) =>{
         const fetchProducts = async () => {
             
             try{
-                console.log("requested to: "+API_URL.FEATURED_PRODUCT)
                 const response = await fetch(API_URL.FEATURED_PRODUCT)
                 const productData = await response.json()
 

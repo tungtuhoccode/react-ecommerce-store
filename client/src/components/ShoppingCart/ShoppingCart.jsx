@@ -8,7 +8,6 @@ import { setIsCartOnHover } from "../../app/cartSlice";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from "react-redux";
-import { setCartItems } from "../../app/cartSlice";
 import { useEffect } from "react";
 
 const getCartItemsLocalStorage = () => {
@@ -30,9 +29,6 @@ export default function ShoppingCart(props){
 
     console.log(cartItems)
     //check and set the cart items
-    useEffect(()=> {
-        dispatch(setCartItems(getCartItemsLocalStorage()))
-    },[])
 
     //set new state of the cart to local storage and to server whenever the cart items change
     useEffect( () => {

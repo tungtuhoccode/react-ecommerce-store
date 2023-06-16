@@ -36,7 +36,7 @@ const Card = (props) =>{
                     <p className="title">{props.title}</p>
 
                     <div className="price">
-                        <span style={priceColorStyle} className="current-price"> ${props.regularPrice} </span>
+                        <span className="current-price"> ${props.regularPrice} </span>
                         {isOnSale() && <span className="sale-price">${props.regularPrice}</span>}
                     </div>
                 </div>  

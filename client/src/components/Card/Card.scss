@@ -73,10 +73,10 @@
             align-items: center;
             font-weight: 600;
             .current-price{
-                color: red;
+                color: gray;
             }
             .sale-price{
-                color: gray;
+                color: red;
                 text-decoration: line-through 1.5px;
                 -webkit-text-decoration-line: line-through;
             }
@@ -86,8 +86,9 @@
     }
 }
 .card-link:hover{
-   .title{
-       text-decoration: underline;
+   .title {
+        color: #ad7646;
+       text-decoration: overline;
    }
 }
 .card-link{
