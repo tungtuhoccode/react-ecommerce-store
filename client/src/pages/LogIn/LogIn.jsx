@@ -75,16 +75,14 @@ export default function LogIn() {
     }
   }, [isLoggedIn])
 
-
-
-
   //dynamic form data
   const [email, setEmail] = useState('tung1@gmail.com')
   const [password, setPassword] = useState('tungdeptrai')
 
-  //booleans for form data
+  //validation state 
   const [isFailedLogin, setIsFailedLogin] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isSubmitEmpty, setIsSubmitEmpty] = useState(false)
 
   //hide/show password
   const [isShowPassword, setIsShowPassword] = useState(false)
@@ -100,14 +98,21 @@ export default function LogIn() {
   }
 
   const login = async () => {
-    if (isProcessing) {
-      console.log("stop it")
-    return 
+    if(!email || !password){
+      setIsSubmitEmpty(true)
+      return 
     }
-    
+
+    if (isProcessing) return
+    if(!isEmailValid(email)) return
+
     sendLoginRequest(email, password)
   }
 
+  useEffect(()=> {
+    if(isSubmitEmpty){setIsSubmitEmpty(false)}
+    if(isFailedLogin){setIsFailedLogin(false)}
+  },[email, password])
 
   const sendLoginRequest = async (emailIn, passwordIn ) => {
 
@@ -123,6 +128,7 @@ export default function LogIn() {
         email: emailIn, 
         password: passwordIn
       })
+      
     }
 
     const response = await fetch(loginUrl, payload)
@@ -144,17 +150,6 @@ export default function LogIn() {
     }
   }
 
-  // const processAfterRequest = async (dataPromise) => {
-  //   const data = await dataPromise 
-
-  //   if(data.isLoggedIn){
-  //     dispatch(setLogin(true))
-  //     navigate("/account")
-  //   }
-  //   else{
-  //     setIsFailedLogin(true)
-  //   }
-  // }
 
   return (
     <ThemeProvider theme={theme}>
@@ -199,7 +194,13 @@ export default function LogIn() {
                 }
               }}
               value={email}
-              error={email === "" ? false : !isEmailValid(email) || isFailedLogin}
+              error={
+                function() {
+                  if (isSubmitEmpty) return true
+                  if(isFailedLogin) return true
+                  return email === "" ? false : !isEmailValid(email) || isFailedLogin
+                }()
+              }
               helperText={ function(email) {
                 if (email === ""){
                   return ""
@@ -231,8 +232,21 @@ export default function LogIn() {
                 }
               }}
               color={password === "" ? "primary":"success"}
-              error= {isFailedLogin}
-              helperText={isFailedLogin ? "Wrong email or password, please try again.":""}
+              error= {
+                function() {
+                  if (isSubmitEmpty) return true
+                  if(isFailedLogin) return true
+                  if (password.length < 7 && password != "") return true
+                  return false
+                }()
+              }
+              helperText={
+                function() {
+                  if(isSubmitEmpty) return "Please enter all required fields"
+                  if(password.length < 7 && password != "") return "Password must be at least 6 characters long"
+                  return isFailedLogin ? "Wrong email or password, please try again.":""
+                }()
+              }
               value={password}
           
           //HIDE - SHOW 

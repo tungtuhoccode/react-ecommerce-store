@@ -151,6 +151,18 @@ const getProductById = async (req, res, next) => {
 
 }
 
+const getFeaturedProducts = async (req, res, next) => {
+    try{
+        const products = await Product.find({category: CATEGORY_LIST.MEN}).limit(8);
+        if(!products) return res.status(204).json({"message":"No product found"})
+        res.json(products) 
+    }
+    catch(err){
+        console.log("Error getting trending products")
+        console.log(err);
+    }
+}
+
 const exportProductData = async (req,res,next) =>{
     console.log("getting products")
     const products = await Product.find();
@@ -158,9 +170,12 @@ const exportProductData = async (req,res,next) =>{
     res.json(products)
 }
 
+
+
 module.exports = {
     getProducts,
     getTrendingProducts,
+    getFeaturedProducts,
     createProduct, 
     getProductsForWomen,
     getProductsForMen,

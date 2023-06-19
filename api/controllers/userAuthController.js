@@ -58,7 +58,6 @@ const handleUserRegistration = async (req, res, next) => {
             "message:":"Sduccessfully registered",
             "user": newUser
         })
-    
        
     }
     catch(err){
@@ -125,17 +124,8 @@ const handleUserLogIn = async (req, res, next) => {
 
             //send information back to browser
             res.cookie('jwtRefreshToken', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 365 * 24 * 60 * 60 * 1000 });
-            //simulating taking 1 second to complete
-            // setTimeout (() => {
-            //     res.json({
-            //         "isLoggedIn": true,
-            //         "accessToken": accessToken,
-            //         "message":"Sign in successfully",
-            //         "user": userAfter
-            //     })
-            // }, 1)
-            // return
-            res.cookie('jwtAccessToken',accessToken)
+            res.cookie('jwtAccessToken', accessToken, { sameSite: 'None', secure: true, maxAge: 3 * 60 * 60 * 1000 });
+
             return  res.json({
                 "isLoggedIn": true,
                 "accessToken": accessToken,
@@ -159,10 +149,15 @@ const handleUserLogIn = async (req, res, next) => {
 //TODO: handle log out
 const handleLogout = async (req,res, next) => {
     const refreshToken = req.cookies.jwtRefreshToken
+    const accessToken = req.cookies.jwtAccessToken
+
+    const allCookies = req.cookies
+    console.log(allCookies)
+
     if (!refreshToken){
         return res.status(404).json({"message:":"Token does not exist. Can't log out"})
     }
-    console.log(refreshToken)
+    
     let tokenEmail 
     jwt.verify(refreshToken, refreshTokenSecret, (err, decodedToken) => {
         if(err){
@@ -186,6 +181,7 @@ const handleLogout = async (req,res, next) => {
     }
     res.json("logged out")
 }
+
 
 
 module.exports = {

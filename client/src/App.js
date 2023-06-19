@@ -52,15 +52,15 @@ const router = createBrowserRouter([
       },
       {
         path:"/women",
-        element:<Products/>,
+        element:<Products name={"women"}/>,
       },
       {
         path:"/men",
-        element:<Products/>,
+        element:<Products name={"men"}/>,
       },
       {
         path:"/children",
-        element:<Products/>,
+        element:<Products name={"children"}/>,
       },
       {
         path:"/product/:id",

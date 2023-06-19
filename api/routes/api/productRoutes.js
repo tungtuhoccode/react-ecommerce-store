@@ -5,6 +5,7 @@ const router = express.Router();
 const {
     getProducts,
     getTrendingProducts,
+    getFeaturedProducts,
     createProduct,
     getProductsForWomen,
     getProductsForMen,
@@ -39,6 +40,9 @@ router.route(`/${CATAGORY_LIST.CHILDREN}`)
 //@desc Getting trending product (mostly for homepage)
 router.route('/trending')
     .get(getTrendingProducts)
+
+router.route('/featured')
+    .get(getFeaturedProducts)
 
 router.route("/export_product_data")
     .get(exportProductData)

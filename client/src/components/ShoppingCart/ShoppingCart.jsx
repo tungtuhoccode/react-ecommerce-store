@@ -27,7 +27,6 @@ export default function ShoppingCart(props){
     const {isOnHover, cartItems, totalCartPrice } = useSelector( state => state.cart)
     const {isLoggedIn} = useSelector( state => state.user)
 
-    console.log(cartItems)
     //check and set the cart items
 
     //set new state of the cart to local storage and to server whenever the cart items change

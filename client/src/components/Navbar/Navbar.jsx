@@ -111,7 +111,7 @@ function NavBar() {
                             <Link className="link" to="/men">Men</Link>
                         </div>
                         <div className="item">
-                            <Link className="link" to="/children">Children</Link>
+                            <Link className="link" to="#">Children</Link>
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@ function NavBar() {
                         <Link onClick={handleOpenMenu} className="link" to="/men">Men</Link>
                     </div>
                     <div className="item">
-                    <Link onClick={handleOpenMenu} className="link" to="/children">Children</Link>
+                            <Link className="link" to="#">Children</Link>
                     </div>
                     <div className="item">
                         <Link onClick={handleOpenMenu} className="link" to="/" >Homepage</Link>

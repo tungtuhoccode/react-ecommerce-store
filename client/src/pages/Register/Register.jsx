@@ -64,6 +64,7 @@ const theme = createTheme(
 );
 
 
+
 //REGISTER PAGE
 export default function Register() {
     //form values
@@ -84,8 +85,8 @@ export default function Register() {
     const navigate = useNavigate()
 
     console.log("isProcessing:",isProcessing)
-    //FORM DATA METHODS
-
+    
+    //METHODS HANDLING FORM DATA
     const handleClickShowPassword = () => {
       if (isShowPassword) setIsShowPassword(false)
         setIsShowPassword(true)
@@ -127,11 +128,17 @@ export default function Register() {
 
     return emailRegex.test(email)
   }
+  const validatePasswordLength = () => {
+    return password.length >= 6
+  }
 
     useEffect(()=>{
         setIsPasswordMatch(password === confirmPassword)
     },[confirmPassword, password])
 
+    const PasswordErrorControl = () => {
+      
+    }
 
     //REGISTER WITH API
     const sendRegistrationData = async (emailIn, passwordIn) => {
@@ -165,14 +172,16 @@ export default function Register() {
     }
 
     const handleSubmit = (event) => {
+      if (isProcessing) return 
+
       if(!email || !password || !confirmPassword){
         setIsSubmitEmpty(true)
         return 
       }
 
-      if (isProcessing) return 
       if(!isPasswordMatch) return
       if(!isEmailValid(email))return 
+
       
       console.log("password:" + password)
       console.log("confirm password:" + confirmPassword)
@@ -242,9 +251,23 @@ export default function Register() {
 
               id="password"
               error={function(){
+                if (password === "") return false
+                if (!validatePasswordLength()) return true
                 if (isSubmitEmpty && password === "") return true
-                return !isPasswordMatch
+                if(!isPasswordMatch && confirmPassword != "") return true
+                return false
               }()}
+              helperText = {(() => {
+                if(password === "") return ""
+                return "" 
+              })()}
+
+              // error= {function(){
+              //   if (confirmPassword === "") return false
+              //   if (isSubmitEmpty && confirmPassword === "") return true
+              //   if (!validatePasswordLength()) return true
+              //   return true
+              // }()}
               value = {password}
               color={password === "" ? "primary":"success"}
               onChange={ event => handlePasswordChange(event)}
@@ -275,12 +298,17 @@ export default function Register() {
               id="confirm-password"
               
               error= {function(){
+                if (confirmPassword === "" && password === "") return false
                 if (isSubmitEmpty && confirmPassword === "") return true
-                return !isPasswordMatch
+                if (!validatePasswordLength()) return true
+                if(!isPasswordMatch && password != "") return true
+                return false
               }()}
               
               helperText = {(() => {
+                if (confirmPassword === "" && password === "") return ""
                 if (isSubmitEmpty) return "Please enter all required fields"
+                if (!validatePasswordLength()) return "Password must be at least 6 characters long"
                 return isPasswordMatch ? "":"Password does not match"
               })()}
               

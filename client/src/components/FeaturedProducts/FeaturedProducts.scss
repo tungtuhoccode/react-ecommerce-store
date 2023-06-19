@@ -3,6 +3,7 @@
     // background-color: red;
     margin: 20px auto;
     max-width: 1200px;
+    
     .top{
         display: flex;
         flex-direction: row;
@@ -31,14 +32,14 @@
         }
     }
 }
-@media (max-width: 1150px){
+@media (max-width: 1050px){
     .featured-products{
         margin: 20px 20px;
         .bottom{
             display: grid;
             margin: auto;
             grid-template-columns: repeat(4, 24%); /* 2 */
-            grid-auto-rows: 44vw; /* 2 */
+            grid-auto-rows: 40vw; /* 2 */
         }
     }
    

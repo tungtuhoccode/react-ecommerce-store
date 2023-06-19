@@ -4,7 +4,7 @@ import FeaturedProducts from "../../components/FeaturedProducts/FeaturedProducts
 import env from "react-dotenv";
 import {useState, useEffect } from "react"
 import { useParams, useLocation } from "react-router-dom"
-
+import { CircularProgress } from "@mui/material";
 import CATAGORY_LIST from "../../constant/catagoryConstant"
 import API_URL from "../../constant/routeConstants"
 
@@ -12,14 +12,19 @@ let count = 0
 function Products() {
   const location = useLocation()
   const [products, setProducts] = useState([])
+  const [isProcessing, setIsProcessing] = useState(false)
+
   const GET_URL = `${API_URL.GENDER_CATEGORY}${location.pathname}`
   console.log("Products rendered")
   
   //fetch products data
   const fetchProducts = async () =>{
     try{
+      setIsProcessing(true)
       const response = await fetch(GET_URL)
       const data = await response.json()
+     
+      setIsProcessing(false)
 
       setProducts(data)
     }
@@ -37,14 +42,16 @@ function Products() {
   const productElement = products.map(product =>{
     return (
       <ProductsCard 
-      id = { product._id}
-      name = {product.name}
-      img ={ product.images[0].url}
-      img2 ={ product.images[1].url}
-      regularPrice ={product.price}
-      salePrice ={product.price}
-      key = {count++}
-      isNew = {true}
+        id = { product._id}
+        name = {product.name}
+        price = {product.price}
+        color = {product.color}
+        img ={ product.images[0].url}
+        img2 ={ product.images[1].url}
+        regularPrice ={product.price}
+        salePrice ={product.price}
+        key = {count++}
+        isNew = {true}
       />
     )
   })
@@ -109,9 +116,14 @@ function Products() {
               {location.pathname == "/men" && <img src="/img/featuredProduct/men_banner.jpeg" alt="" className="catagory-img" />}
               {location.pathname == "/women" &&<img src="/img/featuredProduct/women_banner.jpeg" alt="" className="catagory-img" />}
           </div>
-          <h1 style={{textAlign:"center"}}>{location.pathname.split("/")[1]}</h1>
+          <h1 style={{textAlign:"center"}}>{location.pathname.split("/")[1].toUpperCase()}</h1>
+          {isProcessing &&  <CircularProgress size= "50px" sx={{
+                    display: "block",
+                    m: "auto",
+                    color: "#ad7646", 
+            }}/>}
           <div className="bottom">
-            {productElement}
+            {!isProcessing && productElement}
           </div>
           
         </div>

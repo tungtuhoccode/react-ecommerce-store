@@ -7,8 +7,8 @@ function Home() {
     return (
       <div className="home-page">
         <Slider/>
-        <FeaturedProducts type={"Featured"}/>
-        <FeaturedProducts type={"Trending"}/>
+        <FeaturedProducts type={"featured"}/>
+        <FeaturedProducts type={"trending"}/>
       </div>
     )
   }

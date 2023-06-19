@@ -1,18 +1,15 @@
-// const API_URL = {
-//     MAIN: process.env.REACT_APP_API_URL,
-//     FEATURED_PRODUCT: process.env.REACT_APP_API_URL +"/products/trending",
-//     SINGLE_PRODUCT: process.env.REACT_APP_API_URL +"/products",
-//     GENDER_CATAGORY: process.env.REACT_APP_API_URL +"/products",
-    
-// }
+//***DEPLOYMENT***
+// const MAIN_API_URL = "https://"+process.env.REACT_APP_API_URL
 
+//development only
 const MAIN_API_URL = `http://${window.location.hostname}:${process.env.REACT_APP_API_PORT}`
+// const MAIN_API_URL = `http://${window.location.hostname}`
 
 const API_URL = {
     MAIN: MAIN_API_URL,
-    // FEATURED_PRODUCT: "http://"+window.location.hostname+":4000" +"/products/trending",
     FEATURED_PRODUCT: `${MAIN_API_URL}/products/trending`,
-    // SINGLE_PRODUCT: "http://"+window.location.hostname+":4000" +"/products",
+    // FEATURED_PRODUCT: MAIN_API_URL+"/products/trending",
+    TRENDING_PRODUCT: MAIN_API_URL+"/products/featured",
     SINGLE_PRODUCT: `${MAIN_API_URL}/products`,
     GENDER_CATEGORY: `${MAIN_API_URL}/products`,
     LOGIN:`${MAIN_API_URL}/auth/login`,
