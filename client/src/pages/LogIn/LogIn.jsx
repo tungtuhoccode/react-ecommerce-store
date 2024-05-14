@@ -30,6 +30,8 @@ import { IconButton } from '@mui/material';
 import {setLogin} from "../../app/userSlice";
 import API_URL from "../../constant/routeConstants"
 
+
+
 //copyright props
 function Copyright(props) {
   return (
@@ -60,6 +62,7 @@ const theme = createTheme(
 );
 
 export default function LogIn() {
+
   //react router dom
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -67,13 +70,7 @@ export default function LogIn() {
   const isLoggedIn = useSelector(state => state.user.isLoggedIn)
   console.log('login status: ',isLoggedIn)
 
-  //check if user is already logged to prevent double login
-  useEffect(()=> {
-    if(isLoggedIn) {
-      console.log("already logged in")
-      navigate('/account')
-    }
-  }, [isLoggedIn])
+
 
   //dynamic form data
   const [email, setEmail] = useState('tung1@gmail.com')
@@ -86,6 +83,14 @@ export default function LogIn() {
 
   //hide/show password
   const [isShowPassword, setIsShowPassword] = useState(false)
+
+    //check if user is already logged to prevent double login
+    useEffect(()=> {
+      if(isLoggedIn) {
+        console.log("already logged in")
+        navigate('/account', { state: { key: email } })
+      }
+    }, [isLoggedIn])
   const handleClickShowPassword = () => {
     setIsShowPassword(isShowPassword => !isShowPassword)
   }
@@ -143,7 +148,7 @@ export default function LogIn() {
     console.log("process after request data",data)
     if(data.isLoggedIn){
       dispatch(setLogin(true))
-      navigate("/account")
+      navigate("/account", { state: { key: data } });
     }
     else{
       setIsFailedLogin(true)
@@ -333,3 +338,4 @@ export default function LogIn() {
     </ThemeProvider>
   );
 }
+

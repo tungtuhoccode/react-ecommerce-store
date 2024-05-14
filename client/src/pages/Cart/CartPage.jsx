@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 let countKey = 0
 export default function Cart(){
     const {cartItems, totalCartPrice } = useSelector( state => state.cart)
-
+    console.log(cartItems)
     // const cartItemElement = [...cartItems].reverse().map( (itemData) => {
     //     countKey++;
     //     return (

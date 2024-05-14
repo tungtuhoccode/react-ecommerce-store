@@ -1,0 +1,45 @@
+.settings-title-container{
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+.settings-title{
+    font-size: 38px;
+    font-weight: 700;
+   
+}
+
+
+
+
+.portion-container{
+    margin-bottom: 50px;
+    background-color: #faf9f8;
+    padding: 10px 20px;
+}
+.portion-intro{
+    display:flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.portion-intro > .portion-title{
+    font-size: 25px;
+    font-weight: 700;
+}
+.Portion-categoriesDes{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.portion-main-content{
+    margin-bottom: 10px;
+}
+
+
+.linkStyle{
+    color:black;
+    text-decoration: none;
+}
+.linkStyle:hover{
+    text-decoration: underline;
+}

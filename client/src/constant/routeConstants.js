@@ -2,7 +2,7 @@
 // const MAIN_API_URL = "https://"+process.env.REACT_APP_API_URL
 
 //development only
-const MAIN_API_URL = `http://${window.location.hostname}:${process.env.REACT_APP_API_PORT}`
+const MAIN_API_URL = `http://${window.location.hostname}:${4000}`
 // const MAIN_API_URL = `http://${window.location.hostname}`
 
 const API_URL = {
